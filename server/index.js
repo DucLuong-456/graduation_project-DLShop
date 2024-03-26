@@ -1,11 +1,21 @@
-import expres from "express";
-const app = expres();
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const route = require("./src/routes/index");
+const connectDB = require("./src/config/config_db");
+const path = require("path");
+require("dotenv").config();
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use("/", (req, res) => {
-  res.json({ msg: "abc" });
-});
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+//console.log(path.join(__dirname, "src/public"));
+app.use("/static", express.static(path.join(__dirname, "src/public")));
+app.use(route);
 
+connectDB(process.env.MONGO_URI);
 app.listen(3000, () => {
   console.log(`app running on port: ${PORT}`);
 });
