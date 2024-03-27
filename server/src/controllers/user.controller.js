@@ -1,4 +1,7 @@
 const User = require("../models/user.model");
+const Cart = require("../models/cart.model");
+const Product = require("../models/product.model");
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const userController = {
@@ -37,6 +40,7 @@ const userController = {
         password: passwordHash,
         address,
         phone_number,
+        avatar_image: "defautAvatar.jpg",
       });
       //save mongoDB
       await newUser.save();
@@ -87,6 +91,90 @@ const userController = {
       });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
+    }
+  },
+  updateInfor: async (req, res) => {
+    try {
+      const userId = req.user.id;
+      const { name, address, phone_number } = req.body;
+      if (!name || !address || !phone_number)
+        return res.status(400).json({ msg: "Input does not empty!" });
+      if (req.errorMessage)
+        return res.status(400).json({ msg: req.errorMessage });
+      if (req.file) {
+        const avatar_image = req.file.originalname;
+
+        const userUpdateInfor = await User.findOneAndUpdate(
+          { _id: userId },
+          { name, address, phone_number, avatar_image }
+        );
+        return res.json({
+          status: 1,
+          code: 200,
+          data: userUpdateInfor,
+          msg: "update infor User success!",
+        });
+      }
+      //neu không upload avatar
+      const userUpdateInfor = await User.findOneAndUpdate(
+        { _id: userId },
+        { name, address, phone_number }
+      );
+      return res.json({
+        status: 1,
+        code: 200,
+        data: userUpdateInfor,
+        msg: "update infor User success!",
+      });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  addToCart: async (req, res) => {
+    try {
+      const customerId = req.user.id;
+      const { product_id, quanlity_product } = req.body;
+      if (!customerId || !product_id || !quanlity_product)
+        return res.json({ msg: "field not be empty!" });
+      const isExistProduct = await Cart.findOne({
+        product_id: product_id,
+        user_id: customerId,
+      });
+      if (isExistProduct) return res.json({ msg: "Product has been on Cart!" });
+      const product = await Product.findOne({
+        _id: product_id,
+      }).select("quanlity_stock -_id");
+      if (product.quanlity_stock < quanlity_product)
+        return res.json({ msg: "Số lượng sản phẩm vượt quá!" });
+      const newCart = await Cart.create({
+        user_id: customerId,
+        product_id: product_id,
+        quanlity_product,
+      });
+      return res.json({
+        status: 1,
+        code: 200,
+        msg: "Thành công",
+        data: newCart,
+      });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  getCart: async (req, res) => {
+    try {
+      const customer_id = req.user.id;
+      const listProductOnCart = await Cart.find({
+        user_id: customer_id,
+      });
+      return res.json({
+        status: 1,
+        code: 200,
+        msg: "Thành công",
+        data: listProductOnCart,
+      });
+    } catch (error) {
+      return res.json(createResponseError(0, 403, error.message, error));
     }
   },
 };
