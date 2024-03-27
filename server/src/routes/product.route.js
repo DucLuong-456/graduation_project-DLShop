@@ -2,7 +2,6 @@ const productController = require("../controllers/product.controller");
 const express = require("express");
 const upload = require("../middleware/uploadProduct.middleware");
 const pagination = require("../middleware/pagination.middleware");
-const CheckUploadProduct = require("../middleware/fileUpload.middleware");
 const productRoute = express.Router();
 productRoute.get("/:id", productController.getProduct);
 productRoute.get("/", pagination, productController.getAllProduct);

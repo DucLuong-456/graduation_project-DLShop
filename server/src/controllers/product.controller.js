@@ -1,9 +1,11 @@
 const Product = require("../models/product.model");
+const Category = require("../models/category.model");
+
 const productController = {
   getProduct: async (req, res) => {
     try {
       const product_id = req.params.id;
-      console.log(product_id);
+      //console.log(product_id);
       const product = await Product.findOne({ _id: product_id });
       if (!product) res.json({ msg: "Product not found!" });
       res.json({
