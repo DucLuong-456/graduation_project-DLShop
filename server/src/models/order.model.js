@@ -20,14 +20,15 @@ const Order = new mongoose.Schema(
       type: Number,
     },
     payment_method: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "PaymentMethod",
     },
     order_address: {
-      type: Array,
+      type: String,
+      ref: "OrderAddress",
     },
     order_status: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "OrderStatus",
     },
     order_detail: {

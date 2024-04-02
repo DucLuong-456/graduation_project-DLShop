@@ -1,0 +1,20 @@
+*{ 
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    box-sizing: border-box;
+}
+
+.ListProduct{
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #000;
+  /* Adjust the number of columns as needed */
+  column-count: 2;
+  /*moi hang 4 phan tu*/
+  column-gap: 100px; 
+  row-gap: 25px;
+  justify-content: center;
+  
+}

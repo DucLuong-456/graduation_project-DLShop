@@ -1,0 +1,38 @@
+.list-avertise{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px
+}
+
+.advertise{
+    display: flex;
+    width: 292px;
+    height: 60px;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+.advertise-icon{
+    width: 36px;
+    height: 36px;
+    font-size: 36px;
+    color: #503eb6;
+}
+
+
+.advertise-text{
+    width: 200px;
+    height: 47px;
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    margin-left: 7.5px;
+}
+
+.advertise-text p{
+    font-size: 14px;
+    color: #503eb6;
+}

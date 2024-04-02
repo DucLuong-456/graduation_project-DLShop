@@ -1,0 +1,19 @@
+.detail-product{
+    width: 1215px;
+    height: 3155px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.left-detail-product{
+    width: 356px;
+}
+
+.content-center-product{
+    width: 538px;
+}
+
+.right-detail-product{
+    width: 292px;
+}

@@ -1,0 +1,99 @@
+.slider-home{
+    width: 1230px;
+    height: 431px;
+    display: flex;
+    align-items: center;
+    margin: 15px auto;
+}
+
+.left-slider{
+    height: 431px;
+    background-color: #ffff;
+    flex: 3;
+}
+.left-slider .slideshow{
+    width: 908px;
+    margin-right: 7.5px;
+}
+
+.right-slider {
+    flex: 1;
+    margin-left: 7.5px;
+    height: 431px;
+    display: flex;
+    flex-direction: column;
+}
+.right-slider img{
+    width: 292px;
+    flex: 1;
+}
+/*slide show*/
+.slideshow {
+    position: relative;
+    width: 908px; /* Điều chỉnh kích thước slide show theo ý muốn */
+    height: 354px;
+  }
+  
+  .slide {
+    display: flex;
+    justify-content: center;
+    height: 354px; /* Điều chỉnh kích thước slide theo ý muốn */
+    background-color: #ffff; /* Màu nền của slide */
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .slideshow img {
+    min-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    
+  }
+  
+  .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Căn nút prev và next ở hai bên cạnh */
+    margin-top: 20px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+  }
+  
+  .prev-button,
+  .next-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    color: #888888; /* Màu nút chuyển đổi */
+    outline: none;
+    
+  }
+  
+  .prev-button:hover,
+  .next-button:hover {
+    color: #333333; /* Màu nút chuyển đổi khi hover */
+  }
+  
+  .dot-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #888888; /* Màu chấm tròn */
+    cursor: pointer;
+  }
+  
+  .dot.active {
+    background-color: #333333; /* Màu chấm tròn khi được chọn */
+  }
