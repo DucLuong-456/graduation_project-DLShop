@@ -1,0 +1,114 @@
+.cart-product{
+    width: 1215px;
+    margin: 0 auto;
+}
+
+.cart-title{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.detail-cart table{
+    width: 920px;
+    border: 1px  solid #ccc;
+    border-radius: 10px;
+}
+
+.thanh-tien-content{
+    width: 100px;
+}
+
+.line{
+    width: 920px;
+    background-color: #ccc;
+    height: 1px;
+    
+}
+.div-cart-product-img{
+    display: flex;
+    justify-content: center;
+}
+.cart-product-img{
+    width: 108px;
+    height: 108px;
+}
+
+.cart-name-product{
+    font-size: 13px;
+}
+
+.cart-delete-product{
+    font-size: 13px;
+    color: red;
+}
+
+.check-box-product{
+   text-align: center;
+    
+}
+
+.cart-cost-product{
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cart-quanlity-product{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.total-cost-product{
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cart-infor-active{
+    width: 922px;
+    height: 77.5px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.title-cost-pay{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.continue-buy{
+    flex: 2;
+    font-size: 14px;
+}
+
+.title-cost{
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
+
+}
+.cart-pay{
+    flex:1 ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-btn-pay{
+    width: 292px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #503eb6;
+    border-radius: 7px;
+    color: #ffff;
+}
