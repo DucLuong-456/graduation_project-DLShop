@@ -123,3 +123,40 @@
     font-size: 14px;
     background-color: #503eb6;
 }
+
+/* tét */  
+  .list-product-payment {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    margin: 10px auto;
+    padding: 0;
+  }
+  
+  .scrollable-list {
+    max-height: 200px; /* Đặt chiều cao tối đa của danh sách */
+    overflow-y: auto; /* Tạo thanh cuộn dọc */
+    border: 1px solid #ccc; /* Đường viền cho phần cuộn */
+  }
+  
+  .scrollable-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .scrollable-list li {
+    padding: 10px;
+    border-bottom: 1px solid #eee; /* Đường viền cho mỗi mục */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .scrollable-list li img{
+    width: 50px;
+    height: 50px;
+  }
+  
+  .scrollable-list li:last-child {
+    border-bottom: none; /* Loại bỏ đường viền dưới của mục cuối cùng */
+  }
+  

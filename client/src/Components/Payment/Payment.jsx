@@ -1,6 +1,8 @@
 import React from "react";
 import "./Payment.css";
 import { FaMoneyBillAlt } from "react-icons/fa";
+import cart_img from "../Assets/Image/cart.jpg";
+
 const Payment = () => {
   return (
     <>
@@ -11,49 +13,37 @@ const Payment = () => {
             <input
               type="text"
               placeholder="Email"
-              name="address"
+              name="email"
               className="address-pay"
             />
             <input
               type="text"
               placeholder="Họ và tên"
-              name="address"
+              name="fullName"
               className="address-pay"
             />
             <input
               type="text"
               placeholder="Số điện thoại"
-              name="address"
-              className="address-pay"
-            />
-            <input
-              type="text"
-              placeholder="Địa chỉ nhận hàng(tùy chọn)"
-              name="address"
-              className="address-pay"
-            />
-            <input
-              type="text"
-              placeholder="Tỉnh thành"
-              name="address"
+              name="phoneNumber"
               className="address-pay"
             />
             <input
               type="text"
               placeholder="Quận huyện"
-              name="address"
+              name="district"
               className="address-pay"
             />
             <input
               type="text"
               placeholder="Phường xã"
-              name="address"
+              name="ward"
               className="address-pay"
             />
             <input
               type="text"
               placeholder="Địa chỉ nhận hàng"
-              name="address"
+              name="deliveryAddress"
               className="address-pay"
             />
           </div>
@@ -88,8 +78,28 @@ const Payment = () => {
             </div>
           </div>
         </div>
+
         <div className="payment-order-infor">
           <h2 className="title-payment">Đơn hàng (3 sản phẩm)</h2>
+          <div class="list-product-payment">
+            <h2>Danh sách sản phẩm</h2>
+            <div class="scrollable-list">
+              <ul>
+                <li>
+                  <img src={cart_img} alt="anh" />
+                  <div className="name-product-payment">
+                    Redmi Note 12 Turbo 8GB/256GB
+                  </div>
+                </li>
+                <li>
+                  <img src={cart_img} alt="anh" />
+                  <div className="name-product-payment">
+                    Redmi Note 12 Turbo 8GB/256GB
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
           <div className="voucher-payment">
             <input type="text" placeholder="Nhập mã giảm giá" />
             <div className="btn-ap-dung">Áp dụng</div>

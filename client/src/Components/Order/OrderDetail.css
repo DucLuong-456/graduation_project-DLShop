@@ -1,0 +1,210 @@
+.order-detail{
+    width: 1230px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.order-detail-title{
+    font-size: 22px;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.right-order-detail{
+    flex: 2;
+}
+
+.box-ma-don-hang{
+    background-color: #f6f6f6;
+    width: 100%;
+    border-radius: 5px;
+    display:  flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+
+}
+
+.box-ma-don-hang p{
+    font-weight: 500;
+}
+
+.box-ma-don-hang span{
+    color: green;
+    font-weight: 500;
+}
+
+.box-ma-don-hang .trang-thai-don-hang{
+    color: #fff;
+    font-weight: 400;
+    background-color: green;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.nguoi-nhan{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f6f6f6;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.title-nguoi-nhan{
+    width: 100%;
+    background-color: #f6f6f6;
+    padding: 10px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    font-weight: 500;
+
+}
+
+.infor-nguoi-nhan{
+    padding: 10px;
+}
+
+.ten-nguoi-nhan{
+    font-weight: 500;
+}
+
+.infor-product-order{
+    margin: 15px 0;
+    border-radius: 5px;
+}
+.table-detail-order{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+}
+
+.table-detail-order th{
+    background-color: orange;
+    text-align: left;
+
+    border: 1px solid rgb(227, 213, 213); 
+    padding: 8px; 
+    text-align: center; 
+}
+.table-detail-order td{
+    border: 1px solid rgb(227, 213, 213); 
+    padding: 5px 10px;
+}
+.left-order-detail{
+    flex: 1;
+}
+
+.phuong-thuc-payment{
+    padding: 10px;
+    font-weight: 500;
+    background-color: #f6f6f6;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+
+}
+
+.payment-method-div{
+    height: 150px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+.payment-method-div .ten-phuong-thuc{
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.tong-tien{
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 400;
+
+}
+
+.tong-tien span{
+    color: red;
+    font-weight: 400;
+
+}
+
+.chi-tiet-thanh-tien{
+    margin-top: 15px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 10px;
+}
+.text-1{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tam-tinh{
+    font-weight: 500;
+    opacity: 70%;
+}
+
+.text-2{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.can-thanh-toan{
+    font-size: 18px;
+    font-weight: 500;
+
+}
+
+.text-2 .cost-thanh-tien{
+    font-size: 20px;
+    font-weight: 500;
+    color: red;
+}
+
+.lua-chon-don-hang{
+    margin-top: 15px;
+    display: flex;
+    gap: 15px
+}
+
+.ghi-chu{
+    width: 50%;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 500;
+}
+
+.huy-don{
+    width: 50%;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 500;
+}
+
+.close-don-hang{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    padding: 10px;
+    background-color: rgb(234, 122, 30);
+    border-radius: 5px;
+    color: #ffff;
+    font-weight: 500;
+}

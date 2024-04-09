@@ -1,0 +1,35 @@
+.order-customer{
+    width: 1230px;
+    margin: 0 auto;
+}
+
+.title-order{
+    margin-top: 19px;
+    margin-bottom: 27px;
+    font-size: 19px;
+}
+
+.table-order{
+    width: 1000px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.table-order th{
+    background-color: #ff901c;
+    color: white;
+    font-size: 14px;
+    padding: 5px;
+
+    border: 1px solid rgb(227, 213, 213); 
+    padding: 8px; 
+    text-align: center; 
+}
+
+.table-order td{
+   
+    padding: 20px 10px;
+    border: 1px solid rgb(227, 213, 213); 
+    text-align: center; 
+
+}
