@@ -11,11 +11,10 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-//console.log(path.join(__dirname, "src/public"));
 app.use("/static", express.static(path.join(__dirname, "src/public")));
 app.use(route);
 
 connectDB(process.env.MONGO_URI);
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log(`app running on port: ${PORT}`);
 });

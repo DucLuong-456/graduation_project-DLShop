@@ -1,0 +1,108 @@
+.footer{
+    display: flex;
+    gap: 10px;
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin-top: 20px;
+}
+.main-footer{
+    width: 1305px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    padding: 0 30px;
+    justify-content: space-around;
+}
+
+.tieu-de-thong-tin,.tieu-de-ho-tro,.tieu-de-lien-ket{
+    font-weight: 600;
+}
+
+.footer-dia-chi span{
+    font-weight: 500;
+}
+
+.footer-dien-thoai span{
+    font-weight: 500;
+}
+
+.footer-email span{
+    font-weight: 500;
+
+}
+.thong-tin-chung{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-ho-tro{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    
+}
+
+
+.icon-lien-ket-1{
+    font-size: 30px;
+    display: flex;
+    gap: 20px;
+    margin: 10px 0;
+}
+
+.icon-phone-footer{
+    font-size: 22px;
+}
+.tu-van{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.tu-van span:last-child{
+    color: #ff901c;
+}
+
+.icon-phone-footer{
+    color: #ff901c;
+}
+
+.phuong-thuc-thanh-toan{
+    margin-top: 10px;
+}
+.phuong-thuc-thanh-toan-img{
+    display: flex;
+    margin-top: 10px;
+    gap: 5px;
+}
+.img-pt-thanh-toan{
+    flex: 1;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-pt-thanh-toan img{
+    width: 80%;
+}
+
+.icon-lien-ket:first-child{
+    color: #1877f2;
+}
+
+.icon-lien-ket:nth-child(2){
+    color: #1877f2;
+}
+
+.icon-lien-ket:nth-child(3){
+    color: #e14668;
+}
+
+.icon-lien-ket:nth-child(4){
+    color: red;
+}

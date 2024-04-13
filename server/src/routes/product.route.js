@@ -14,4 +14,20 @@ productRoute.put(
 productRoute.delete("/:id", productController.deleteProduct);
 productRoute.delete("/", productController.deleteManyProduct);
 
+productRoute.post(
+  "/product_type",
+  upload.single("image"),
+  productController.createProductType
+);
+//:id: productType_id
+productRoute.post(
+  "/change_status_pd_type/:id",
+  productController.changeStatusProductType
+);
+//p_id: product_id
+productRoute.get(
+  "/product_type/:p_id",
+  productController.getAllProductTypeById
+);
+
 module.exports = productRoute;

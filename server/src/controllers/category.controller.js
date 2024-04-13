@@ -13,30 +13,30 @@ const categoryController = {
   },
   createCategory: async (req, res) => {
     try {
-      //if role of user == 1 -> Admin
-      //Only Admin can create, delete and update category
-      //input: cha: parent_id == null, con: parent_id !== null
-      const { name, parent_id } = req.body;
+      const { name, parent_id, index_display } = req.body;
       const category = await Category.findOne({ name });
       if (category)
         return res.status(500).json({ msg: "This category already exists!" });
       if (!parent_id) {
-        //Tạo parent category có icon image
         if (!req.file)
           return res.status(500).json({ msg: "No icon category upload!" });
         const icon_category = req.file.originalname;
-        const newCategory = new Category({ name, icon_category });
+        const newCategory = new Category({
+          name,
+          icon_category,
+          index_display,
+        });
         await newCategory.save();
-        res.json({
+        return res.json({
           status: 1,
           code: 200,
           data: newCategory,
           msg: "Created a category!",
         });
       }
-      const newCategory = new Category({ name, parent_id });
+      const newCategory = new Category({ name, parent_id, index_display });
       await newCategory.save();
-      res.json({
+      return res.json({
         status: 1,
         code: 200,
         data: newCategory,
@@ -53,7 +53,7 @@ const categoryController = {
         { _id: req.params.id },
         { name: name }
       );
-      res.json({ updateCategory, msg: "Updated a category!" });
+      res.json({ updateCategory });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }

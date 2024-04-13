@@ -14,6 +14,9 @@ const Category = new mongoose.Schema(
       type: String,
       default: null,
     },
+    index_display: {
+      type: Number,
+    },
   },
   {
     timestamps: true,

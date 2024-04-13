@@ -1,11 +1,10 @@
 const Product = require("../models/product.model");
 const Category = require("../models/category.model");
-
+const ProductType = require("../models/productType.model");
 const productController = {
   getProduct: async (req, res) => {
     try {
       const product_id = req.params.id;
-      //console.log(product_id);
       const product = await Product.findOne({ _id: product_id });
       if (!product) res.json({ msg: "Product not found!" });
       res.json({
@@ -26,11 +25,9 @@ const productController = {
         price,
         quanlity_sold,
         quanlity_stock,
-        color,
         description,
         category_id,
       } = req.body;
-      // if (!images) return res.status(400).json({ msg: "No image upload" });
       if (
         !name ||
         !status ||
@@ -38,7 +35,6 @@ const productController = {
         !price ||
         !quanlity_sold ||
         !quanlity_stock ||
-        !color ||
         !description ||
         !category_id
       )
@@ -54,6 +50,11 @@ const productController = {
         return res.status(400).json({ msg: "Format file upload not correct!" });
       if (req.file.size > 2000000)
         return res.status(400).json({ msg: "File size is than larger!" });
+      const productCheckExists = await Product.findOne({ name: name });
+      if (productCheckExists)
+        return res.json({ msg: "Product dupplicate name!" });
+      const categoryCheck = await Category.findOne({ _id: category_id });
+      if (!categoryCheck) return res.json({ msg: "Category does not exists!" });
       const newProduct = new Product({
         name,
         status,
@@ -61,7 +62,6 @@ const productController = {
         price,
         quanlity_sold,
         quanlity_stock,
-        color,
         description,
         category_id,
         image: req.file.originalname,
@@ -172,6 +172,54 @@ const productController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+  //CRUD product type
+  //Post
+  createProductType: async (req, res) => {
+    try {
+      const { product_id, color } = req.body;
+      const image = req.file.originalname;
+      if (!product_id || !color || !image) res.json("input is required!");
+      const productCheckExists = await Product.findOne({ _id: product_id });
+      if (!productCheckExists) res.json({ msg: "Product does not exists" });
+      const newProductType = new ProductType({ product_id, color, image });
+      await newProductType.save();
+      return res.json({ msg: "create product type success!" });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  //Post: /:id
+  changeStatusProductType: async (req, res) => {
+    try {
+      const productUpdateStatus = await ProductType.findOneAndUpdate(
+        { _id: req.params.id },
+        { status: false }
+      );
+      return res.json({
+        data: productUpdateStatus,
+        msg: "update status product type success!",
+      });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  //get: body:{product_id}
+  getAllProductTypeById: async (req, res) => {
+    try {
+      const product_id = req.params.p_id;
+      const productTypes = await ProductType.find({
+        product_id: product_id,
+      });
+      return res.json({
+        data: productTypes,
+        msg: "get all product type by product ID!",
+      });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+
+  //get: get all product type
 };
 
 module.exports = productController;
