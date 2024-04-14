@@ -23,13 +23,12 @@ const Order = new mongoose.Schema(
       type: String,
       ref: "PaymentMethod",
     },
+    order_status_id: {
+      type: Number,
+    },
     order_address: {
       type: String,
       ref: "OrderAddress",
-    },
-    order_status: {
-      type: String,
-      ref: "OrderStatus",
     },
     order_detail: {
       type: Array,

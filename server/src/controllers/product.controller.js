@@ -1,6 +1,7 @@
 const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const ProductType = require("../models/productType.model");
+const ProductService = require("../services/product.service");
 const productController = {
   getProduct: async (req, res) => {
     try {
@@ -77,11 +78,41 @@ const productController = {
     try {
       const page = req.query.page;
       const limit = req.query.limit;
+      const sort = req.query.sort;
       const skip = (page - 1) * limit;
+      const name = req.query.name;
+
+      const countProduct = await Product.find().count();
+
+      if (sort) {
+        const products = await ProductService.orderByNameOrPrice(
+          sort,
+          limit,
+          skip
+        );
+        return res.json({
+          data: products,
+          total_count: countProduct,
+        });
+      }
+      if (name) {
+        productsByName = await Product.find({
+          name: { $regex: name, $options: "i" },
+        })
+          .skip(skip)
+          .limit(limit);
+        return res.json({ data: productsByName, total_count: countProduct });
+      }
+
       const products = await Product.find().skip(skip).limit(limit);
       if (products.length == 0)
         return res.status(400).json({ msg: "List product is empty!" });
-      res.json({ status: 1, code: 200, data: products });
+      res.json({
+        status: 1,
+        code: 200,
+        data: products,
+        total_count: countProduct,
+      });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -218,8 +249,6 @@ const productController = {
       return res.status(500).json({ msg: error.message });
     }
   },
-
-  //get: get all product type
 };
 
 module.exports = productController;

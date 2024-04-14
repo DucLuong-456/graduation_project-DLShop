@@ -18,5 +18,6 @@ userRoute.put(
 );
 userRoute.post("/addTocart", auth, userController.addToCart);
 userRoute.get("/cart", auth, userController.getCart);
+userRoute.delete("/deleteCart", auth, userController.deleteCart);
 
 module.exports = userRoute;

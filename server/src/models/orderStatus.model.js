@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 const OrderStatus = new mongoose.Schema(
   {
+    order_status_id: {
+      type: Number,
+    },
     name: {
       type: String,
-      //   status: ["đang xử lý", "chờ xác nhận", "đang giao", "hoàn thành", "hủy"],
+      //   status: ["chờ xác nhận", "đang giao", "hoàn thành", "hủy"],
       //[{id, name},...]
       //đang xử lý, chờ xác nhận, đang giao, hoàn thành, hủy
     },

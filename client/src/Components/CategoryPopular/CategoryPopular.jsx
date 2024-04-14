@@ -1,62 +1,34 @@
-import React from 'react'
-import './CategoryPopular.css'
-import danhmuc_1 from '../Assets/Image/danhmuc_1.jpg'
- const CategoryPopular = () => {
+import React, { useEffect, useState } from "react";
+import "./CategoryPopular.css";
+import axios from "axios";
+import danhmuc_1 from "../Assets/Image/danhmuc_1.jpg";
+import Category from "./Category";
+const CategoryPopular = () => {
+  const [categories, setCategories] = useState([]);
+  console.log(process.env.REACT_APP_API_KEY);
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_KEY}/api/category/`
+        );
+        setCategories(response.data.data);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCategories();
+  }, []);
   return (
     <>
-    <h2 className='title-cate'>Danh mục phổ biến</h2>
-    <div className="section-category">
-      <div className="item-cate">
-        <div className="bg-img-cate">
-        <img src={danhmuc_1} alt="anh" />
-        </div>
-        <h3 className='name-item-cate'>iPhone</h3>
+      <h2 className="title-cate">Danh mục phổ biến</h2>
+      <div className="section-category">
+        {categories.map((category) => {
+          return <Category key={category._id} category={category} />;
+        })}
       </div>
-      <div className="item-cate">
-        <div className="bg-img-cate">
-        <img src={danhmuc_1} alt="anh" />
-        </div>
-        <h3 className='name-item-cate'>iPhone</h3>
-      </div>
-      <div className="item-cate">
-        <div className="bg-img-cate">
-        <img src={danhmuc_1} alt="anh" />
-        </div>
-        <h3 className='name-item-cate'>iPhone</h3>
-      </div>
-      <div className="item-cate">
-        <div className="bg-img-cate">
-        <img src={danhmuc_1} alt="anh" />
-        </div>
-        <h3 className='name-item-cate'>iPhone</h3>
-      </div>
-      <div className="item-cate">
-        <div className="bg-img-cate">
-        <img src={danhmuc_1} alt="anh" />
-        </div>
-        <h3 className='name-item-cate'>iPhone</h3>
-      </div>
-      <div className="item-cate">
-        <div className="bg-img-cate">
-        <img src={danhmuc_1} alt="anh" />
-        </div>
-        <h3 className='name-item-cate'>iPhone</h3>
-      </div>
-      <div className="item-cate">
-        <div className="bg-img-cate">
-        <img src={danhmuc_1} alt="anh" />
-        </div>
-        <h3 className='name-item-cate'>iPhone</h3>
-      </div>
-      <div className="item-cate">
-        <div className="bg-img-cate">
-        <img src={danhmuc_1} alt="anh" />
-        </div>
-        <h3 className='name-item-cate'>iPhone</h3>
-      </div>
-    </div>
-
     </>
-  )
-}
-export default CategoryPopular
+  );
+};
+export default CategoryPopular;

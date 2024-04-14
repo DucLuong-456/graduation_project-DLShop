@@ -166,7 +166,7 @@ const userController = {
       const customer_id = req.user.id;
       const listProductOnCart = await Cart.find({
         user_id: customer_id,
-      });
+      }).populate("product_id");
       return res.json({
         status: 1,
         code: 200,
@@ -176,6 +176,24 @@ const userController = {
     } catch (error) {
       return res.json(createResponseError(0, 403, error.message, error));
     }
+  },
+  deleteCart: async (req, res) => {
+    const productsId = req.body.deleteProducstId;
+    const userId = req.user.id;
+    const deleteProducts = productsId.map((product_id) => {
+      return Cart.findOneAndDelete({
+        $and: [
+          { user_id: userId },
+          {
+            product_id: {
+              $in: productsId,
+            },
+          },
+        ],
+      });
+    });
+    await Promise.all(deleteProducts);
+    return res.json({ msg: "delete product on cart success!" });
   },
 };
 
