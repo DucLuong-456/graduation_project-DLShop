@@ -22,32 +22,32 @@ const Category = () => {
           </div>
           <div className="header-center">
             <ul className="category-list-name">
-              <Link to="/slider">
-                <li>Iphone 5</li>
-              </Link>
-              <span className="category-pagi">|</span>
               <li>
-                <Link to="/login">Iphone 5</Link>
+                <Link to="/admin">admin</Link>
               </li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/detailproduct">Iphone 5</Link>
+                <Link to="/login">login</Link>
               </li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/cart">Iphone 5</Link>
+                <Link to="/detail_product">detail-product</Link>
               </li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/order">Iphone 5</Link>
+                <Link to="/cart">Cart</Link>
               </li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/register">Iphone 5</Link>
+                <Link to="/order">Order</Link>
               </li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/login">Iphone 5</Link>
+                <Link to="/register">Register</Link>
+              </li>
+              <span className="category-pagi">|</span>
+              <li>
+                <Link to="/payment">payment</Link>
               </li>
             </ul>
           </div>

@@ -1,13 +1,13 @@
-import React from 'react'
-import './LayoutDefault.css'
-import Header from '../Header/Header'
-import Category from '../Category/Category'
- const LayoutDefault = () => {
+import React from "react";
+import "./LayoutDefault.css";
+import Header from "../Header/Header";
+import Category from "../Category/Category";
+const LayoutDefault = () => {
   return (
     <>
-        <Header/>
-        <Category/>
+      <Header />
+      <Category />
     </>
-  )
-}
-export default LayoutDefault
+  );
+};
+export default LayoutDefault;

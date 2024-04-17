@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./CategoryPopular.css";
 import axios from "axios";
-import danhmuc_1 from "../Assets/Image/danhmuc_1.jpg";
 import Category from "./Category";
 const CategoryPopular = () => {
   const [categories, setCategories] = useState([]);
