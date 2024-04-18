@@ -1,5 +1,6 @@
 import React from "react";
 import "./ProductAdmin.css";
+import ProductItem from "./ProductItem";
 const ProductAdmin = () => {
   return (
     <>
@@ -21,6 +22,10 @@ const ProductAdmin = () => {
                 <option value="saab">Saab</option>
               </select>
             </div>
+          </div>
+
+          <div className="list-product-item">
+            <ProductItem />
           </div>
         </div>
       </div>

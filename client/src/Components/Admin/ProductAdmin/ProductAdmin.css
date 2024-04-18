@@ -1,0 +1,94 @@
+.product-admin{
+    padding: 30px 34px;
+}
+
+.product-admin-title{
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-product-title{
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.create-new-product{
+    color: #ffff;
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    padding: 6px 12px; 
+    font-weight: 400;
+    background-color: #4fa607;
+    border-radius: 8px;
+    width: 104px;
+}
+
+.product-input-filter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-input-filter input{
+    padding: 8px;
+    width: 342px;
+}
+
+.product-input-filter div{
+    display: flex;
+    gap: 10px
+}
+
+.product-input-filter select{
+   padding: 8px;
+   width: 160px;
+}
+
+.product-item-admin{
+    border: 1px solid #ccc;
+    width: 245px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.img-item-admin{
+    width: 220px;
+    height: 220px;
+    margin: 5px;
+}
+.img-item-admin img{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.option-admin-active{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.update-product-btn{
+    border: 1px solid #4fa607;
+    border-radius: 8px;
+    padding: 8px 8px 16px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4fa607;
+}
+
+.delete-product-btn{
+    border: 1px solid red;
+    border-radius: 8px;
+    padding: 8px 8px 16px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+}
