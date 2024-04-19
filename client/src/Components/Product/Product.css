@@ -74,6 +74,8 @@
 
 .cost-product-item{
     font-size: 16px;
+    color: red;
+    font-weight: 500;
 }
 .sale-product-item{
     font-size: 13px;

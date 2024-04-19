@@ -58,7 +58,9 @@ const Category = () => {
                 backgroundColor: "#ffffff",
               }}
             >
-              <AiOutlineUser className="header-category-icon" />
+              <Link to="/login">
+                <AiOutlineUser className="header-category-icon" />
+              </Link>
             </div>
             <div
               className="user-icon shopping-cart"
@@ -66,7 +68,9 @@ const Category = () => {
                 backgroundColor: "#ffffff",
               }}
             >
-              <AiOutlineShoppingCart className="header-category-icon" />
+              <Link to="/cart">
+                <AiOutlineShoppingCart className="header-category-icon" />
+              </Link>
               <div className="nav-cart-count">0</div>
             </div>
 

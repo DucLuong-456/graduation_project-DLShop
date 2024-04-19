@@ -1,24 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./CategoryPopular.css";
-import axios from "axios";
 import Category from "./Category";
+import { AppContext } from "../../Context/AppContext";
 const CategoryPopular = () => {
-  const [categories, setCategories] = useState([]);
-  console.log(process.env.REACT_APP_API_KEY);
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_KEY}/api/category/`
-        );
-        setCategories(response.data.data);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCategories();
-  }, []);
+  const { categories } = useContext(AppContext);
   return (
     <>
       <h2 className="title-cate">Danh mục phổ biến</h2>

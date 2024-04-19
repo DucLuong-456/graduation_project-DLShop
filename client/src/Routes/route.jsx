@@ -10,7 +10,7 @@ import Content from "../Components/Admin/Content/Content";
 import AdminProduct from "../Components/Admin/ProductAdmin/ProductAdmin";
 const publicRoutes = [
   { path: "/", component: HomePage },
-  { path: "/detail_product", component: DetailProduct },
+  { path: "/detail_product/:id", component: DetailProduct },
   { path: "/login", component: Login },
   { path: "/register", component: Register },
   { path: "/cart", component: Cart },

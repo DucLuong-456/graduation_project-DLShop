@@ -9,19 +9,19 @@ const userController = {
     try {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
-      if (!user) res.status(400).json({ msg: "User does not exists!" });
+      if (!user) return res.status(400).json({ msg: "User does not exists!" });
       const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) res.status(400).json({ msg: "Incorrect password!" });
+      if (!isMatch) return res.status(400).json({ msg: "Incorrect password!" });
       //
       const accessToken = createAccessToken({ id: user._id });
       const refreshToken = createRefreshToken({ id: user._id });
 
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        path: "api/user/refreshToken",
+        path: "/api/user/refresh_token",
       });
 
-      res.json({ accessToken });
+      return res.json({ accessToken });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -51,17 +51,18 @@ const userController = {
 
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        path: "api/user/refreshToken",
+        path: "/api/user/refresh_token",
       });
 
-      res.json({ accessToken });
+      return res.json({ accessToken });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
   },
   logout: async (req, res) => {
     try {
-      res.clearCookie("refreshToken", { path: "/api/user/refreshToken" });
+      //Chỗ này đúng thật ko hiểu sao lại (postman): "/api/user" || "/api/user/refresh_token"
+      res.clearCookie("refreshToken", { path: "/api/user/refresh_token" });
       return res.status(200).json({ msg: "logged out" });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
@@ -70,11 +71,13 @@ const userController = {
   refreshToken: async (req, res) => {
     try {
       const rf_token = req.cookies.refreshToken;
-      if (!rf_token) res.status(400).json({ msg: "Please Login or Register" });
+      if (!rf_token)
+        return res.status(400).json({ msg: "Please Login or Register" });
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) res.status(400).json({ msg: "Please Login or Register" });
+        if (err)
+          return res.status(400).json({ msg: "Unauthentication not found!" });
         const accessToken = createAccessToken({ id: user.id });
-        res.json({ accessToken });
+        return res.json({ accessToken });
       });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
