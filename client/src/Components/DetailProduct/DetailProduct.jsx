@@ -71,7 +71,8 @@ const DetailProduct = () => {
         <div className="content-center-product">
           <h1 className="title-detail-product">{product.name}</h1>
           <span className="brand-product">
-            Thương hiệu: {product.brand} | Tình trạng: Còn hàng
+            Thương hiệu: {product.brand} | Tình trạng:{" "}
+            {product.status ? "Còn hàng" : "Hết hàng"}
           </span>
           <br />
           <span className="cost-detail-product">

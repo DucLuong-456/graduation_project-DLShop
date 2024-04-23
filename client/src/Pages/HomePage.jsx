@@ -11,10 +11,12 @@ const HomePage = () => {
   const [products, setProducts] = useState({ data: [], paging: {} });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+
   const itemsPerPage = 8;
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
   useEffect(() => {
     const getProducts = async () => {
       try {
