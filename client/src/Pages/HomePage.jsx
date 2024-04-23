@@ -9,7 +9,7 @@ import Paging from "../Components/Common/Paging/Paging";
 import "./HomePage.css";
 const HomePage = () => {
   const [products, setProducts] = useState({ data: [], paging: {} });
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 8;
   const handlePageChange = (pageNumber) => {
