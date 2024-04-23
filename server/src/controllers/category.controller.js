@@ -5,8 +5,9 @@ const categoryController = {
   getCategories: async (req, res) => {
     try {
       const categories = await Category.find();
-      if (categories.length == 0) res.json({ msg: "Categories is empty!" });
-      res.json({ status: 1, code: 200, data: categories });
+      if (categories.length == 0)
+        return res.json({ msg: "Categories is empty!" });
+      return res.json({ status: 1, code: 200, data: categories });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -66,7 +67,7 @@ const categoryController = {
           .status(400)
           .json({ msg: "Please delete all product with a category!" });
       await Category.findByIdAndDelete(req.params.id);
-      res.json({ msg: "Deleted a category!" });
+      return res.json({ msg: "Deleted a category!" });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }

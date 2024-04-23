@@ -1,0 +1,39 @@
+.paging {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .page-numbers {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .page-numbers li {
+    margin: 0 5px;
+  }
+  
+  .page-numbers button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .page-numbers button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .page-numbers button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .page-numbers .active button {
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+  }
+  

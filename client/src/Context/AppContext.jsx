@@ -4,7 +4,7 @@ export const AppContext = createContext({});
 
 export const AppProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({});
   const [token, setToken] = useState(false);
 
   useEffect(() => {
@@ -15,11 +15,10 @@ export const AppProvider = ({ children }) => {
           const res = await axios.get(
             `${process.env.REACT_APP_API_KEY}/api/user/refresh_token`
           );
-          console.log(res.data);
           setToken(res.data.accessToken);
-          // setTimeout(() => {
-          //   refreshToken();
-          // }, 10 * 60 * 1000);
+          setTimeout(() => {
+            refreshToken();
+          }, 10 * 60 * 1000);
         } catch (error) {
           console.log(error.response.data.msg);
         }
@@ -35,6 +34,7 @@ export const AppProvider = ({ children }) => {
           `${process.env.REACT_APP_API_KEY}/api/category/`
         );
         setCategories(response.data.data);
+        console.log(categories);
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +45,8 @@ export const AppProvider = ({ children }) => {
         const response = await axios.get(
           `${process.env.REACT_APP_API_KEY}/api/product/`
         );
-        setProducts(response.data.data);
+        setProducts(response.data);
+        console.log(products);
       } catch (error) {
         console.log(error);
       }

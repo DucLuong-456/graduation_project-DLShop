@@ -15,12 +15,10 @@ const userController = {
       //
       const accessToken = createAccessToken({ id: user._id });
       const refreshToken = createRefreshToken({ id: user._id });
-
-      res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        path: "/api/user/refresh_token",
-      });
-
+      await User.findOneAndUpdate(
+        { _id: user._id },
+        { refresh_token: refreshToken }
+      );
       return res.json({ accessToken });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
@@ -49,11 +47,10 @@ const userController = {
       const accessToken = createAccessToken({ id: newUser._id });
       const refreshToken = createRefreshToken({ id: newUser._id });
 
-      res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        path: "/api/user/refresh_token",
-      });
-
+      await User.findOneAndUpdate(
+        { _id: user._id },
+        { refresh_token: refreshToken }
+      );
       return res.json({ accessToken });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
@@ -61,8 +58,10 @@ const userController = {
   },
   logout: async (req, res) => {
     try {
-      //Chỗ này đúng thật ko hiểu sao lại (postman): "/api/user" || "/api/user/refresh_token"
-      res.clearCookie("refreshToken", { path: "/api/user/refresh_token" });
+      await User.findOneAndUpdate(
+        { _id: req.user._id },
+        { refresh_token: null }
+      );
       return res.status(200).json({ msg: "logged out" });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
@@ -70,15 +69,19 @@ const userController = {
   },
   refreshToken: async (req, res) => {
     try {
-      const rf_token = req.cookies.refreshToken;
-      if (!rf_token)
+      const userId = req.user.id;
+      const { refresh_token } = await User.findOne({ _id: userId });
+      if (!refresh_token)
         return res.status(400).json({ msg: "Please Login or Register" });
-      jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err)
-          return res.status(400).json({ msg: "Unauthentication not found!" });
-        const accessToken = createAccessToken({ id: user.id });
-        return res.json({ accessToken });
-      });
+      jwt.verify(
+        refresh_token,
+        process.env.REFRESH_TOKEN_SECRET,
+        (err, user) => {
+          if (err) return res.status(400).json({ msg: "Unauthentication !" });
+          const accessToken = createAccessToken({ id: user.id });
+          return res.json({ accessToken });
+        }
+      );
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -207,4 +210,5 @@ const createAccessToken = (user) => {
 const createRefreshToken = (user) => {
   return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
 };
+
 module.exports = userController;

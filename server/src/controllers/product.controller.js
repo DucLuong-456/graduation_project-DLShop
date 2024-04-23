@@ -1,7 +1,6 @@
 const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const ProductType = require("../models/productType.model");
-const ProductService = require("../services/product.service");
 const productController = {
   getProduct: async (req, res) => {
     try {
@@ -76,42 +75,45 @@ const productController = {
   },
   getAllProduct: async (req, res) => {
     try {
-      const page = req.query.page;
-      const limit = req.query.limit;
-      const sort = req.query.sort;
+      let { limit, page, sort, name } = req.query;
+      (limit = limit || 8), (page = page || 1);
       const skip = (page - 1) * limit;
-      const name = req.query.name;
-
-      const countProduct = await Product.find().count();
-
-      if (sort) {
-        const products = await ProductService.orderByNameOrPrice(
-          sort,
-          limit,
-          skip
-        );
-        return res.json({
-          data: products,
-          total_count: countProduct,
-        });
-      }
+      const whereOptions = {};
       if (name) {
-        productsByName = await Product.find({
-          name: { $regex: name, $options: "i" },
-        })
-          .skip(skip)
-          .limit(limit);
-        return res.json({ data: productsByName, total_count: countProduct });
+        whereOptions.name = {
+          $regex: name,
+          $options: "i",
+        };
+      }
+      const sortOptions = [];
+      if (sort) {
+        if (sort == "name_asc") {
+          sortOptions.push(["name", "asc"]);
+        } else if (sort == "name_desc") {
+          sortOptions.push(["name", "desc"]);
+        }
+
+        if (sort == "price_asc") {
+          sortOptions.push(["price", "asc"]);
+        }
+      } else if (sort == "price_desc") {
+        sortOptions.push(["price", "desc"]);
       }
 
-      const products = await Product.find().skip(skip).limit(limit);
+      const countProduct = await Product.countDocuments(whereOptions);
+      const products = await Product.find(whereOptions)
+        .skip(skip)
+        .limit(limit)
+        .sort(sortOptions);
       if (products.length == 0)
         return res.status(400).json({ msg: "List product is empty!" });
       res.json({
-        status: 1,
-        code: 200,
         data: products,
-        total_count: countProduct,
+        paging: {
+          limit: limit,
+          page: page,
+          total_count: countProduct,
+        },
       });
     } catch (error) {
       return res.status(500).json({ msg: error.message });

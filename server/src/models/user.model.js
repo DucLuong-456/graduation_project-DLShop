@@ -35,6 +35,10 @@ const User = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    refresh_token: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
