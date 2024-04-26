@@ -5,59 +5,105 @@ export const AppContext = createContext({});
 export const AppProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState({});
-  const [token, setToken] = useState(false);
+  const [orders,setOrders] = useState([])
+  const [cart,setCart] = useState({data: [], total_money: 0})
+  const [token, setToken] = useState("");
+  const [isLogged, setIsLogged] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  
 
   useEffect(() => {
     const isCheckLogin = localStorage.getItem("Login");
     if (isCheckLogin) {
-      const refreshToken = async () => {
-        try {
-          const res = await axios.get(
-            `${process.env.REACT_APP_API_KEY}/api/user/refresh_token`
-          );
-          setToken(res.data.accessToken);
-          setTimeout(() => {
-            refreshToken();
-          }, 10 * 60 * 1000);
-        } catch (error) {
-          console.log(error.response.data.msg);
-        }
-      };
-      refreshToken();
+      const accessToken = localStorage.getItem("accessToken");
+      setToken(accessToken);
     }
-  }, []);
-
-  useEffect(() => {
+    // category
     const getCategories = async () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_API_KEY}/api/category/`
         );
         setCategories(response.data.data);
-        console.log(categories);
       } catch (error) {
         console.log(error);
       }
     };
 
+    //product
     const getProducts = async () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_API_KEY}/api/product/`
         );
         setProducts(response.data);
-        console.log(products);
       } catch (error) {
         console.log(error);
       }
     };
-
+    //user-role
+    const getUser = async (token) => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_KEY}/api/user/getInfor`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }}
+        );
+         setIsLogged(true);
+         res.data.data.role_id === 2 ? setIsAdmin(true) : setIsAdmin(false);
+      } catch (error) {
+         alert(error.response.data.msg);
+      }
+    };
+    //order
+    const getOrder =async (token)=>{
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_KEY}/api/order`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }}
+        );
+        setOrders(res.data.data)
+      } catch (error) {
+         alert(error.response.data.msg);
+      }
+    }
+    //get Cart
+    const getCart =async (token)=>{
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_KEY}/api/user/cart`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }}
+        );
+        setCart(res.data)
+      } catch (error) {
+         alert(error.response.data.msg);
+      }
+    }
+    
+    //call api
     getCategories();
     getProducts();
-  }, []);
-
+    console.log(token)
+    if(token){
+    getUser(token);
+    getCart(token)
+      getOrder(token);
+    }    
+  }, [token,isLogged]);
   return (
-    <AppContext.Provider value={{ categories, products, token }}>
+    <AppContext.Provider value={{ categories, products,orders,cart,setCart, token, isAdmin, isLogged, setIsLogged }}>
       {children}
     </AppContext.Provider>
   );

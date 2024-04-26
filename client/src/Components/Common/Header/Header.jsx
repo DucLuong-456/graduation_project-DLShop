@@ -7,13 +7,15 @@ const SearchSuggestions = ({ products }) => {
   return (
     <div className="search-suggest">
       {products.data.map((product) => (
-        <div key={product.id} className="product-item-search">
+        <div key={product._id} className="product-item-search">
           <img
             src={process.env.REACT_APP_API_LINK_STATIC + product.image}
             alt={product.name}
           />
           <div>
-            <p className="suggest-product-name">{product.name}</p>
+            <Link to={"/detail_product/" + product._id}>
+              <p className="suggest-product-name">{product.name}</p>
+            </Link>
             <p className="suggest-product-price">
               {parseInt(product.price).toLocaleString("vi-VN", {
                 style: "currency",

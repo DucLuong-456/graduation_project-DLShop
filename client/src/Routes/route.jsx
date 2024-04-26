@@ -15,7 +15,7 @@ const publicRoutes = [
   { path: "/register", component: Register },
   { path: "/cart", component: Cart },
   { path: "/order", component: Order },
-  { path: "/order_detail", component: OrderDetail },
+  { path: "/order_detail/:id", component: OrderDetail },
   { path: "/payment", component: Payment },
 ];
 

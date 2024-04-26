@@ -1,10 +1,32 @@
-import React from "react";
-import "./Category.css";
+import React, { useState,useContext } from "react";
+import "./BottomHeader.css";
 import { TbCategory } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
-const Category = () => {
+import { AppContext } from "../../../Context/AppContext";
+
+const DropDownLogin = ({isLogged})=>{
+ return isLogged===false? (
+    <div className="login-options">
+      <ul>
+        <Link to="/login"><li>Đăng nhập</li></Link>
+        <Link to="/register"><li>Đăng ký</li></Link>
+      </ul>
+    </div>
+  ): (<div className="login-options">
+  <ul>
+    <Link to="/#"><li>Profile</li></Link>
+    <Link to="/order"><li>Đơn mua</li></Link>
+    <Link to="/logout"><li>Đăng xuất</li></Link>
+  </ul>
+</div>)
+}
+
+
+const BottomHeader = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const { isLogged } = useContext(AppContext);
   return (
     <>
       <div className="header">
@@ -29,10 +51,7 @@ const Category = () => {
               <li>
                 <Link to="/login">login</Link>
               </li>
-              <span className="category-pagi">|</span>
-              <li>
-                <Link to="/detail_product">detail-product</Link>
-              </li>
+
               <span className="category-pagi">|</span>
               <li>
                 <Link to="/cart">Cart</Link>
@@ -58,8 +77,15 @@ const Category = () => {
                 backgroundColor: "#ffffff",
               }}
             >
-              <Link to="/login">
-                <AiOutlineUser className="header-category-icon" />
+              <Link
+                to="#"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <div className="login-icon-header">
+                  <AiOutlineUser className="header-category-icon" />
+                  {isHovered===true && <DropDownLogin isLogged={isLogged}/>}
+                </div>
               </Link>
             </div>
             <div
@@ -88,4 +114,4 @@ const Category = () => {
     </>
   );
 };
-export default Category;
+export default BottomHeader;

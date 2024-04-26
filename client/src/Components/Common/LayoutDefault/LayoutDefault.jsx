@@ -1,12 +1,12 @@
 import React from "react";
 import "./LayoutDefault.css";
 import Header from "../Header/Header";
-import Category from "../Category/Category";
+import BottomHeader from "../BottomHeader/BottomHeader";
 const LayoutDefault = () => {
   return (
     <>
       <Header />
-      <Category />
+      <BottomHeader />
     </>
   );
 };

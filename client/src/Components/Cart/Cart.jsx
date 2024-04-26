@@ -1,14 +1,18 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import './Cart.css'
 import cart_img from '../Assets/Image/cart.jpg'
+import { AppContext } from "../../Context/AppContext";
+
  const Cart = () => {
+  const { cart,isLogged } = useContext(AppContext);
+  // console.log(cart, isLogged);
   return (
     <>
     <div className="cart-product">
         <div className="cart-title">
         GIỎ HÀNG CỦA BẠN
         </div>
-        <div className="detail-cart">
+        {isLogged && cart.length !== 0?(<div className="detail-cart">
             <table>
             <thead>
           <tr>
@@ -21,43 +25,35 @@ import cart_img from '../Assets/Image/cart.jpg'
         </thead>
         <tbody className='cart-body'>
         <td colSpan={6} className='line'></td>
-        <tr >
+        {cart.data.map((item)=>{
+          return (
+              <tr >
               <td className='div-cart-product-img'>
-                <img className='cart-product-img' src={cart_img} alt="anh" />
+                <img className='cart-product-img' src={process.env.REACT_APP_API_LINK_STATIC+item.product_id.image} alt="anh" />
               </td>
               <td>
                 <div className="cart-name-product">
-              Redmi Note 12 Turbo 8GB/256GB
+              {item.product_id.name}
                 </div>
                 <div className="cart-delete-product">
                 Xóa
                 </div>
                 </td>
-              <td className='cart-cost-product'>6.190.000₫</td>
-              <td className='cart-quanlity-product'>1</td>
+              <td className='cart-cost-product'>{parseInt(item.product_id.price).toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}</td>
+              <td className='cart-quanlity-product'>{item.quanlity_product}</td>
               <td className='check-box-product'><input type="checkbox" name="select-product" id="" /></td>
-              <td className='total-cost-product'>6.190.000₫</td>
-            </tr>
-            <td colSpan={6} className='line'></td>
-            <tr >
-              <td className='div-cart-product-img'>
-                <img className='cart-product-img' src={cart_img} alt="anh" />
-              </td>
-              <td>
-                <div className="cart-name-product">
-              Redmi Note 12 Turbo 8GB/256GB
-                </div>
-                <div className="cart-delete-product">
-                Xóa
-                </div></td>
-              <td className='cart-cost-product'>6.190.000₫</td>
-              <td className='cart-quanlity-product'>1</td>
-              <td className='check-box-product'><input type="checkbox" name="select-product" id="" /></td>
-              <td className='total-cost-product'>6.190.000₫</td>
-            </tr>
+              <td className='total-cost-product'>{parseInt(item.product_id.price*item.quanlity_product).toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}</td>
+              </tr>
+        )})}
         </tbody>
 
-            </table>
+        </table>
         <div className="cart-infor-active">
             <div className="continue-buy">
             Tiếp tục mua hàng
@@ -68,7 +64,10 @@ import cart_img from '../Assets/Image/cart.jpg'
                     TỔNG TIỀN:
                     </div>
                     <div className="title-cost">
-                    6.190.000₫
+                    {parseInt(cart.total_money).toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}
                     </div>
                 </div>
                 <div className="cart-btn-pay">
@@ -76,7 +75,8 @@ import cart_img from '../Assets/Image/cart.jpg'
                 </div>
             </div>
         </div>
-        </div>
+        </div>): (<div style={{textAlign:'center'}}>Giỏ hàng rỗng</div>)}
+        
     </div>
     
     </>

@@ -19,7 +19,7 @@ const userController = {
         { _id: user._id },
         { refresh_token: refreshToken }
       );
-      return res.json({ accessToken });
+      return res.json({ accessToken, refreshToken });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -89,7 +89,7 @@ const userController = {
   getInfor: async (req, res) => {
     try {
       const user = await User.findById(req.user.id).select("-password");
-      if (!user) res.status(400).json({ msg: "user does not exists!" });
+      if (!user) return res.status(400).json({ msg: "user does not exists!" });
       res.json({
         status: 1,
         code: 200,
@@ -146,12 +146,13 @@ const userController = {
         product_id: product_id,
         user_id: customerId,
       });
-      if (isExistProduct) return res.json({ msg: "Product has been on Cart!" });
+      if (isExistProduct)
+        return res.status(400).json({ msg: "Product has been on Cart!" });
       const product = await Product.findOne({
         _id: product_id,
       }).select("quanlity_stock -_id");
       if (product.quanlity_stock < quanlity_product)
-        return res.json({ msg: "Số lượng sản phẩm vượt quá!" });
+        return res.status(400).json({ msg: "Số lượng sản phẩm vượt quá!" });
       const newCart = await Cart.create({
         user_id: customerId,
         product_id: product_id,
@@ -173,11 +174,13 @@ const userController = {
       const listProductOnCart = await Cart.find({
         user_id: customer_id,
       }).populate("product_id");
+      let total_money_cart = 0;
+      listProductOnCart.forEach((item) => {
+        total_money_cart += item.product_id.price * item.quanlity_product;
+      });
       return res.json({
-        status: 1,
-        code: 200,
-        msg: "Thành công",
         data: listProductOnCart,
+        total_money: total_money_cart,
       });
     } catch (error) {
       return res.json(createResponseError(0, 403, error.message, error));

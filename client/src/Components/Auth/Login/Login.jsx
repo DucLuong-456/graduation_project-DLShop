@@ -13,10 +13,14 @@ const Login = () => {
   const loginSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_KEY}/api/user/login`, {
-        ...user,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_KEY}/api/user/login`,
+        {
+          ...user,
+        }
+      );
       localStorage.setItem("Login", true);
+      localStorage.setItem("accessToken", res.data.accessToken);
       navigate("/");
     } catch (error) {
       alert(error.response.data.msg);

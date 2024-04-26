@@ -32,7 +32,6 @@ const HomePage = () => {
     getProducts();
   }, [currentPage]);
 
-  console.log(products);
   return (
     <>
       <Slider />

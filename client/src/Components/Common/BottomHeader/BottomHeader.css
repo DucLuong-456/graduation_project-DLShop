@@ -31,6 +31,25 @@
 }
 .header-category-icon{
     font-size: 24px;
+    position: relative;
+}
+.login-options{
+    position: absolute;
+    border-radius: 5px;
+}
+.login-options ul{
+    list-style: none;
+    background-color: #ffffff;
+    border-radius: 5px;
+
+}
+
+.login-options ul li{
+    font-size: 15px;
+    font-weight: 450;
+    padding: 5px 10px;
+    color: #503eb6;
+
 }
 .category-name{
     color: #ffff
@@ -88,6 +107,3 @@
     background-color: red;
 }
 
-.header-category-icon{
-    font-size: 24px;
-}

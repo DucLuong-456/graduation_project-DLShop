@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import "./DetailProduct.css";
 import detail_product1 from "../Assets/Image/detail_product1.jpg";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -10,7 +10,30 @@ import {
   MdKeyboardDoubleArrowUp,
 } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import { AppContext } from "../../Context/AppContext";
+
 const DetailProduct = () => {
+  const { cart,setCart,isLogged } = useContext(AppContext);
+
+  //addToCart
+  const addToCart =async (token,product)=>{
+    try {
+      if(isLogged===false) return alert("Hãy đăng nhập để sử dụng!");
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_KEY}/api/user/addTocart`,
+        {
+          product_id: product.product_id,
+         quanlity_product: product.quanlity_product,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }}
+      );
+      setCart({...cart,data: [...cart.data,res.data.data]})
+    } catch (error) {
+       alert(error.response.data.msg);
+    }
+  }
   const productsImg = [
     "detail_product1",
     "detail_product1",
@@ -43,7 +66,7 @@ const DetailProduct = () => {
           `${process.env.REACT_APP_API_KEY}/api/product/${id}`
         );
         setProduct(response.data.data);
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       }

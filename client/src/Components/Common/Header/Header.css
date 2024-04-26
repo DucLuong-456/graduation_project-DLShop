@@ -57,16 +57,16 @@
 }
 
 .suggest-product-name{
-    font-weight: 500;
+    font-weight: 490;
 }
 .suggest-product-name:hover{
-    font-weight: 500;
+    font-weight: 490;
     color: #ff901c;
 }
 .suggest-product-price{
     font-weight: 500;
     color: #503eb6;
-    font-size: 12px;
+    font-size: 14px;
 }
 .product-item-search img{
     width: 40px;

@@ -6,21 +6,21 @@ const Product = require("../models/product.model");
 const orderController = {
   getDetailOrder: async (req, res) => {
     try {
-      const product = await Order.findOne({
+      const order = await Order.findOne({
         user_id: req.user.id,
         _id: req.params.id,
       });
-      return res.json(product);
+      return res.json(order);
     } catch (error) {
       return res.json({ msg: error.message });
     }
   },
   getListOrder: async (req, res) => {
     try {
-      const products = await Order.find({
+      const orders = await Order.find({
         user_id: req.user.id,
       });
-      return res.json({ status: 1, code: 200, data: products });
+      return res.json({ status: 1, code: 200, data: orders });
     } catch (error) {
       return res.json({ msg: error.message });
     }
@@ -52,11 +52,14 @@ const orderController = {
         return res.json({ msg: "Field not be empty!" });
 
       //Lưu vào Order detail
-
-      let listProductOrder = productsOrder.map((element) => {
+      const listProductOrder = productsOrder.map((element) => {
+        // const { price } = await Product.findOne({
+        //   _id: element.product_id,
+        // }).select("price");
         return {
           product_id: element.product_id,
           quanlity_product: element.quanlity_product,
+          // total_money: price * parseInt(element.quanlity_product),
         };
       });
 
