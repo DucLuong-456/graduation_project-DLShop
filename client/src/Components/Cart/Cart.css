@@ -1,7 +1,8 @@
 .cart-product{
     width: 1215px;
     margin: 0 auto;
-    height: 500px;
+    min-height: 500px;
+
 }
 
 .cart-title{
@@ -43,6 +44,7 @@
 .cart-delete-product{
     font-size: 13px;
     color: red;
+    cursor: pointer;
 }
 
 .check-box-product{

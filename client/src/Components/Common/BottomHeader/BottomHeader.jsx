@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./BottomHeader.css";
 import { TbCategory } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
@@ -6,27 +6,38 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
 
-const DropDownLogin = ({isLogged})=>{
- return isLogged===false? (
+const DropDownLogin = ({ isLogged }) => {
+  return isLogged === false ? (
     <div className="login-options">
       <ul>
-        <Link to="/login"><li>Đăng nhập</li></Link>
-        <Link to="/register"><li>Đăng ký</li></Link>
+        <Link to="/login">
+          <li>Đăng nhập</li>
+        </Link>
+        <Link to="/register">
+          <li>Đăng ký</li>
+        </Link>
       </ul>
     </div>
-  ): (<div className="login-options">
-  <ul>
-    <Link to="/#"><li>Profile</li></Link>
-    <Link to="/order"><li>Đơn mua</li></Link>
-    <Link to="/logout"><li>Đăng xuất</li></Link>
-  </ul>
-</div>)
-}
-
+  ) : (
+    <div className="login-options">
+      <ul>
+        <Link to="/#">
+          <li>Profile</li>
+        </Link>
+        <Link to="/order">
+          <li>Đơn mua</li>
+        </Link>
+        <Link to="/logout">
+          <li>Đăng xuất</li>
+        </Link>
+      </ul>
+    </div>
+  );
+};
 
 const BottomHeader = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const { isLogged } = useContext(AppContext);
+  const { cart, isLogged } = useContext(AppContext);
   return (
     <>
       <div className="header">
@@ -84,7 +95,7 @@ const BottomHeader = () => {
               >
                 <div className="login-icon-header">
                   <AiOutlineUser className="header-category-icon" />
-                  {isHovered===true && <DropDownLogin isLogged={isLogged}/>}
+                  {isHovered === true && <DropDownLogin isLogged={isLogged} />}
                 </div>
               </Link>
             </div>
@@ -97,7 +108,7 @@ const BottomHeader = () => {
               <Link to="/cart">
                 <AiOutlineShoppingCart className="header-category-icon" />
               </Link>
-              <div className="nav-cart-count">0</div>
+              <div className="nav-cart-count">{cart.data.length}</div>
             </div>
 
             <div

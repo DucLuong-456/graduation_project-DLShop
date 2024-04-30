@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./DetailProduct.css";
 import detail_product1 from "../Assets/Image/detail_product1.jpg";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -9,31 +9,37 @@ import {
   MdKeyboardDoubleArrowDown,
   MdKeyboardDoubleArrowUp,
 } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 
 const DetailProduct = () => {
-  const { cart,setCart,isLogged } = useContext(AppContext);
-
+  const { setCallBack, isLogged, token } = useContext(AppContext);
+  const navigate = useNavigate();
   //addToCart
-  const addToCart =async (token,product)=>{
+  const addToCart = async (token, product) => {
     try {
-      if(isLogged===false) return alert("Hãy đăng nhập để sử dụng!");
+      if (isLogged === false) return alert("Please login or registerto use!");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
       const res = await axios.post(
         `${process.env.REACT_APP_API_KEY}/api/user/addTocart`,
         {
           product_id: product.product_id,
-         quanlity_product: product.quanlity_product,
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }}
+          quanlity_product: product.quanlity_product,
+        },
+        { headers }
       );
-      setCart({...cart,data: [...cart.data,res.data.data]})
+      console.log(res.data);
+      setCallBack((cb) => !cb);
+      alert("Add product success on cart");
+      navigate("/cart");
     } catch (error) {
-       alert(error.response.data.msg);
+      // console.log(error);
+      alert(error.response.data.msg);
     }
-  }
+  };
   const productsImg = [
     "detail_product1",
     "detail_product1",
@@ -136,7 +142,17 @@ const DetailProduct = () => {
               <IoCartOutline className="icon-cart-detail" />
               <div className="text-add-cart">MUA NGAY</div>
             </div>
-            <div className="them-gio-hang">THÊM VÀO GIỎ HÀNG</div>
+            <div
+              className="them-gio-hang"
+              onClick={() => {
+                addToCart(token, {
+                  product_id: product._id,
+                  quanlity_product: quantity,
+                });
+              }}
+            >
+              THÊM VÀO GIỎ HÀNG
+            </div>
           </div>
         </div>
         <div className="right-detail-product">

@@ -183,26 +183,30 @@ const userController = {
         total_money: total_money_cart,
       });
     } catch (error) {
-      return res.json(createResponseError(0, 403, error.message, error));
+      return res.json({ msg: error.message });
     }
   },
   deleteCart: async (req, res) => {
-    const productsId = req.body.deleteProducstId;
-    const userId = req.user.id;
-    const deleteProducts = productsId.map((product_id) => {
-      return Cart.findOneAndDelete({
-        $and: [
-          { user_id: userId },
-          {
-            product_id: {
-              $in: productsId,
+    try {
+      const productsId = req.body.deleteProducstId;
+      const userId = req.user.id;
+      const deleteProducts = productsId.map((product_id) => {
+        return Cart.findOneAndDelete({
+          $and: [
+            { user_id: userId },
+            {
+              product_id: {
+                $in: productsId,
+              },
             },
-          },
-        ],
+          ],
+        });
       });
-    });
-    await Promise.all(deleteProducts);
-    return res.json({ msg: "delete product on cart success!" });
+      await Promise.all(deleteProducts);
+      return res.json({ msg: "delete product on cart success!" });
+    } catch (err) {
+      return res.json({ msg: err.message });
+    }
   },
 };
 
