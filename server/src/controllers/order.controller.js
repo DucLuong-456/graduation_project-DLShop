@@ -47,19 +47,16 @@ const orderController = {
       for (var i = 0; i < productsOrder.length; i++) {
         total_product += productsOrder[i].quanlity_product;
       }
-      const { payment_method, voucher, note, order_address } = req.body;
-      if (!payment_method || !voucher || !note || !order_address)
+      const { payment_method, voucher, note, order_address, total_money } =
+        req.body;
+      if (!payment_method || !order_address || !total_money)
         return res.json({ msg: "Field not be empty!" });
 
       //Lưu vào Order detail
       const listProductOrder = productsOrder.map((element) => {
-        // const { price } = await Product.findOne({
-        //   _id: element.product_id,
-        // }).select("price");
         return {
           product_id: element.product_id,
           quanlity_product: element.quanlity_product,
-          // total_money: price * parseInt(element.quanlity_product),
         };
       });
 
@@ -72,6 +69,7 @@ const orderController = {
         order_address,
         order_status_id: 1,
         order_detail: listProductOrder,
+        total_money: total_money,
       });
       //Xóa sản phẩm đã đặt hàng trong cart
       productsOrder.forEach(async (element) => {

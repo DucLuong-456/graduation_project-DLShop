@@ -18,6 +18,7 @@ const Order = new mongoose.Schema(
     },
     voucher: {
       type: Number,
+      default: 0,
     },
     payment_method: {
       type: String,
@@ -33,6 +34,10 @@ const Order = new mongoose.Schema(
     order_detail: {
       type: Array,
       //[{product_id, quanlity, unit_measure},...]
+    },
+    total_money: {
+      type: Number,
+      default: 0,
     },
   },
   {

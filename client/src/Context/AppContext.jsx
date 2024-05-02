@@ -8,6 +8,7 @@ export const AppProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
   const [cart, setCart] = useState({ data: [], total_money: 0 });
   const [token, setToken] = useState("");
+  const [user, setUser] = useState({});
   const [isLogged, setIsLogged] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [callback, setCallBack] = useState(false);
@@ -92,6 +93,23 @@ export const AppProvider = ({ children }) => {
         alert(error.response.data.msg);
       }
     };
+    //getUserInfor
+    const getUserInfor = async (token) => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_KEY}/api/user/getInfor`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setUser(res.data.data);
+      } catch (error) {
+        alert(error.response.data.msg);
+      }
+    };
 
     //call api
     getCategories();
@@ -101,6 +119,7 @@ export const AppProvider = ({ children }) => {
       getUser(token);
       getCart(token);
       getOrder(token);
+      getUserInfor(token);
     }
   }, [token, isLogged, callback]);
   return (
@@ -109,10 +128,13 @@ export const AppProvider = ({ children }) => {
         categories,
         products,
         orders,
+        setOrders,
         cart,
         setCart,
         token,
         setToken,
+        user,
+        setUser,
         isAdmin,
         isLogged,
         setIsLogged,

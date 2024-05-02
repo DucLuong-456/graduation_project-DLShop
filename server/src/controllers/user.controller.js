@@ -176,7 +176,8 @@ const userController = {
       }).populate("product_id");
       let total_money_cart = 0;
       listProductOnCart.forEach((item) => {
-        total_money_cart += item.product_id.price * item.quanlity_product;
+        if (item.isChecked)
+          total_money_cart += item.product_id.price * item.quanlity_product;
       });
       return res.json({
         data: listProductOnCart,

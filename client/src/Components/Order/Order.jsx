@@ -1,10 +1,10 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import "./Order.css";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
-
+import moment from "moment";
 const Order = () => {
-  const { orders,isLogged } = useContext(AppContext);
+  const { orders, isLogged } = useContext(AppContext);
   return (
     <>
       <div className="order-customer">
@@ -21,31 +21,35 @@ const Order = () => {
             </tr>
           </thead>
           <tbody>
-          {/* nguoc thi thong bao don hang rong */}
-          {isLogged ===true && orders.map((order)=>{
-            return (
-              <tr>
-              <td>{order._id}</td>
-              <td>{order.createdAt}</td>
-              <td>{order.order_address}</td>
-              <td>{order.payment_status?"Đã thanh toán" :"Chưa thanh toán"}</td>
-              <td>15,000,000đ</td>
-              <td>
-              <Link to={"/order_detail/"+order._id}><button>Xem</button></Link>
-              </td>
-            </tr>)
-          })}
-            
-            <tr>
-              <td>#abc123</td>
-              <td>10/3/2002</td>
-              <td>72, đường Cầu Diễn, Hà Nội</td>
-              <td>Chưa thanh toán</td>
-              <td>15,000,000đ</td>
-              <td>
-                <button>Xem</button>
-              </td>
-            </tr>
+            {/* nguoc thi thong bao don hang rong */}
+            {isLogged === true &&
+              orders.map((order) => {
+                return (
+                  <tr>
+                    <td className="order-id">{order._id}</td>
+                    <td>
+                      {moment(order.createdAt).format("DD/MM/YYYY - HH:mm")}
+                    </td>
+                    <td>{order.order_address}</td>
+                    <td>
+                      {order.payment_status
+                        ? "Đã thanh toán"
+                        : "Chưa thanh toán"}
+                    </td>
+                    <td>
+                      {parseInt(order.total_money).toLocaleString("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </td>
+                    <td>
+                      <Link to={"/order_detail/" + order._id}>
+                        <button>Xem</button>
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

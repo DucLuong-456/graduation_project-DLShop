@@ -9,9 +9,13 @@
     margin-bottom: 27px;
     font-size: 19px;
 }
-
+.order-id{
+    background-color: #1ee643;
+    color: aliceblue;
+    font-weight: 500;
+}
 .table-order{
-    width: 1000px;
+    width: 1200px;
     text-align: center;
     border-collapse: collapse;
 }

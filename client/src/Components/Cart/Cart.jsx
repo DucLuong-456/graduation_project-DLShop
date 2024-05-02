@@ -1,12 +1,58 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./Cart.css";
 // import cart_img from '../Assets/Image/cart.jpg'
 import { AppContext } from "../../Context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const Cart = () => {
-  const { cart, token, setCallBack, isLogged } = useContext(AppContext);
+  const [isChecked, setIsChecked] = useState(false);
+  const { cart, setCart, token, setCallBack, isLogged } =
+    useContext(AppContext);
   const navigate = useNavigate();
+
+  //handle checkbox item
+  const handleCheckAll = () => {
+    const setDataChecked = cart.data.map((item) => {
+      return { ...item, isChecked: true };
+    });
+    setCart({
+      data: setDataChecked,
+      total_money: handleTotalMoney(setDataChecked),
+    });
+  };
+
+  const handleUncheckAll = () => {
+    const setDataChecked = cart.data.map((item) => {
+      return { ...item, isChecked: false };
+    });
+    setCart({
+      data: setDataChecked,
+      total_money: handleTotalMoney(setDataChecked),
+    });
+  };
+
+  const handleCheck = (id) => {
+    const setDataChecked = cart.data.map((item) => {
+      if (item.product_id._id === id) {
+        item.isChecked = !isChecked;
+        setIsChecked((isChecked) => !isChecked);
+      }
+      return item;
+    });
+    setCart({
+      data: setDataChecked,
+      total_money: handleTotalMoney(setDataChecked),
+    });
+  };
+
+  const handleTotalMoney = (data) => {
+    const total_money = data.reduce((accumulator, item) => {
+      if (item.isChecked)
+        return accumulator + item.product_id.price * item.quanlity_product;
+      else return accumulator + 0;
+    }, 0);
+    return total_money;
+  };
   //addToCart
   const deleteProductCart = async (token, arrProductId) => {
     try {
@@ -39,6 +85,10 @@ const Cart = () => {
         <div className="cart-title">GIỎ HÀNG CỦA BẠN</div>
         {isLogged && cart.length !== 0 ? (
           <div className="detail-cart">
+            <div className="btn-option-cart">
+              <button onClick={handleCheckAll}>Select All</button>
+              <button onClick={handleUncheckAll}>Deselect All</button>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -90,7 +140,15 @@ const Cart = () => {
                         {item.quanlity_product}
                       </td>
                       <td className="check-box-product">
-                        <input type="checkbox" name="select-product" id="" />
+                        <input
+                          type="checkbox"
+                          name="select-product"
+                          checked={item.isChecked}
+                          onChange={() => {
+                            handleCheck(item.product_id._id);
+                          }}
+                          id="product_id"
+                        />
                       </td>
                       <td className="total-cost-product">
                         {parseInt(
@@ -119,7 +177,9 @@ const Cart = () => {
                     })}
                   </div>
                 </div>
-                <div className="cart-btn-pay">THANH TOÁN</div>
+                <Link to="/payment">
+                  <div className="cart-btn-pay">THANH TOÁN</div>
+                </Link>
               </div>
             </div>
           </div>
