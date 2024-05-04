@@ -51,7 +51,7 @@ const Payment = () => {
       alert("order success!");
       navigate("/order_detail/123");
     } catch (error) {
-      // console.log(error);
+  
       alert(error.response.data.msg);
     }
   };

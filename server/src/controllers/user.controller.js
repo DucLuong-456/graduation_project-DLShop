@@ -59,7 +59,7 @@ const userController = {
   logout: async (req, res) => {
     try {
       await User.findOneAndUpdate(
-        { _id: req.user._id },
+        { _id: req.user.id },
         { refresh_token: null }
       );
       return res.status(200).json({ msg: "logged out" });

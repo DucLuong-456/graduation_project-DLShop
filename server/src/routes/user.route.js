@@ -7,7 +7,7 @@ const authAdmin = require("../middleware/authAdmin.middleware");
 
 userRoute.post("/login", userController.login);
 userRoute.post("/register", userController.register);
-userRoute.get("/logout", userController.logout);
+userRoute.get("/logout", auth, userController.logout);
 userRoute.get("/refresh_token", auth, userController.refreshToken);
 userRoute.get("/getInfor", auth, userController.getInfor);
 userRoute.put(

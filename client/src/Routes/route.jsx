@@ -8,6 +8,7 @@ import OrderDetail from "../Components/Order/OrderDetail";
 import Payment from "../Components/Payment/Payment";
 import Content from "../Components/Admin/Content/Content";
 import AdminProduct from "../Components/Admin/ProductAdmin/ProductAdmin";
+import CreateProduct from "../Components/Admin/ProductAdmin/CreateProduct";
 const publicRoutes = [
   { path: "/", component: HomePage },
   { path: "/detail_product/:id", component: DetailProduct },
@@ -22,6 +23,7 @@ const publicRoutes = [
 const privateRoutes = [
   { path: "/admin", component: Content },
   { path: "/admin/product", component: AdminProduct },
+  { path: "/admin/create_product", component: CreateProduct },
 ];
 
 export { publicRoutes, privateRoutes };

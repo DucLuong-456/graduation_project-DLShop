@@ -3,10 +3,10 @@ import "./BottomHeader.css";
 import { TbCategory } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
-
-const DropDownLogin = ({ isLogged }) => {
+import axios from "axios";
+const DropDownLogin = ({ isLogged, token, handleLogout }) => {
   return isLogged === false ? (
     <div className="login-options">
       <ul>
@@ -27,7 +27,12 @@ const DropDownLogin = ({ isLogged }) => {
         <Link to="/order">
           <li>Đơn mua</li>
         </Link>
-        <Link to="/logout">
+        <Link
+          to="/"
+          onClick={() => {
+            handleLogout(token);
+          }}
+        >
           <li>Đăng xuất</li>
         </Link>
       </ul>
@@ -37,7 +42,29 @@ const DropDownLogin = ({ isLogged }) => {
 
 const BottomHeader = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const { cart, isLogged } = useContext(AppContext);
+  const { cart, isLogged, token, setToken, setIsLogged } =
+    useContext(AppContext);
+
+  const navigate = useNavigate();
+  const handleLogout = async (token) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_KEY}/api/user/logout`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setIsLogged(false);
+      setToken("");
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
   return (
     <>
       <div className="header">
@@ -95,7 +122,13 @@ const BottomHeader = () => {
               >
                 <div className="login-icon-header">
                   <AiOutlineUser className="header-category-icon" />
-                  {isHovered === true && <DropDownLogin isLogged={isLogged} />}
+                  {isHovered === true && (
+                    <DropDownLogin
+                      isLogged={isLogged}
+                      token={token}
+                      handleLogout={handleLogout}
+                    />
+                  )}
                 </div>
               </Link>
             </div>
@@ -108,7 +141,9 @@ const BottomHeader = () => {
               <Link to="/cart">
                 <AiOutlineShoppingCart className="header-category-icon" />
               </Link>
-              <div className="nav-cart-count">{cart.data.length}</div>
+              <div className="nav-cart-count">
+                {isLogged ? cart.data.length : 0}
+              </div>
             </div>
 
             <div

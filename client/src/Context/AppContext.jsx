@@ -4,7 +4,7 @@ export const AppContext = createContext({});
 
 export const AppProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState({});
+  const [products, setProducts] = useState({ data: [], paging: {} });
   const [orders, setOrders] = useState([]);
   const [cart, setCart] = useState({ data: [], total_money: 0 });
   const [token, setToken] = useState("");
@@ -127,6 +127,7 @@ export const AppProvider = ({ children }) => {
       value={{
         categories,
         products,
+        setProducts,
         orders,
         setOrders,
         cart,

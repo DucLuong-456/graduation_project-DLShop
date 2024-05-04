@@ -2,16 +2,19 @@ import React from "react";
 import "./ProductAdmin.css";
 import { FaPen } from "react-icons/fa";
 import { ImBin } from "react-icons/im";
-import img_dt from "../../Assets/Image/detail_product1.jpg";
-const ProductItem = () => {
+import format_money from "../../../helpers/fomat.money";
+const ProductItem = ({ product }) => {
   return (
     <>
       <div className="product-item-admin">
         <div className="img-item-admin">
-          <img src={img_dt} alt="anh" />
+          <img
+            src={process.env.REACT_APP_API_LINK_STATIC + product.image}
+            alt="anh"
+          />
         </div>
-        <span>Velcro Ballerinas For Girls (Pink)</span>
-        <span>$89</span>
+        <span>{product.name}</span>
+        <span>{format_money(product.price)}</span>
         <div className="option-admin-active">
           <div className="update-product-btn">
             <FaPen />

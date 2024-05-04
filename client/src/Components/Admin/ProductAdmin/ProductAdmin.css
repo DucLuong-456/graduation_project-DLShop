@@ -92,3 +92,11 @@
     align-items: center;
     color: red;
 }
+
+.list-product-item{
+    margin: 20px 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    column-count: 4;
+}
