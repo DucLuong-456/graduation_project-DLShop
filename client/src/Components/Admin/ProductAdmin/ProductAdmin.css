@@ -100,3 +100,19 @@
     flex-wrap: wrap;
     column-count: 4;
 }
+
+.update-product-btn{
+    cursor: pointer;
+}
+
+.delete-product-btn{
+    cursor: pointer;
+
+}
+.pen-icon{
+    color: #4fa607;
+}
+
+.image-update-product{
+    width: 100px;
+}

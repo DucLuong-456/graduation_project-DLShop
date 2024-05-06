@@ -1,11 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./CreateProduct.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../../Context/AppContext";
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
   const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState("");
   const [quantityStock, setQuantityStock] = useState("");
@@ -13,16 +14,34 @@ const CreateProduct = () => {
   const [categoryId, setCategoryId] = useState("");
   const [image, setImage] = useState("");
 
-  const { setCallBack, isLogged, token, categories } = useContext(AppContext);
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+  const { setCallBack, isLogged, token, categories, products } =
+    useContext(AppContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const productCurrent = products.data.find((item) => {
+      return item._id === id;
+    });
+    setProduct(productCurrent);
+    setName(productCurrent.name);
+    setStatus(productCurrent.status);
+    setBrand(productCurrent.brand);
+    setPrice(productCurrent.price);
+    setQuantityStock(productCurrent.quanlity_stock);
+    setDescription(productCurrent.description);
+    setCategoryId(productCurrent.category_id);
+    setImage(productCurrent.image);
+  }, [id]);
   //handle file
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
+    let file = event.target.files[0];
+    if (!file) file = product.image;
     setImage(file);
   };
   //admin
-  const addProduct = async (token, productData) => {
+  const updateProduct = async (token, productData) => {
     try {
       if (isLogged === false) return alert("Please login or registerto use!");
       const headers = {
@@ -33,19 +52,21 @@ const CreateProduct = () => {
       formData.append("image", image);
       for (let key in productData) {
         formData.append(key, productData[key]);
+        console.log(key, productData[key]);
       }
       try {
-        const res = await axios.post(
-          `${process.env.REACT_APP_API_KEY}/api/product`,
+        const res = await axios.put(
+          `${process.env.REACT_APP_API_KEY}/api/product/${product._id}`,
           formData,
           { headers }
         );
-        setCallBack((cb) => !cb);
-        alert("Add product success!");
-        navigate("/admin/product");
       } catch (error) {
-        alert(error.response.data.msg);
+        console.log(error);
       }
+
+      setCallBack((cb) => !cb);
+      alert("Update product success!");
+      navigate("/admin/product");
     } catch (error) {
       alert(error.response.data.msg);
     }
@@ -57,7 +78,9 @@ const CreateProduct = () => {
       case "name":
         setName(value);
         break;
-
+      case "status":
+        setStatus(value);
+        break;
       case "brand":
         setBrand(value);
         break;
@@ -88,18 +111,18 @@ const CreateProduct = () => {
     const productData = {
       name,
       brand,
+      status,
       price,
       quanlity_stock: quantityStock,
       description,
       category_id: categoryId,
     };
-
-    addProduct(token, productData);
+    updateProduct(token, productData);
   };
 
   return (
     <>
-      <h2>ADD PRODUCT</h2>
+      <h2>UPDATE PRODUCT</h2>
       <form onSubmit={handleSubmit} className="create-product-form">
         <div className="form-group">
           <label>
@@ -126,6 +149,22 @@ const CreateProduct = () => {
               onChange={handleInputChange}
               className="form-input"
             />
+          </label>
+        </div>
+
+        <div className="form-group">
+          <label>
+            Status:
+            <select
+              type="text"
+              name="status"
+              value={status}
+              onChange={handleInputChange}
+              className="form-input"
+            >
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
           </label>
         </div>
         <div className="form-group">
@@ -169,15 +208,20 @@ const CreateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Category:
+            Category
             <select
               type="text"
               name="categoryId"
+              value={categoryId}
               onChange={handleInputChange}
               className="form-input"
             >
               {categories.map((category) => {
-                return <option value={category._id}>{category.name}</option>;
+                return (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                );
               })}
             </select>
           </label>
@@ -186,21 +230,25 @@ const CreateProduct = () => {
           <label>
             Image:
             <input
-              required
               type="file"
               name="image"
               onChange={handleFileChange}
               className="form-input-file"
             />
           </label>
+          <img
+            className="image-update-product"
+            src={process.env.REACT_APP_API_LINK_STATIC + product.image}
+            alt="anh"
+          />
         </div>
 
         <button type="submit" className="submit-button">
-          Create Product
+          Update Product
         </button>
       </form>
     </>
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;

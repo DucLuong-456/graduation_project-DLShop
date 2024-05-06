@@ -4,7 +4,11 @@ const Product = require("../models/product.model");
 const categoryController = {
   getCategories: async (req, res) => {
     try {
-      const categories = await Category.find();
+      let { limit, page } = req.query;
+      limit = limit || 15;
+      page = page || 1;
+      const skip = limit * (page - 1);
+      const categories = await Category.find().limit(limit).skip(skip);
       if (categories.length == 0)
         return res.json({ msg: "Categories is empty!" });
       return res.json({ status: 1, code: 200, data: categories });
@@ -49,12 +53,29 @@ const categoryController = {
   },
   updateCategory: async (req, res) => {
     try {
-      const { name } = req.body;
+      const id = req.params.id;
+      const { name, index_display } = req.body;
+      const category = await Category.findOne({ _id: id });
+      if (!category) return res.status(400).json("category not found!");
+      let image_category;
+      if (req.file) {
+        image_category = req.file.originalname;
+        if (
+          req.file.mimetype !== "image/png" &&
+          req.file.mimetype !== "image/jpeg"
+        )
+          return res
+            .status(400)
+            .json({ msg: "Format file upload not correct!" });
+      }
+
+      if (!req.file) image_category = category.icon_category;
+
       const updateCategory = await Category.findOneAndUpdate(
         { _id: req.params.id },
-        { name: name }
+        { name, index_display, icon_category: image_category }
       );
-      res.json({ updateCategory });
+      return res.json({ updateCategory });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }

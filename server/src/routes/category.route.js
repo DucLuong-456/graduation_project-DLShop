@@ -8,7 +8,11 @@ categoryRoute.post(
   upload.single("image"),
   categoryController.createCategory
 );
-categoryRoute.put("/:id", categoryController.updateCategory);
+categoryRoute.put(
+  "/:id",
+  upload.single("image"),
+  categoryController.updateCategory
+);
 categoryRoute.delete("/:id", categoryController.deleteCategory);
 
 module.exports = categoryRoute;

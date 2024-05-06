@@ -21,7 +21,7 @@ const Product = new mongoose.Schema(
     },
     quanlity_sold: {
       type: Number,
-      required: true,
+      default: 100,
     },
     quanlity_stock: {
       type: Number,

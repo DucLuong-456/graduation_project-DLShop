@@ -1,0 +1,8 @@
+.create-category-form input{
+    width: 700px;
+}
+
+.create-category-form .form-group{
+    display: flex;
+    flex-direction: column;
+}

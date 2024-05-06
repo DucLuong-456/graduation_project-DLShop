@@ -23,7 +23,7 @@ const Order = () => {
           <tbody>
             {/* nguoc thi thong bao don hang rong */}
             {isLogged === true &&
-              orders.map((order) => {
+              orders.orders.map((order) => {
                 return (
                   <tr>
                     <td className="order-id">{order._id}</td>

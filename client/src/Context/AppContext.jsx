@@ -1,17 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+
 export const AppContext = createContext({});
 
 export const AppProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState({ data: [], paging: {} });
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState({ orders: [], user_name: "" });
   const [cart, setCart] = useState({ data: [], total_money: 0 });
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
   const [isLogged, setIsLogged] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [callback, setCallBack] = useState(false);
+
   useEffect(() => {
     const isCheckLogin = localStorage.getItem("Login");
     if (isCheckLogin) {
@@ -93,6 +95,7 @@ export const AppProvider = ({ children }) => {
         alert(error.response.data.msg);
       }
     };
+
     //getUserInfor
     const getUserInfor = async (token) => {
       try {
@@ -126,6 +129,7 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         categories,
+        setCategories,
         products,
         setProducts,
         orders,

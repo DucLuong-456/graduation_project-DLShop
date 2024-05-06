@@ -53,7 +53,7 @@ const Cart = () => {
     }, 0);
     return total_money;
   };
-  //addToCart
+  //delete cart
   const deleteProductCart = async (token, arrProductId) => {
     try {
       if (isLogged === false) return alert("Please login or registerto use!");

@@ -1,0 +1,74 @@
+.Category-admin-table {
+    width: 900px;
+    margin: 15px 15px;
+    border-collapse: collapse;
+  }
+  
+  .Category-admin-table th {
+    font-weight: 500;
+  }
+  
+  .Category-admin-table th,
+  .Category-admin-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  
+  .Category-admin-table th:first-child,
+  .Category-admin-table td:first-child {
+    text-align: left;
+  }
+  
+  .Category-admin-table button {
+    padding: 6px 12px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .delete-btn{
+    background-color: red;
+  }
+  .edit-btn{
+    background-color: #FFD700;
+
+  }
+  
+  .Category-admin-table button:focus {
+    outline: none;
+  }
+  
+  .Category-admin-table button:hover {
+    opacity: 0.8;
+  }
+
+  .category-title{
+    display: flex;
+    margin: 15px;
+    gap: 650px;
+    align-items: center;
+  }
+  .category-title h1{
+    display: flex;
+    margin: 15px;
+    gap: 500px;
+    font-size: 25px;
+  }
+
+
+  .category-title button{
+    color: #ffff;
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    padding: 6px 12px; 
+    font-weight: 400;
+    background-color: #4fa607;
+    border-radius: 8px;
+    width: 130px;
+    border: none;
+    cursor: pointer;
+    height: 40px;
+  }

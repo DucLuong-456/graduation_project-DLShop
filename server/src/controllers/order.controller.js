@@ -20,7 +20,25 @@ const orderController = {
       const orders = await Order.find({
         user_id: req.user.id,
       });
-      return res.json({ status: 1, code: 200, data: orders });
+
+      const user = await User.findOne({ _id: req.user.id });
+      return res.json({
+        status: 1,
+        code: 200,
+        data: { orders: orders, user_name: user.name },
+      });
+    } catch (error) {
+      return res.json({ msg: error.message });
+    }
+  },
+  getAllOrder: async (req, res) => {
+    try {
+      let orders = await Order.find({});
+      return res.json({
+        status: 1,
+        code: 200,
+        data: { orders: orders },
+      });
     } catch (error) {
       return res.json({ msg: error.message });
     }

@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import axios from "axios";
@@ -6,7 +6,7 @@ import "./Login.css";
 import { AppContext } from "../../../Context/AppContext";
 const Login = () => {
   const navigate = useNavigate();
-  const {setIsLogged,setToken} = useContext(AppContext);
+  const { setIsLogged, setToken } = useContext(AppContext);
   const [user, setUser] = useState({ email: "", password: "" });
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -23,8 +23,8 @@ const Login = () => {
       );
       localStorage.setItem("Login", true);
       localStorage.setItem("accessToken", res.data.accessToken);
-      setIsLogged(true)
-      setToken(res.data.accessToken)
+      setIsLogged(true);
+      setToken(res.data.accessToken);
       navigate("/");
     } catch (error) {
       alert(error.response.data.msg);
@@ -64,7 +64,9 @@ const Login = () => {
                 onChange={onChangeInput}
               />
               <Link to="#">Forgot your password?</Link>
-              <button type="submit">Sign In</button>
+              <button type="submit" style={{ cursor: "pointer" }}>
+                Sign In
+              </button>
             </form>
           </div>
           <div className="overlay-container">

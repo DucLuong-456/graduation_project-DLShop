@@ -31,12 +31,10 @@ const DetailProduct = () => {
         },
         { headers }
       );
-      console.log(res.data);
       setCallBack((cb) => !cb);
       alert("Add product success on cart");
       navigate("/cart");
     } catch (error) {
-      // console.log(error);
       alert(error.response.data.msg);
     }
   };

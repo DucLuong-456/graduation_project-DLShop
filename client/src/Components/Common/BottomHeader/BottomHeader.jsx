@@ -6,6 +6,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
 import axios from "axios";
+
 const DropDownLogin = ({ isLogged, token, handleLogout }) => {
   return isLogged === false ? (
     <div className="login-options">
@@ -22,7 +23,7 @@ const DropDownLogin = ({ isLogged, token, handleLogout }) => {
     <div className="login-options">
       <ul>
         <Link to="/#">
-          <li>Profile</li>
+          <li>Tài khoản</li>
         </Link>
         <Link to="/order">
           <li>Đơn mua</li>
@@ -65,6 +66,7 @@ const BottomHeader = () => {
       alert(error.response.data.msg);
     }
   };
+
   return (
     <>
       <div className="header">
@@ -87,25 +89,18 @@ const BottomHeader = () => {
               </li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/login">login</Link>
+                <Link to="/login">iphone14</Link>
               </li>
 
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/cart">Cart</Link>
+                <Link to="/cart">iphone15</Link>
               </li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/order">Order</Link>
+                <Link to="/order">iphone16</Link>
               </li>
               <span className="category-pagi">|</span>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-              <span className="category-pagi">|</span>
-              <li>
-                <Link to="/payment">payment</Link>
-              </li>
             </ul>
           </div>
           <div className="header-right">

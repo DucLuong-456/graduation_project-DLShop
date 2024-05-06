@@ -2,12 +2,14 @@ const productController = require("../controllers/product.controller");
 const express = require("express");
 const upload = require("../middleware/uploadProduct.middleware");
 const pagination = require("../middleware/pagination.middleware");
+const auth = require("../middleware/auth.middleware");
 const productRoute = express.Router();
 productRoute.get("/:id", productController.getProduct);
 productRoute.get("/", pagination, productController.getAllProduct);
 productRoute.post("/", upload.single("image"), productController.createProduct);
 productRoute.put(
   "/:id",
+  auth,
   upload.single("image"),
   productController.updateProduct
 );

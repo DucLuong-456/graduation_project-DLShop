@@ -14,6 +14,12 @@ const Sidebar = () => {
   const handleClick = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
+
+  const [activeItem, setActiveItem] = useState("dashboard");
+
+  const handleItemClick = (itemName) => {
+    setActiveItem(itemName);
+  };
   return (
     <>
       <div className={`sidebar-admin ${sidebarCollapsed ? "collapsed" : ""}`}>
@@ -23,34 +29,77 @@ const Sidebar = () => {
         </div>
 
         <div className="menu-link-admin">
-          <div className="item-menu-admin active">
-            <ImHome3 className=" icon-home-admin" />
+          <div
+            className={`item-menu-admin ${
+              activeItem === "dashboard" ? "active" : ""
+            }`}
+            onClick={() => handleItemClick("dashboard")}
+          >
+            <ImHome3 className="icon-home-admin" />
             <Link to="/admin">
               <div className="title-item-admin">Dashboard</div>
             </Link>
           </div>
-          <div className="item-menu-admin">
+          <div
+            className={`item-menu-admin ${
+              activeItem === "products" ? "active" : ""
+            }`}
+            onClick={() => handleItemClick("products")}
+          >
             <FaShoppingBag className="icon-home-admin" />
             <Link to="/admin/product">
               <div className="title-item-admin">Products</div>
             </Link>
           </div>
-          <div className="item-menu-admin">
+          <div
+            className={`item-menu-admin ${
+              activeItem === "add_product" ? "active" : ""
+            }`}
+            onClick={() => handleItemClick("add_product")}
+          >
             <BsCartPlusFill className="icon-home-admin" />
-            <div className="title-item-admin">Add product</div>
+            <Link to="/admin/create_product">
+              <div className="title-item-admin">Add product</div>
+            </Link>
           </div>
-          <div className="item-menu-admin">
+          <div
+            className={`item-menu-admin ${
+              activeItem === "categories" ? "active" : ""
+            }`}
+            onClick={() => handleItemClick("categories")}
+          >
             <BiSolidCategory className="icon-home-admin" />
-            <div className="title-item-admin">Categories</div>
+            <Link to="/admin/category">
+              <div className="title-item-admin">Categories</div>
+            </Link>
           </div>
-          <div className="item-menu-admin">
+          <div
+            className={`item-menu-admin ${
+              activeItem === "orders" ? "active" : ""
+            }`}
+            onClick={() => handleItemClick("orders")}
+          >
             <RiShoppingBag3Fill className="icon-home-admin" />
             <div className="title-item-admin">Orders</div>
           </div>
-          <div className="item-menu-admin">
+          <div
+            className={`item-menu-admin ${
+              activeItem === "users" ? "active" : ""
+            }`}
+            onClick={() => handleItemClick("users")}
+          >
             <FaUser className="icon-home-admin" />
             <div className="title-item-admin">Users</div>
           </div>
+        </div>
+        <div
+          className={`item-menu-admin ${
+            activeItem === "users" ? "active" : ""
+          }`}
+          onClick={() => handleItemClick("users")}
+        >
+          <FaUser className="icon-home-admin" />
+          <div className="title-item-admin">Thống kê báo cáo</div>
         </div>
       </div>
     </>

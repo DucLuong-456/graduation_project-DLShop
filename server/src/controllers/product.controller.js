@@ -6,7 +6,7 @@ const productController = {
     try {
       const product_id = req.params.id;
       const product = await Product.findOne({ _id: product_id });
-      if (!product) res.json({ msg: "Product not found!" });
+      if (!product) return res.json({ msg: "Product not found!" });
       res.json({
         status: 1,
         code: 200,
@@ -18,22 +18,12 @@ const productController = {
   },
   createProduct: async (req, res) => {
     try {
-      const {
-        name,
-        status,
-        brand,
-        price,
-        quanlity_sold,
-        quanlity_stock,
-        description,
-        category_id,
-      } = req.body;
+      const { name, brand, price, quanlity_stock, description, category_id } =
+        req.body;
       if (
         !name ||
-        !status ||
         !brand ||
         !price ||
-        !quanlity_sold ||
         !quanlity_stock ||
         !description ||
         !category_id
@@ -52,15 +42,13 @@ const productController = {
         return res.status(400).json({ msg: "File size is than larger!" });
       const productCheckExists = await Product.findOne({ name: name });
       if (productCheckExists)
-        return res.json({ msg: "Product dupplicate name!" });
+        return res.status(400).json({ msg: "Product dupplicate name!" });
       const categoryCheck = await Category.findOne({ _id: category_id });
       if (!categoryCheck) return res.json({ msg: "Category does not exists!" });
       const newProduct = new Product({
         name,
-        status,
         brand,
         price,
-        quanlity_sold,
         quanlity_stock,
         description,
         category_id,
@@ -76,7 +64,7 @@ const productController = {
   getAllProduct: async (req, res) => {
     try {
       let { limit, page, sort, name } = req.query;
-      (limit = limit || 8), (page = page || 1);
+      (limit = limit || 15), (page = page || 1);
       const skip = (page - 1) * limit;
       const whereOptions = {};
       if (name) {
@@ -123,33 +111,26 @@ const productController = {
     try {
       const product_id = req.params.id;
       const product = await Product.findOne({ _id: product_id });
-      if (!product) res.json({ msg: "Product not found!" });
+      if (!product) return res.json({ msg: "Product not found!" });
       const {
         name,
         status,
         brand,
         price,
-        quanlity_sold,
         quanlity_stock,
-        color,
         description,
         category_id,
-        imageProduct,
       } = req.body;
       if (
         !name ||
-        !status ||
         !brand ||
         !price ||
-        !quanlity_sold ||
         !quanlity_stock ||
-        !color ||
         !description ||
         !category_id
       )
         return res.status(400).json({ msg: "Field does not empty!" });
-      if (!imageProduct)
-        return res.status(400).json({ msg: "No image upload!" });
+      const imageProduct = product.image;
       //check file
       let updateImageProduct;
       if (req.file != null) {
@@ -166,18 +147,16 @@ const productController = {
         { _id: product_id },
         {
           name,
-          status,
           brand,
+          status,
           price,
-          quanlity_sold,
           quanlity_stock,
-          color,
           description,
           category_id,
           image: updateImageProduct,
         }
       );
-      res.json({ status: 1, code: 200, data: updateProduct });
+      return res.json({ status: 1, code: 200, data: updateProduct });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
