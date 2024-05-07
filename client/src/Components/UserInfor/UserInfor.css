@@ -1,0 +1,37 @@
+.user-infor{
+    width: 1305px;
+    min-height: 450px;
+    display: flex;
+    gap: 25px;
+    margin-left: 100px;
+    margin: 30px 100px;
+}
+
+.slider-left ul{
+    list-style: none;
+}
+
+.slider-left ul li{
+    margin: 10px;
+}
+.slider-left ul li:hover{
+    color: orange;
+    cursor: pointer;
+}
+.slider-left ul li:first-child{
+    font-weight: 500;
+    font-size: 24px;
+}
+.slider-right ul{
+    list-style: none;
+}
+
+.slider-right ul li{
+    margin: 10px;
+
+}
+
+.slider-right ul li:first-child{
+    font-weight: 400;
+    font-size: 24px;
+}

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import "./Order.css";
+import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 import moment from "moment";
@@ -44,7 +45,7 @@ const Order = () => {
                     </td>
                     <td>
                       <Link to={"/order_detail/" + order._id}>
-                        <button>Xem</button>
+                        <FaEye style={{ color: "#198754" }} />
                       </Link>
                     </td>
                   </tr>

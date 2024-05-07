@@ -18,11 +18,9 @@ const User = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
     },
     phone_number: {
       type: String,
-      required: true,
     },
     avatar_image: {
       type: String,

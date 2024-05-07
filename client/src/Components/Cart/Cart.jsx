@@ -75,7 +75,6 @@ const Cart = () => {
       setCallBack((cb) => !cb);
       navigate("/cart");
     } catch (error) {
-      //console.log(error);
       alert(error.response.data.msg);
     }
   };
@@ -86,8 +85,12 @@ const Cart = () => {
         {isLogged && cart.length !== 0 ? (
           <div className="detail-cart">
             <div className="btn-option-cart">
-              <button onClick={handleCheckAll}>Select All</button>
-              <button onClick={handleUncheckAll}>Deselect All</button>
+              <button className="select-all" onClick={handleCheckAll}>
+                Select all
+              </button>
+              <button className="unSelect-all" onClick={handleUncheckAll}>
+                Deselect All
+              </button>
             </div>
             <table>
               <thead>

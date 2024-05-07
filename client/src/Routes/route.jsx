@@ -9,11 +9,11 @@ import Payment from "../Components/Payment/Payment";
 import Content from "../Components/Admin/Content/Content";
 import AdminProduct from "../Components/Admin/ProductAdmin/ProductAdmin";
 import CreateProduct from "../Components/Admin/ProductAdmin/CreateProduct";
-import ModalTest from "../Components/Modal/ModalTest";
 import UpdateProduct from "../Components/Admin/ProductAdmin/UpdateProduct";
 import CategoryAdmin from "../Components/Admin/CategoryAdmin/CategoryAdmin";
 import CreateCategory from "../Components/Admin/CategoryAdmin/CreateCategory";
 import UpdateCategory from "../Components/Admin/CategoryAdmin/UpdateCategory";
+import UserInfor from "../Components/UserInfor/UserInfor";
 const publicRoutes = [
   { path: "/", component: HomePage },
   { path: "/detail_product/:id", component: DetailProduct },
@@ -23,6 +23,7 @@ const publicRoutes = [
   { path: "/order", component: Order },
   { path: "/order_detail/:id", component: OrderDetail },
   { path: "/payment", component: Payment },
+  { path: "/user-infor", component: UserInfor },
 ];
 
 const privateRoutes = [
@@ -34,7 +35,6 @@ const privateRoutes = [
   { path: "/admin/create_category", component: CreateCategory },
   { path: "/admin/update_category/:id", component: UpdateCategory },
   { path: "/admin/order", component: UpdateProduct },
-  { path: "/admin/modal", component: ModalTest },
 ];
 
 export { publicRoutes, privateRoutes };

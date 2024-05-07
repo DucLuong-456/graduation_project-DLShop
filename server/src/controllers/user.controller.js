@@ -48,7 +48,7 @@ const userController = {
       const refreshToken = createRefreshToken({ id: newUser._id });
 
       await User.findOneAndUpdate(
-        { _id: user._id },
+        { _id: newUser._id },
         { refresh_token: refreshToken }
       );
       return res.json({ accessToken });

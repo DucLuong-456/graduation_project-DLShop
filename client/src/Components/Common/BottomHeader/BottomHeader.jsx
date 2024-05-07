@@ -22,7 +22,7 @@ const DropDownLogin = ({ isLogged, token, handleLogout }) => {
   ) : (
     <div className="login-options">
       <ul>
-        <Link to="/#">
+        <Link to="/user-infor">
           <li>Tài khoản</li>
         </Link>
         <Link to="/order">
@@ -84,9 +84,7 @@ const BottomHeader = () => {
           </div>
           <div className="header-center">
             <ul className="category-list-name">
-              <li>
-                <Link to="/admin">admin</Link>
-              </li>
+              <li style={{ fontWeight: 500 }}>Sản phẩm HOT:</li>
               <span className="category-pagi">|</span>
               <li>
                 <Link to="/login">iphone14</Link>
@@ -100,7 +98,6 @@ const BottomHeader = () => {
               <li>
                 <Link to="/order">iphone16</Link>
               </li>
-              <span className="category-pagi">|</span>
             </ul>
           </div>
           <div className="header-right">

@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsCartPlus } from "react-icons/bs";
 import { AiFillStar, AiOutlinePlusCircle } from "react-icons/ai";
 import "./Product.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../../Context/AppContext";
+import axios from "axios";
 const Product = ({ product }) => {
+  const { setCallBack, isLogged, token } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  //addToCart
+  const addToCart = async (token, product_id) => {
+    try {
+      if (isLogged === false) return alert("Please login or registerto use!");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_KEY}/api/user/addTocart`,
+        {
+          product_id: product_id,
+          quanlity_product: 1,
+        },
+        { headers }
+      );
+      setCallBack((cb) => !cb);
+      alert("Add product success on cart");
+      navigate("/cart");
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
   return (
     <>
       <div className="product-item">
@@ -27,9 +55,16 @@ const Product = ({ product }) => {
             </span>
             <span className="sale-product-item">35.0000.000đ</span>
           </div>
-          <div className="div-cart-icon">
-            <BsCartPlus className="cart-icon" />
-          </div>
+          <Link>
+            <div
+              className="div-cart-icon"
+              onClick={() => {
+                addToCart(token, product._id);
+              }}
+            >
+              <BsCartPlus className="cart-icon" />
+            </div>
+          </Link>
         </div>
         <div className="khuyen-mai-content">
           Tặng Củ sạc nhanh Samsung 25W Type C chính hãng
