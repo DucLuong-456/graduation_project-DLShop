@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
+import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { ImHome3 } from "react-icons/im";
 import { FaShoppingBag } from "react-icons/fa";
@@ -8,11 +10,17 @@ import { BiSolidCategory } from "react-icons/bi";
 import { RiShoppingBag3Fill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 import logo_admin from "../../Assets/Image/logo.png";
+import { TbReport } from "react-icons/tb";
 import { Link } from "react-router-dom";
 const Sidebar = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [isCloseReport, setIsCloseReport] = useState(false);
   const handleClick = () => {
     setSidebarCollapsed(!sidebarCollapsed);
+  };
+
+  const handleClickReport = () => {
+    setIsCloseReport((cb) => !cb);
   };
 
   const [activeItem, setActiveItem] = useState("dashboard");
@@ -93,13 +101,33 @@ const Sidebar = () => {
           </div>
         </div>
         <div
-          className={`item-menu-admin ${
-            activeItem === "users" ? "active" : ""
+          className={`item-menu-admin par-report ${
+            activeItem === "reports" ? "active" : ""
           }`}
-          onClick={() => handleItemClick("users")}
+          onClick={() => {
+            handleItemClick("reports");
+            handleClickReport();
+          }}
         >
-          <FaUser className="icon-home-admin" />
-          <div className="title-item-admin">Thống kê báo cáo</div>
+          <TbReport className="icon-home-admin" />
+          <Link>
+            {" "}
+            <div className="title-item-admin ">Thống kê báo cáo</div>
+          </Link>
+          {isCloseReport ? <FaAngleUp /> : <FaAngleDown />}
+          {isCloseReport && (
+            <ul className="sub-cate-report">
+              <Link to="/admin/report/stock">
+                <li>Báo cáo tồn kho</li>
+              </Link>
+              <Link to="/admin/report/product_revenue">
+                <li>Doanh thu theo product</li>
+              </Link>
+              <Link to="/admin/report/order_revenue">
+                <li>Doanh thu theo order</li>
+              </Link>
+            </ul>
+          )}
         </div>
       </div>
     </>

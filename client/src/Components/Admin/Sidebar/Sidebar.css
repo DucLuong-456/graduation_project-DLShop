@@ -48,3 +48,24 @@
     background-color: #ebf0fd;
 
 }
+.par-report{
+    position: relative;
+}
+.sub-cate-report{
+    list-style: none;
+    position: absolute;
+    left: 50px;
+    top: 40px;
+}
+
+.sub-cate-report li{
+    padding: 10px 15px;
+    font-weight: 400;
+}
+
+.sub-cate-report li:first-child{
+    border-bottom: 1px solid #ccc;
+    
+}
+
+

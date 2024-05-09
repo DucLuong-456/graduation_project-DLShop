@@ -19,5 +19,7 @@ userRoute.put(
 userRoute.post("/addTocart", auth, userController.addToCart);
 userRoute.get("/cart", auth, userController.getCart);
 userRoute.delete("/deleteCart", auth, userController.deleteCart);
+userRoute.delete("/deleteCart", auth, userController.deleteCart);
+userRoute.put("/changePassword", auth, userController.changePasword);
 
 module.exports = userRoute;

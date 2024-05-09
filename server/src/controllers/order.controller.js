@@ -9,7 +9,7 @@ const orderController = {
       const order = await Order.findOne({
         user_id: req.user.id,
         _id: req.params.id,
-      });
+      }).populate("user_id order_detail.product_id");
       return res.json(order);
     } catch (error) {
       return res.json({ msg: error.message });

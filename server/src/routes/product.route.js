@@ -6,6 +6,11 @@ const auth = require("../middleware/auth.middleware");
 const productRoute = express.Router();
 productRoute.get("/:id", productController.getProduct);
 productRoute.get("/", pagination, productController.getAllProduct);
+productRoute.get(
+  "/byCategory/:id",
+  pagination,
+  productController.getProductByCategory
+);
 productRoute.post("/", upload.single("image"), productController.createProduct);
 productRoute.put(
   "/:id",

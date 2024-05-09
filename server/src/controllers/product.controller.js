@@ -16,6 +16,20 @@ const productController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+  getProductByCategory: async (req, res) => {
+    try {
+      const category_id = req.params.id;
+      const products = await Product.find({ category_id: category_id });
+      if (!products) return res.json({ msg: "Products not found!" });
+      res.json({
+        status: 1,
+        code: 200,
+        data: products,
+      });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
   createProduct: async (req, res) => {
     try {
       const { name, brand, price, quanlity_stock, description, category_id } =

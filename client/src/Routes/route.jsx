@@ -14,6 +14,9 @@ import CategoryAdmin from "../Components/Admin/CategoryAdmin/CategoryAdmin";
 import CreateCategory from "../Components/Admin/CategoryAdmin/CreateCategory";
 import UpdateCategory from "../Components/Admin/CategoryAdmin/UpdateCategory";
 import UserInfor from "../Components/UserInfor/UserInfor";
+import ReportAdmin from "../Components/Admin/ReportAdmin/ReportAdmin";
+import ReportRevenue from "../Components/Admin/ReportAdmin/ReportRevenue";
+import ReportRevenueOrder from "../Components/Admin/ReportAdmin/ReportRevenueOrder";
 const publicRoutes = [
   { path: "/", component: HomePage },
   { path: "/detail_product/:id", component: DetailProduct },
@@ -34,6 +37,9 @@ const privateRoutes = [
   { path: "/admin/category", component: CategoryAdmin },
   { path: "/admin/create_category", component: CreateCategory },
   { path: "/admin/update_category/:id", component: UpdateCategory },
+  { path: "/admin/report/stock", component: ReportAdmin },
+  { path: "/admin/report/product_revenue", component: ReportRevenue },
+  { path: "/admin/report/order_revenue", component: ReportRevenueOrder },
   { path: "/admin/order", component: UpdateProduct },
 ];
 

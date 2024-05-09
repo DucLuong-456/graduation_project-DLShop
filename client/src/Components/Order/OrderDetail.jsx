@@ -1,6 +1,43 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import "./OrderDetail.css";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "../../Context/AppContext";
+import moment from "moment";
+import format_money from "../../helpers/fomat.money";
+import { OrderStatus } from "../../helpers/order_status.enum";
 const OrderDetail = () => {
+  const [user, setUser] = useState({});
+  const { isLogged, token } = useContext(AppContext);
+  const [order, setOrder] = useState({});
+  const [orderDetail, setOrderDetail] = useState([]);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  useEffect(() => {
+    const getOrder = async (id, token) => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_KEY}/api/order/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setOrder({
+          ...response.data,
+          user_id: response.data.user_id._id,
+          order_detail: [],
+        });
+        setUser(response.data.user_id);
+        setOrderDetail(response.data.order_detail);
+      } catch (error) {
+        alert(error.response.data.msg);
+      }
+    };
+    getOrder(id, token);
+  }, [id]);
   return (
     <>
       <h1 className="order-detail-title">Chi tiết đơn hàng</h1>
@@ -9,18 +46,21 @@ const OrderDetail = () => {
           <div className="box-ma-don-hang">
             <div className="ma-don-hang">
               <p>
-                Đơn hàng: <span>#abc123</span>
+                {console.log(order)}
+                Đơn hàng: <span>#{order._id}</span>
               </p>
-              <p>02/01/2022 - 23:59</p>
+              <p>{moment(order.createdAt).format("DD/MM/YYYY - HH:mm")}</p>
             </div>
-            <div className="trang-thai-don-hang">Đang giao</div>
+            <div className="trang-thai-don-hang">
+              {handleOrderStatus(order.order_status_id)}
+            </div>
           </div>
           <div className="nguoi-nhan">
             <div className="title-nguoi-nhan">NGƯỜI NHẬN</div>
             <div className="infor-nguoi-nhan">
-              <p className="ten-nguoi-nhan">Nguyễn Minh Hoàng Phương</p>
-              <p>098123345</p>
-              <p>Tầng 19, tòa sunhouse apech, số 20 Hoàng Trung, Hà Nội</p>
+              <p className="ten-nguoi-nhan">{user.name}</p>
+              <p>{user.phone_number}</p>
+              <p>{user.address}</p>
             </div>
           </div>
 
@@ -35,18 +75,16 @@ const OrderDetail = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Redmi 9A note 5G</td>
-                  <td>2</td>
-                  <td>2,100,000đ</td>
-                  <td>4,200,000đ</td>
-                </tr>
-                <tr>
-                  <td>Redmi 9A note 5G</td>
-                  <td>2</td>
-                  <td>2,100,000đ</td>
-                  <td>4,200,000đ</td>
-                </tr>
+                {orderDetail.map((item) => {
+                  return (
+                    <tr>
+                      <td>{item.product_id.name}</td>
+                      <td>{item.product_id.quanlity_sold}</td>
+                      <td>{format_money(item.product_id.price)}</td>
+                      <td>{format_money(order.total_money)}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -56,14 +94,16 @@ const OrderDetail = () => {
             <div className="phuong-thuc-payment">PHƯƠNG THỨC THANH TOÁN</div>
             <div className="ten-phuong-thuc">Thanh toán khi nhận hàng</div>
             <div className="tong-tien">
-              Tổng tiền: <span>10,000,000đ</span>
+              Tổng tiền: <span>{format_money(order.total_money)}</span>
             </div>
           </div>
 
           <div className="chi-tiet-thanh-tien">
             <div className="text-1">
               <div className="tam-tinh">Tạm tính</div>
-              <div className="cost-thanh-tien">10,000,000đ</div>
+              <div className="cost-thanh-tien">
+                {format_money(order.total_money)}
+              </div>
             </div>
             <div className="text-1">
               <div className="tam-tinh">Phí vận chuyển</div>
@@ -75,11 +115,15 @@ const OrderDetail = () => {
             </div>
             <div className="text-1">
               <div className="tam-tinh">Thành tiền</div>
-              <div className="cost-thanh-tien">9,970,000đ</div>
+              <div className="cost-thanh-tien">
+                {format_money(order.total_money - 30000)}
+              </div>
             </div>
             <div className="text-2">
               <div className="can-thanh-toan">Cần thanh toán</div>
-              <div className="cost-thanh-tien">9,970,000đ</div>
+              <div className="cost-thanh-tien">
+                {format_money(order.total_money - 30000)}
+              </div>
             </div>
           </div>
 
@@ -93,5 +137,16 @@ const OrderDetail = () => {
       </div>
     </>
   );
+};
+const handleOrderStatus = (order_status_id) => {
+  return order_status_id === 1
+    ? OrderStatus.pending
+    : order_status_id === 2
+    ? OrderStatus.delivering
+    : order_status_id === 3
+    ? OrderStatus.delivered
+    : order_status_id === 4
+    ? OrderStatus.cancel
+    : "Đang xử lý";
 };
 export default OrderDetail;

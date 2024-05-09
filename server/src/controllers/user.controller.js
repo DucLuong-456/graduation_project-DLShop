@@ -130,8 +130,28 @@ const userController = {
         status: 1,
         code: 200,
         data: userUpdateInfor,
-        msg: "update infor User success!",
+        msg: "update infor user success!",
       });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  changePasword: async (req, res) => {
+    try {
+      const userId = req.user.id;
+      const { password, newPassword } = req.body;
+      if (!password || !newPassword)
+        return res.status(400).json({ msg: "Input does not empty!" });
+      const user = await User.findOne({ _id: userId });
+      if (!user) return res.status(400).json({ msg: "User does not exists!" });
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) return res.json({ msg: "password does not correct!" });
+      const newHashPassword = await bcrypt.hash(newPassword, 10);
+      const userUpdateInfor = await User.findOneAndUpdate(
+        { _id: userId },
+        { password: newHashPassword }
+      );
+      return res.json(userUpdateInfor);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }

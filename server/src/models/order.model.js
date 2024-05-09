@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const Order = new mongoose.Schema(
   {
     user_id: {
-      type: String,
-      trim: true,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
     },
     total_product: {
       type: Number,
@@ -31,10 +30,17 @@ const Order = new mongoose.Schema(
       type: String,
       ref: "OrderAddress",
     },
-    order_detail: {
-      type: Array,
-      //[{product_id, quanlity, unit_measure},...]
-    },
+    order_detail: [
+      {
+        product_id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "products",
+        },
+        quanlity_product: {
+          type: Number,
+        },
+      },
+    ],
     total_money: {
       type: Number,
       default: 0,
