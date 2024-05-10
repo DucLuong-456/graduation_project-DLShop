@@ -25,6 +25,7 @@ const OrderDetail = () => {
             },
           }
         );
+        console.log(response.data);
         setOrder({
           ...response.data,
           user_id: response.data.user_id._id,
@@ -46,7 +47,6 @@ const OrderDetail = () => {
           <div className="box-ma-don-hang">
             <div className="ma-don-hang">
               <p>
-                {console.log(order)}
                 Đơn hàng: <span>#{order._id}</span>
               </p>
               <p>{moment(order.createdAt).format("DD/MM/YYYY - HH:mm")}</p>
@@ -79,9 +79,13 @@ const OrderDetail = () => {
                   return (
                     <tr>
                       <td>{item.product_id.name}</td>
-                      <td>{item.product_id.quanlity_sold}</td>
+                      <td>{item.quanlity_product}</td>
                       <td>{format_money(item.product_id.price)}</td>
-                      <td>{format_money(order.total_money)}</td>
+                      <td>
+                        {format_money(
+                          item.product_id.price * item.quanlity_product
+                        )}
+                      </td>
                     </tr>
                   );
                 })}

@@ -37,4 +37,6 @@ productRoute.get(
   productController.getAllProductTypeById
 );
 
+//
+
 module.exports = productRoute;

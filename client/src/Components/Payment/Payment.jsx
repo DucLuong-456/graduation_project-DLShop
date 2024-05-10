@@ -49,9 +49,8 @@ const Payment = () => {
       );
       setCallBack((cb) => !cb);
       alert("order success!");
-      navigate("/order_detail/123");
+      navigate("/order_detail/" + res.data.data._id);
     } catch (error) {
-  
       alert(error.response.data.msg);
     }
   };

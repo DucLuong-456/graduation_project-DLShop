@@ -15,6 +15,25 @@ const orderController = {
       return res.json({ msg: error.message });
     }
   },
+  getOrderByDate: async (req, res) => {
+    try {
+      const { startDate, endDate } = req.query;
+      const whereOption = {};
+      if (startDate && endDate)
+        whereOption.createdAt = {
+          $gte: new Date(startDate),
+          $lte: new Date(endDate),
+        };
+      const orders = await Order.find(whereOption);
+      return res.json({
+        status: 1,
+        code: 200,
+        data: orders,
+      });
+    } catch (error) {
+      return res.json({ msg: error.message });
+    }
+  },
   getListOrder: async (req, res) => {
     try {
       const orders = await Order.find({

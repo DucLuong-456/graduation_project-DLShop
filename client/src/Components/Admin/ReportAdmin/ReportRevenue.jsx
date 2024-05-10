@@ -7,12 +7,41 @@ import format_money from "../../../helpers/fomat.money";
 
 import axios from "axios";
 const ReportRevenue = () => {
-  const { setCallBack, isLogged, token, products, categories } =
-    useContext(AppContext);
+  const { isLogged, token, products, categories } = useContext(AppContext);
   const [productsAdmin, setProductAdmin] = useState([products.data]);
   const [keySearch, setKeySearch] = useState("");
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("");
+
+  const handleExportExcel = async (data, token) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_KEY}/api/report/export/profit`,
+        {
+          dataExport: data,
+        },
+        { headers }
+      );
+
+      return res.data.url;
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
+
+  const handleDowloadExcle = async (productsAdmin, token) => {
+    const result = window.confirm("Xác nhận tải xuống file excel?");
+    if (result) {
+      const url = await handleExportExcel(productsAdmin, token);
+      console.log("url====", url);
+      window.open(url, "_blank");
+    }
+  };
+
   const handleSearchByName = (event) => {
     const { value } = event.target;
     setKeySearch(value);
@@ -38,12 +67,12 @@ const ReportRevenue = () => {
       });
     }
 
-    if (sort === "DESC") {
-      filterProduct = products.data.sort(
+    if (sort === "ASC") {
+      filterProduct = filterProduct.sort(
         (a, b) => a.quanlity_sold * a.price - b.quanlity_sold * b.price
       );
-    } else if (sort === "ASC") {
-      filterProduct = products.data.sort(
+    } else if (sort === "DESC") {
+      filterProduct = filterProduct.sort(
         (a, b) => b.quanlity_sold * b.price - a.quanlity_sold * a.price
       );
     }
@@ -55,8 +84,14 @@ const ReportRevenue = () => {
     <>
       <div className="category-title">
         <h1>BÁO CÁO DOANH THU</h1>
-        <Link to="/admin/create_category">
-          <button>Export excel</button>
+        <Link to="">
+          <button
+            onClick={() => {
+              handleDowloadExcle(productsAdmin, token);
+            }}
+          >
+            Export excel
+          </button>
         </Link>
       </div>
       <div className="product-report-input-filter">

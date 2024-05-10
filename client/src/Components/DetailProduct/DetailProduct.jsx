@@ -63,6 +63,7 @@ const DetailProduct = () => {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+
   useEffect(() => {
     const getProduct = async (id) => {
       try {
