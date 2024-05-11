@@ -3,7 +3,6 @@ import "./CreateProduct.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../../Context/AppContext";
-
 const CreateProduct = () => {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
@@ -99,11 +98,11 @@ const CreateProduct = () => {
 
   return (
     <>
-      <h2>ADD PRODUCT</h2>
+      <h2 style={{ fontSize: "25px", marginTop: "10px" }}>THÊM SẢN PHẨM</h2>
       <form onSubmit={handleSubmit} className="create-product-form">
         <div className="form-group">
           <label>
-            Name:
+            Tên sản phẩm:
             <input
               required
               type="text"
@@ -117,7 +116,7 @@ const CreateProduct = () => {
 
         <div className="form-group">
           <label>
-            Brand:
+            Nhãn hiệu:
             <input
               required
               type="text"
@@ -130,7 +129,7 @@ const CreateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Price:
+            Giá:
             <input
               required
               type="text"
@@ -143,7 +142,7 @@ const CreateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Quantity Stock:
+            Số lượng tồn kho:
             <input
               required
               type="text"
@@ -156,7 +155,7 @@ const CreateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Description:
+            Mô tả:
             <input
               required
               type="text"
@@ -169,7 +168,7 @@ const CreateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Category:
+            Danh mục:
             <select
               type="text"
               name="categoryId"
@@ -184,7 +183,7 @@ const CreateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Image:
+            Hình ảnh:
             <input
               required
               type="file"
@@ -196,7 +195,7 @@ const CreateProduct = () => {
         </div>
 
         <button type="submit" className="submit-button">
-          Create Product
+          Tạo sản phẩm
         </button>
       </form>
     </>

@@ -92,7 +92,7 @@ const Cart = () => {
                 Deselect All
               </button>
             </div>
-            <table>
+            <table className="table-cart">
               <thead>
                 <tr>
                   <th colspan="2">THÔNG TIN SẢN PHẨM</th>

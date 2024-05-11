@@ -5,6 +5,51 @@ const Product = require("../models/product.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const userController = {
+  UpdateUser: async (req, res) => {
+    try {
+      const userUpdateId = req.params.id;
+      const { name, address, phone_number, email, status, role_id } = req.body;
+      console.log(req.body);
+      const user = await User.findOne({ _id: userUpdateId });
+      if (!user) return res.status(400).json({ msg: "User does not exists!" });
+      if (!name || !address || !phone_number || !email || !role_id)
+        return res.status(400).json({ msg: "Input does not empty!" });
+
+      const userUpdateInfor = await User.findOneAndUpdate(
+        { _id: userUpdateId },
+        { name, address, phone_number, email, status, role_id }
+      );
+      return res.json({
+        status: 1,
+        code: 200,
+        data: userUpdateInfor,
+        msg: "Update user success!",
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+  deleteUser: async (req, res) => {
+    try {
+      const user_id = req.params.id;
+      if (user_id == req.user.id)
+        return res.status(400).json({ msg: "User current is using!" });
+      const user = await User.findOne({ _id: user_id });
+      if (!user) return res.status(400).json({ msg: "User is not found !" });
+      await User.findByIdAndDelete({ _id: user_id });
+      return res.json(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+  getAllUser: async (req, res) => {
+    try {
+      const users = await User.find({});
+      return res.json(users);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
   login: async (req, res) => {
     try {
       const { email, password } = req.body;

@@ -45,7 +45,7 @@ const Sidebar = () => {
           >
             <ImHome3 className="icon-home-admin" />
             <Link to="/admin">
-              <div className="title-item-admin">Dashboard</div>
+              <div className="title-item-admin">Home</div>
             </Link>
           </div>
           <div
@@ -56,7 +56,7 @@ const Sidebar = () => {
           >
             <FaShoppingBag className="icon-home-admin" />
             <Link to="/admin/product">
-              <div className="title-item-admin">Products</div>
+              <div className="title-item-admin">Sản phẩm</div>
             </Link>
           </div>
           <div
@@ -67,7 +67,7 @@ const Sidebar = () => {
           >
             <BsCartPlusFill className="icon-home-admin" />
             <Link to="/admin/create_product">
-              <div className="title-item-admin">Add product</div>
+              <div className="title-item-admin">Thêm sản phẩm</div>
             </Link>
           </div>
           <div
@@ -78,7 +78,7 @@ const Sidebar = () => {
           >
             <BiSolidCategory className="icon-home-admin" />
             <Link to="/admin/category">
-              <div className="title-item-admin">Categories</div>
+              <div className="title-item-admin">Danh mục</div>
             </Link>
           </div>
           <div
@@ -88,7 +88,7 @@ const Sidebar = () => {
             onClick={() => handleItemClick("orders")}
           >
             <RiShoppingBag3Fill className="icon-home-admin" />
-            <div className="title-item-admin">Orders</div>
+            <div className="title-item-admin">Đơn hàng</div>
           </div>
           <div
             className={`item-menu-admin ${
@@ -97,7 +97,9 @@ const Sidebar = () => {
             onClick={() => handleItemClick("users")}
           >
             <FaUser className="icon-home-admin" />
-            <div className="title-item-admin">Users</div>
+            <Link to="/admin/user">
+              <div className="title-item-admin">Người dùng</div>
+            </Link>
           </div>
         </div>
         <div

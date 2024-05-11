@@ -41,7 +41,7 @@ const OrderDetail = () => {
   }, [id]);
   return (
     <>
-      <h1 className="order-detail-title">Chi tiết đơn hàng</h1>
+      <h1 className="order-detail-title">CHI TIẾT ĐƠN HÀNG</h1>
       <div className="order-detail">
         <div className="right-order-detail">
           <div className="box-ma-don-hang">

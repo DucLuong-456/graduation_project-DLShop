@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
   const [cart, setCart] = useState({ data: [], total_money: 0 });
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const [users, setUsers] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [callback, setCallBack] = useState(false);
@@ -114,6 +115,23 @@ export const AppProvider = ({ children }) => {
       }
     };
 
+    //list user
+    const getListUser = async (token) => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_KEY}/api/user/getAllUser`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setUsers(res.data);
+      } catch (error) {
+        alert(error.response.data.msg);
+      }
+    };
     //call api
     getCategories();
     getProducts();
@@ -123,6 +141,7 @@ export const AppProvider = ({ children }) => {
       getCart(token);
       getOrder(token);
       getUserInfor(token);
+      getListUser(token);
     }
   }, [token, isLogged, callback]);
   return (
@@ -140,6 +159,8 @@ export const AppProvider = ({ children }) => {
         setToken,
         user,
         setUser,
+        users,
+        setUsers,
         isAdmin,
         isLogged,
         setIsLogged,

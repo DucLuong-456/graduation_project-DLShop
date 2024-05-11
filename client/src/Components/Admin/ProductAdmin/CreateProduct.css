@@ -18,6 +18,9 @@
     font-size: 16px;
   }
   
+  .form-group input,select{
+    margin-top: 5px;
+  }
   .form-input-file {
     width: 100%;
   }

@@ -7,6 +7,7 @@ import format_money from "../../../helpers/fomat.money";
 import { OrderStatus } from "../../../helpers/order_status.enum";
 import moment from "moment";
 import axios from "axios";
+import { FaSearch } from "react-icons/fa";
 const ReportRevenueOrder = () => {
   const { orders, token } = useContext(AppContext);
 
@@ -52,6 +53,7 @@ const ReportRevenueOrder = () => {
         <div style={{ marginLeft: "20px" }}>
           <label htmlFor="">From: </label>
           <input
+            style={{ width: "150px", padding: "10px" }}
             type="date"
             id="startDate"
             value={startDate}
@@ -61,19 +63,38 @@ const ReportRevenueOrder = () => {
         <div>
           <label htmlFor="">To: </label>
           <input
+            style={{ width: "150px", padding: "10px" }}
             type="date"
             id="endDate"
             value={endDate}
             onChange={handleEndDateChange}
           />
         </div>
-        <button
-          onClick={() => {
-            handleFilter(token);
+        <div
+          style={{
+            width: "40px",
+            height: "40px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            // Ensures the div takes only the necessary space
+            borderRadius: "50%", // Makes the div circular
+            backgroundColor: "#ccc", // Background color for the div
+            padding: "10px", // Padding around the icon
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Adds a subtle shadow
+            transition: "background 0.3s ease", // Smooth transition on background change
           }}
         >
-          Filter
-        </button>
+          <FaSearch
+            style={{
+              cursor: "pointer", // Changes cursor to pointer on hover
+              transition: "background 0.3s ease", // Smooth transition on background change
+            }}
+            onClick={() => {
+              handleFilter(token);
+            }}
+          />
+        </div>
       </div>
 
       <table className="Category-admin-table">

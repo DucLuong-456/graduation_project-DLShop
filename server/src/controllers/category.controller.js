@@ -55,6 +55,7 @@ const categoryController = {
     try {
       const id = req.params.id;
       const { name, index_display } = req.body;
+      console.log(req.body);
       const category = await Category.findOne({ _id: id });
       if (!category) return res.status(400).json("category not found!");
       let image_category;

@@ -1,11 +1,12 @@
+import "./UserAdmin.css";
 import React, { useContext } from "react";
-import "./CategoryAdmin.css";
-import { AppContext } from "../../../Context/AppContext";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../Context/AppContext";
+// import Swal from "sweetalert2";
 import axios from "axios";
-const CategoryAdmin = () => {
-  const { setCallBack, isLogged, token, categories } = useContext(AppContext);
-  const deleteCategory = async (token, isLogged, category_id) => {
+const UserAdmin = () => {
+  const { setCallBack, isLogged, token, users } = useContext(AppContext);
+  const deleteUser = async (token, isLogged, user_id) => {
     try {
       if (isLogged === false) return alert("Please login or registerto use!");
       const headers = {
@@ -13,7 +14,7 @@ const CategoryAdmin = () => {
         "Content-Type": "application/json",
       };
       await axios.delete(
-        `${process.env.REACT_APP_API_KEY}/api/category/${category_id}`,
+        `${process.env.REACT_APP_API_KEY}/api/user/deleteUser/${user_id}`,
         {
           headers,
         }
@@ -23,17 +24,17 @@ const CategoryAdmin = () => {
       alert(error.response.data.msg);
     }
   };
-  const handleDeleteCategory = (token, isLogged, category_id) => {
+  const handleDeleteUser = (token, isLogged, user_id) => {
     const result = window.confirm("Bạn có chắc muốn xóa!");
     if (result) {
-      deleteCategory(token, isLogged, category_id);
+      deleteUser(token, isLogged, user_id);
     }
   };
   return (
     <>
       <div className="category-title">
-        <h1>DANH MỤC</h1>
-        <Link to="/admin/create_category">
+        <h1>Người dùng</h1>
+        <Link to="/admin/user">
           <button>Tạo mới</button>
         </Link>
       </div>
@@ -41,32 +42,30 @@ const CategoryAdmin = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Tên danh mục</th>
-            <th>Hình ảnh</th>
-            <th>Thứ tự hiển thị</th>
-            <th>Sửa</th>
+            <th>Tên</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th>Số điện thoại</th>
+            <th>Trạng thái</th>
+            <th>Quyền</th>
+            <th>Sửa </th>
             <th>Xóa</th>
           </tr>
         </thead>
         <tbody>
-          {categories.map((item) => {
+          {users.map((item, index) => {
             return (
               <tr>
-                <td>{item._id}</td>
+                <td>{index + 1}</td>
                 <td>{item.name}</td>
-                <td>
-                  <img
-                    className="image-update-product"
-                    src={
-                      process.env.REACT_APP_API_LINK_STATIC + item.icon_category
-                    }
-                    alt="anh"
-                  />
-                </td>
-                <td> {item.index_display}</td>
+                <td>{item.email}</td>
+                <td> {item.address}</td>
+                <td> {item.phone_number}</td>
+                <td> {item.status ? "đang hoạt động" : "Ngừng hoạt động"}</td>
+                <td> {item.role_id == 1 ? "User" : "admin"}</td>
 
                 <td>
-                  <Link to={"/admin/update_category/" + item._id}>
+                  <Link to={"/admin/updateUser/" + item._id}>
                     <button className="edit-btn">Edit</button>
                   </Link>
                 </td>
@@ -74,7 +73,7 @@ const CategoryAdmin = () => {
                   <button
                     className="delete-btn"
                     onClick={() => {
-                      handleDeleteCategory(token, isLogged, item._id);
+                      handleDeleteUser(token, isLogged, item._id);
                     }}
                   >
                     Delete
@@ -88,4 +87,4 @@ const CategoryAdmin = () => {
     </>
   );
 };
-export default CategoryAdmin;
+export default UserAdmin;

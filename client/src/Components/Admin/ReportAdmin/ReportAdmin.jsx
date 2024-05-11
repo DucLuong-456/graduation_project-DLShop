@@ -65,7 +65,7 @@ const ReportAdmin = () => {
   return (
     <>
       <div className="category-title">
-        <h1>BÁO CÁO HÀNG TỒN KHO</h1>
+        <h1 style={{ width: "200px" }}>BÁO CÁO HÀNG TỒN KHO</h1>
         <Link to="">
           <button
             onClick={() => {

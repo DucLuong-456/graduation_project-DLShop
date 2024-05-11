@@ -3,7 +3,7 @@ import "./CreateProduct.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../../Context/AppContext";
-
+import Swal from "sweetalert2";
 const UpdateProduct = () => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
@@ -65,10 +65,20 @@ const UpdateProduct = () => {
       }
 
       setCallBack((cb) => !cb);
-      alert("Update product success!");
+      Swal.fire({
+        title: "SUCCESS!",
+        text: "Do you want to continue?",
+        icon: "success",
+        confirmButtonText: "ok",
+      });
       navigate("/admin/product");
     } catch (error) {
-      alert(error.response.data.msg);
+      Swal.fire({
+        title: "ERROR!",
+        text: error.response.data.msg,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
     }
   };
   const handleInputChange = (event) => {
@@ -122,11 +132,11 @@ const UpdateProduct = () => {
 
   return (
     <>
-      <h2>UPDATE PRODUCT</h2>
+      <h2 style={{ fontSize: "25px", marginTop: "10px" }}>CẬP NHẬT SẢN PHẨM</h2>
       <form onSubmit={handleSubmit} className="create-product-form">
         <div className="form-group">
           <label>
-            Name:
+            Tên sản phẩm:
             <input
               required
               type="text"
@@ -140,7 +150,7 @@ const UpdateProduct = () => {
 
         <div className="form-group">
           <label>
-            Brand:
+            Nhãn Hiệu:
             <input
               required
               type="text"
@@ -154,7 +164,7 @@ const UpdateProduct = () => {
 
         <div className="form-group">
           <label>
-            Status:
+            Trạng thái:
             <select
               type="text"
               name="status"
@@ -169,7 +179,7 @@ const UpdateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Price:
+            Giá:
             <input
               required
               type="text"
@@ -182,7 +192,7 @@ const UpdateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Quantity Stock:
+            Số lượng tồn kho:
             <input
               required
               type="text"
@@ -195,7 +205,7 @@ const UpdateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Description:
+            Mô tả:
             <input
               required
               type="text"
@@ -208,7 +218,7 @@ const UpdateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Category
+            Danh mục
             <select
               type="text"
               name="categoryId"
@@ -228,7 +238,7 @@ const UpdateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Image:
+            Hình ảnh:
             <input
               type="file"
               name="image"
@@ -244,7 +254,7 @@ const UpdateProduct = () => {
         </div>
 
         <button type="submit" className="submit-button">
-          Update Product
+          Cập nhật
         </button>
       </form>
     </>

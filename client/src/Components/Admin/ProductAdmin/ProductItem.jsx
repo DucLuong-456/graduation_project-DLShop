@@ -1,17 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./ProductAdmin.css";
 import { FaPen } from "react-icons/fa";
 import { ImBin } from "react-icons/im";
 import format_money from "../../../helpers/fomat.money";
 import { AppContext } from "../../../Context/AppContext";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, handleLoading }) => {
   const { token, setCallBack, isLogged } = useContext(AppContext);
-
   const deleteProduct = async (token, isLogged, product_id) => {
     try {
-      if (isLogged === false) return alert("Please login or registerto use!");
+      if (isLogged === false)
+        Swal.fire({
+          title: "ERROR!",
+          text: "please login or regster to use!",
+          icon: "error",
+          confirmButtonText: "ok",
+        });
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -22,14 +28,30 @@ const ProductItem = ({ product }) => {
           headers,
         }
       );
-      setCallBack((cb) => !cb);
+      handleLoading(true);
+      setCallBack((cb) => {
+        return !cb;
+      });
     } catch (error) {
-      alert(error.response.data.msg);
+      Swal.fire({
+        title: "ERROR!",
+        text: error.response.data.msg,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
     }
   };
-  const handleDeleteProduct = (token, isLogged, product_id) => {
-    const result = window.confirm("Bạn có chắc muốn xóa!");
-    if (result) {
+
+  const handleDeleteProduct = async (token, isLogged, product_id) => {
+    const result = await Swal.fire({
+      title: "Warning",
+      text: "Bạn có chắc muốn xóa không?",
+      icon: "warning",
+      confirmButtonText: "ok",
+      cancelButtonText: "cancel",
+      showCancelButton: true,
+    });
+    if (result.isConfirmed) {
       deleteProduct(token, isLogged, product_id);
     }
   };

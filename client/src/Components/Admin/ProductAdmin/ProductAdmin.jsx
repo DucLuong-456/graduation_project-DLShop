@@ -3,9 +3,12 @@ import "./ProductAdmin.css";
 import ProductItem from "./ProductItem";
 import { AppContext } from "../../../Context/AppContext";
 import { Link } from "react-router-dom";
+import { MoonLoader } from "react-spinners";
+
 const ProductAdmin = () => {
   const { products, categories, setProducts, token, setCallBack, isLogged } =
     useContext(AppContext);
+  const [loading, setLoading] = useState(false);
   const [productsAdmin, setProductAdmin] = useState([products.data]);
   const [keySearch, setKeySearch] = useState("");
   const [filter, setFilter] = useState("");
@@ -14,9 +17,22 @@ const ProductAdmin = () => {
     setKeySearch(value);
   };
 
+  const handleLoading = (value) => {
+    setLoading(value);
+  };
   const handleFilterByCategory = (event) => {
     const { value } = event.target;
     setFilter(value);
+  };
+
+  const override = {
+    display: "block",
+    position: "fixed",
+    top: "40%",
+    left: "50%",
+    borderColor: "red",
+    zIndex: 1000,
+    // backgroundColor: "red",
   };
   useEffect(() => {
     let filterProduct = products.data.filter((item) => {
@@ -29,6 +45,7 @@ const ProductAdmin = () => {
       });
     }
 
+    setLoading(false);
     setProductAdmin(filterProduct);
   }, [keySearch, filter, products]);
 
@@ -36,10 +53,10 @@ const ProductAdmin = () => {
     <>
       <div className="product-admin">
         <div className="product-admin-title">
-          <div className="name-product-title">Products</div>
+          <div className="name-product-title">SẢN PHẨM</div>
           <Link to="/admin/create_product">
             {" "}
-            <div className="create-new-product">Create new</div>
+            <div className="create-new-product">Tạo mới</div>
           </Link>
         </div>
         <div className="product-content">
@@ -56,17 +73,19 @@ const ProductAdmin = () => {
                   return <option value={item._id}>{item.name}</option>;
                 })}
               </select>
-              <select name="createdAt" id="cars">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-              </select>
             </div>
           </div>
 
           <div className="list-product-item">
             {productsAdmin.length !== 0 ? (
               productsAdmin.map((product) => {
-                return <ProductItem key={product._id} product={product} />;
+                return (
+                  <ProductItem
+                    key={product._id}
+                    handleLoading={handleLoading}
+                    product={product}
+                  />
+                );
               })
             ) : (
               <div>Danh mục sản phẩm trống</div>
@@ -74,6 +93,13 @@ const ProductAdmin = () => {
           </div>
         </div>
       </div>
+      <MoonLoader
+        loading={loading}
+        cssOverride={override}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
     </>
   );
 };

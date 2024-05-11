@@ -72,10 +72,10 @@ const CreateCategory = () => {
 
   return (
     <>
-      <h2>ADD CATEGORY</h2>
+      <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>THÊM DANH MỤC</h2>
       <form onSubmit={handleSubmit} className="create-category-form">
         <div className="form-group">
-          <label>Name:</label>
+          <label>Tên:</label>
           <input
             required
             type="text"
@@ -86,7 +86,7 @@ const CreateCategory = () => {
           />
         </div>
         <div className="form-group">
-          <label>Index display:</label>
+          <label>Thứ tự hiển thị:</label>
           <input
             required
             type="text"
@@ -98,7 +98,7 @@ const CreateCategory = () => {
         </div>
 
         <div className="form-group">
-          <label>Image-icon:</label>
+          <label>Danh mục icon:</label>
           <input
             required
             type="file"
@@ -109,7 +109,7 @@ const CreateCategory = () => {
         </div>
 
         <button type="submit" className="submit-button">
-          Create Category
+          Tạo danh mục
         </button>
       </form>
     </>

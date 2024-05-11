@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, Fragment } from "react";
 import "./Content.css";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { BsBagCheckFill } from "react-icons/bs";
@@ -6,6 +6,7 @@ import { TbBaguette } from "react-icons/tb";
 import { FaEye } from "react-icons/fa";
 import format_money from "../../../helpers/fomat.money";
 import { AppContext } from "../../../Context/AppContext";
+import { Link } from "react-router-dom";
 import moment from "moment";
 const Content = () => {
   const [totalSale, setTotalSale] = useState(0);
@@ -22,7 +23,7 @@ const Content = () => {
     );
     setTotalOrder(orders.orders.length);
     setTotalProduct(products.data.length);
-  }, []);
+  }, [orders, products]);
   return (
     <>
       <div className="content-admin">
@@ -66,33 +67,37 @@ const Content = () => {
             <table>
               <thead>
                 <th>TT</th>
-                <th>Order ID</th>
-                <th>Custommer</th>
-                <th>Total money</th>
-                <th>Created At</th>
-                <th>Status</th>
-                <th>Detail</th>
+                <th>Mã đơn hàng</th>
+                <th>Khách hàng</th>
+                <th>Tổng tiền</th>
+                <th>Ngày đặt</th>
+                <th>Trạng thái</th>
+                <th>Chi tiết</th>
               </thead>
               {orders.orders.map((item, index) => {
-                return (
-                  <tr>
-                    <td>{index}</td>
-                    <td>{item._id.slice(0, 5)}</td>
-                    <td>{orders.user_name}</td>
-                    <td>{format_money(item.total_money)}</td>
-                    <td>
-                      {moment(item.createdAt).format("DD/MM/YYYY - HH:mm")}
-                    </td>
-                    <td>
-                      {item.order_status_id === 1
-                        ? "Đang xác nhận"
-                        : "Đang giao"}
-                    </td>
-                    <td>
-                      <FaEye />
-                    </td>
-                  </tr>
-                );
+                if (index <= 10)
+                  return (
+                    <tr>
+                      <td>{index}</td>
+                      <td>{item._id.slice(0, 5)}</td>
+                      <td>{orders.user_name}</td>
+                      <td>{format_money(item.total_money)}</td>
+                      <td>
+                        {moment(item.createdAt).format("DD/MM/YYYY - HH:mm")}
+                      </td>
+                      <td>
+                        {item.order_status_id === 1
+                          ? "Đang xác nhận"
+                          : "Đang giao"}
+                      </td>
+                      <td>
+                        <Link to={"/order_detail/" + item._id}>
+                          <FaEye />
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                else return Fragment;
               })}
             </table>
           </div>
