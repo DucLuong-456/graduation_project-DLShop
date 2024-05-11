@@ -3,7 +3,7 @@ import "./Header.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const SearchSuggestions = ({ products }) => {
+const SearchSuggestions = ({ products, setNameSearch }) => {
   return (
     <div className="search-suggest">
       {products.data.map((product) => (
@@ -13,7 +13,12 @@ const SearchSuggestions = ({ products }) => {
             alt={product.name}
           />
           <div>
-            <Link to={"/detail_product/" + product._id}>
+            <Link
+              to={"/detail_product/" + product._id}
+              onClick={() => {
+                setNameSearch("");
+              }}
+            >
               <p className="suggest-product-name">{product.name}</p>
             </Link>
             <p className="suggest-product-price">
@@ -81,7 +86,10 @@ const Header = () => {
                 {nameSearch === "" ? (
                   Fragment
                 ) : (
-                  <SearchSuggestions products={searchResults} />
+                  <SearchSuggestions
+                    products={searchResults}
+                    setNameSearch={setNameSearch}
+                  />
                 )}
               </form>
             </div>

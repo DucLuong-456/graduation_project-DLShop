@@ -19,6 +19,8 @@ import ReportRevenue from "../Components/Admin/ReportAdmin/ReportRevenue";
 import ReportRevenueOrder from "../Components/Admin/ReportAdmin/ReportRevenueOrder";
 import UserAdmin from "../Components/UserAdmin/UserAdmin";
 import UpdateUser from "../Components/UserAdmin/UpdateUser";
+import OrderAdmin from "../Components/Admin/OrderAdmin/OrderAdmin";
+import OrderDetailAdmin from "../Components/Admin/OrderAdmin/OrderDetailAdmin";
 const publicRoutes = [
   { path: "/", component: HomePage },
   { path: "/detail_product/:id", component: DetailProduct },
@@ -42,7 +44,9 @@ const privateRoutes = [
   { path: "/admin/report/stock", component: ReportAdmin },
   { path: "/admin/report/product_revenue", component: ReportRevenue },
   { path: "/admin/report/order_revenue", component: ReportRevenueOrder },
-  { path: "/admin/order", component: UpdateProduct },
+  { path: "/admin/order", component: OrderAdmin },
+  { path: "/admin/order_detail/:id", component: OrderDetailAdmin },
+
   { path: "/admin/user", component: UserAdmin },
   { path: "/admin/updateUser/:id", component: UpdateUser },
 ];

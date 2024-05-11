@@ -154,8 +154,11 @@ const orderController = {
         );
       });
       const test = await Promise.all(updateQuanlityProduct);
-      console.log(test);
-      await Order.findOneAndUpdate({ _id: order_id }, { order_status_id: 3 });
+      // console.log(test);
+      await Order.findOneAndUpdate(
+        { _id: order_id },
+        { order_status_id: 3, payment_status: true }
+      );
       return res.json({ order, msg: "Compelete order success!" });
     } catch (error) {
       return res.json({ msg: error.message });
@@ -166,12 +169,9 @@ const orderController = {
       const order_id = req.params.id;
       const order = await Order.findOne({ _id: order_id });
       if (!order) return res.json({ msg: "order does not exists!" });
-      if (order.order_status === 2)
-        await Order.findOneAndUpdate(
-          { _id: order_id },
-          { order_status: "Hủy" }
-        );
-      return res.json({ order, msg: "Compelete order success!" });
+      if (order.order_status_id === 1 || order.order_status_id === 3)
+        await Order.findOneAndUpdate({ _id: order_id }, { order_status_id: 4 });
+      return res.json({ order, msg: "Cancel order success!" });
     } catch (error) {
       return res.json({ msg: error.message });
     }

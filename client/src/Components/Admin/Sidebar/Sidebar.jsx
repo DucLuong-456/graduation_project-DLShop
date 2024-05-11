@@ -88,7 +88,9 @@ const Sidebar = () => {
             onClick={() => handleItemClick("orders")}
           >
             <RiShoppingBag3Fill className="icon-home-admin" />
-            <div className="title-item-admin">Đơn hàng</div>
+            <Link to="/admin/order">
+              <div className="title-item-admin">Đơn hàng</div>
+            </Link>
           </div>
           <div
             className={`item-menu-admin ${

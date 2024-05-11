@@ -1,0 +1,25 @@
+.admin-order-detail{
+    width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.correct {
+    background-color: #4fa607;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.huy-don{
+    background-color: #e85709;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.order-detail-status{
+    margin-bottom: 50px;
+}

@@ -1,5 +1,5 @@
 export const OrderStatus = {
-  pending: "Chờ xử lý",
+  pending: "Đang xử lý",
   delivering: "Đang giao",
   delivered: "Đã giao",
   cancel: "Đã hủy",

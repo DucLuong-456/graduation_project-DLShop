@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../CategoryAdmin/CategoryAdmin.css";
-import "./ReportAdmin.css";
+import "../ReportAdmin/ReportAdmin.css";
 import { AppContext } from "../../../Context/AppContext";
 import { Link } from "react-router-dom";
 import format_money from "../../../helpers/fomat.money";
@@ -8,7 +8,10 @@ import { OrderStatus } from "../../../helpers/order_status.enum";
 import moment from "moment";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
-const ReportRevenueOrder = () => {
+import "./OrderAdmin.css";
+import { FaEye } from "react-icons/fa";
+
+const OrderAdmin = () => {
   const { orders, token } = useContext(AppContext);
 
   const [startDate, setStartDate] = useState("");
@@ -40,15 +43,18 @@ const ReportRevenueOrder = () => {
       alert(error.response.data.msg);
     }
   };
-  useEffect(() => {}, [order]);
+  useEffect(() => {
+    // console.log("check order: ", order, "type", typeof item);
+  }, [order]);
   return (
     <>
-      <div className="category-title">
-        <h1>BÁO CÁO DOANH THU</h1>
+      <div className="category-title order">
+        <h1>ĐƠN HÀNG</h1>
         <Link to="/admin/create_category">
-          <button>Export excel</button>
+          <button>Tạo mới</button>
         </Link>
       </div>
+
       <div className="order-report-input-filter">
         <div style={{ marginLeft: "20px" }}>
           <label htmlFor="">From: </label>
@@ -77,7 +83,6 @@ const ReportRevenueOrder = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            // Ensures the div takes only the necessary space
             borderRadius: "50%", // Makes the div circular
             backgroundColor: "#ccc", // Background color for the div
             padding: "10px", // Padding around the icon
@@ -96,7 +101,6 @@ const ReportRevenueOrder = () => {
           />
         </div>
       </div>
-
       <table className="Category-admin-table">
         <thead>
           <tr>
@@ -107,6 +111,7 @@ const ReportRevenueOrder = () => {
             <th>Thanh toán</th>
             <th>Tổng tiền</th>
             <th width="200px">Ngày đặt</th>
+            <th width="100px">Chi tiết</th>
           </tr>
         </thead>
         <tbody>
@@ -124,6 +129,11 @@ const ReportRevenueOrder = () => {
 
                 <td>{format_money(item.total_money)}</td>
                 <td>{moment(item.createdAt).format("DD/MM/YYYY - HH:mm")}</td>
+                <td>
+                  <Link to={"/admin/order_detail/" + item._id}>
+                    <FaEye style={{ color: "#198754" }} />
+                  </Link>
+                </td>
               </tr>
             );
           })}
@@ -144,4 +154,4 @@ const handleOrderStatus = (order_status_id) => {
     ? OrderStatus.cancel
     : "Đang xử lý";
 };
-export default ReportRevenueOrder;
+export default OrderAdmin;

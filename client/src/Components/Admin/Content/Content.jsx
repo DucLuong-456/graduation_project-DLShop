@@ -91,8 +91,8 @@ const Content = () => {
                           : "Đang giao"}
                       </td>
                       <td>
-                        <Link to={"/order_detail/" + item._id}>
-                          <FaEye />
+                        <Link to={"/admin/order_detail/" + item._id}>
+                          <FaEye style={{ color: "#198754" }} />
                         </Link>
                       </td>
                     </tr>

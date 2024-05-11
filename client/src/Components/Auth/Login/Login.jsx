@@ -25,7 +25,8 @@ const Login = () => {
       localStorage.setItem("accessToken", res.data.accessToken);
       setIsLogged(true);
       setToken(res.data.accessToken);
-      navigate("/");
+      if (res.data.user.role_id === 1) navigate("/");
+      else navigate("/admin");
     } catch (error) {
       alert(error.response.data.msg);
     }
