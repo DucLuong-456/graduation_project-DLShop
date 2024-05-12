@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./Cart.css";
-// import cart_img from '../Assets/Image/cart.jpg'
+import btn_paypal from "../Assets/Image/Paypal-Donate-Elise-Ever-After.png";
 import { AppContext } from "../../Context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,6 +10,26 @@ const Cart = () => {
     useContext(AppContext);
   const navigate = useNavigate();
 
+  //handle paypal online
+  const handlePaypalPayment = async (token, cart) => {
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      };
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_KEY}/api/order/payonline`,
+        {},
+        { headers }
+      );
+      console.log(res.data);
+      window.open(res.data.url, "_blank");
+      // setCallBack((cb) => !cb);
+    } catch (error) {
+      console.log(error);
+      // alert(error.response.data.msg);
+    }
+  };
   //handle checkbox item
   const handleCheckAll = () => {
     const setDataChecked = cart.data.map((item) => {
@@ -183,6 +203,24 @@ const Cart = () => {
                 <Link to="/payment">
                   <div className="cart-btn-pay">THANH TOÁN</div>
                 </Link>
+                <div
+                  className="paypal-btn-pay"
+                  onClick={() => {
+                    console.log("check data cart: ", cart.data);
+                    handlePaypalPayment(token, cart.data);
+                  }}
+                >
+                  <img
+                    src={btn_paypal}
+                    alt="btn-paypal"
+                    style={{
+                      with: "600px",
+                      height: "90px",
+                      cursor: "pointer",
+                      paddingBottom: "15px",
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
