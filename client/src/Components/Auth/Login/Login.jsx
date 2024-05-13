@@ -4,6 +4,8 @@ import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import axios from "axios";
 import "./Login.css";
 import { AppContext } from "../../../Context/AppContext";
+import { socket } from "../../../helpers/socket.client";
+
 const Login = () => {
   const navigate = useNavigate();
   const { setIsLogged, setToken } = useContext(AppContext);
@@ -21,6 +23,10 @@ const Login = () => {
           ...user,
         }
       );
+      socket.emit("login", {
+        token: res.data.accessToken,
+        role: res.data.user.role_id,
+      });
       localStorage.setItem("Login", true);
       localStorage.setItem("accessToken", res.data.accessToken);
       setIsLogged(true);

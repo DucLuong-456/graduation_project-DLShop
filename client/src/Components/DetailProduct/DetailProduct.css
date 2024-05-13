@@ -269,3 +269,66 @@
 .img-descript img{
     width: 100%;
 }
+
+.btn-showDescript{
+    background-color: #503eb6;
+    border: none;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.danh-gia-san-pham,.hr-danh-gia{
+    width: 1215px;
+    margin: 15px auto;
+}
+
+
+.danh-gia-san-pham h1{
+    font-size: 20px;
+    font-weight: bold;
+    color: #0071e3;
+    border-bottom: 2px solid #0071e3;
+    padding: 8px 0px;
+    width: 185px;
+    margin-bottom: 15px;
+}
+
+.danh-gia-san-pham textarea{
+    width: 610px;
+    height: 110px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.btn-danh-gia{
+    width: 114px;
+    height: 38px;
+    color: #fff;
+    background-color: #0071e3;
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.danh-sach-danh-gia{
+margin-top: 15px;
+}
+
+.user-name-comment{
+    font-weight: 500;
+}
+
+.danh-sach-danh-gia ul{
+    list-style: none;
+}
+
+.danh-sach-danh-gia li{
+    margin: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}

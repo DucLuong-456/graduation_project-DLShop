@@ -27,7 +27,7 @@ const orderController = {
       return amountUSD;
     }
 
-    console.log(cartByUserId);
+    // console.log(cartByUserId);
     let cartForPaypal = cartByUserId.map((item) => {
       var priceForUSD = convertVNDtoUSD(item.product_id.price);
       total =

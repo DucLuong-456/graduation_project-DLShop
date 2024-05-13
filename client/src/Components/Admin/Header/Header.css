@@ -35,3 +35,8 @@
     align-items: center;
     gap: 15px;
 }
+
+.icon-header{
+    font-size: 24px;
+    color: rgb(188, 195, 202);
+}

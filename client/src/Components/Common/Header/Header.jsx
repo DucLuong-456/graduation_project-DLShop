@@ -3,6 +3,7 @@ import "./Header.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import logo4 from "../../Assets/Image/logo4.png";
 const SearchSuggestions = ({ products, setNameSearch }) => {
   return (
     <div className="search-suggest">
@@ -66,10 +67,8 @@ const Header = () => {
           <div className="row">
             <Link to="/">
               <div className="header-logo">
-                <img
-                  src="https://bizweb.dktcdn.net/100/497/960/themes/923878/assets/logo.png?1710409416702"
-                  alt="logo"
-                />
+                <img src={logo4} alt="logo" />
+                {/* DLShop */}
               </div>
             </Link>
             <div className="header-search-box">

@@ -277,6 +277,33 @@ const DetailProduct = () => {
           </div>
         )}
       </div>
+      <hr
+        className="hr-danh-gia"
+        style={{ marginBottom: "20px", marginTop: "20px" }}
+      />
+      <div className="danh-gia-san-pham">
+        <h1>Đánh giá</h1>
+        <textarea
+          name="danhgia-sanpham"
+          id="comment"
+          placeholder="Nhập đánh giá của bạn"
+        ></textarea>
+        <div className="btn-danh-gia">Gửi đánh giá</div>
+
+        <div className="danh-sach-danh-gia">
+          <ul>
+            <li>
+              <div className="user-name-comment">@Đức Lượng</div>
+              <div className="noi-dung-danh-gia">
+                Sản phẩm đẹp, Mọi thứ đều rất ổn , ko nóng như mình nghĩ ,<br />{" "}
+                mình bỏ túi quần đứng phơi nắng gần 3 tiếng đặc thù công việc ,
+                ấm nhẹ , còn con S22 Ultra nó nóng rõ rệt . Pin cũng ko tụt lắm
+                , để qua đêm tụt 1 hoặc 2 %{" "}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </>
   );
 };
