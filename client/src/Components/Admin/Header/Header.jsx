@@ -12,11 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 const Header = () => {
   const { isLogged } = useContext(AppContext);
   const [notification, setNotification] = useState([]);
-  // const [message,setMessage] = useState("")
   useEffect(() => {
     socket.on("sendMessage", (data) => {
       console.log("check data", data);
-      // setMessage(data.message);
       toast(data.message, {
         position: "top-right",
         autoClose: 5000,
