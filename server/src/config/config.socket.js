@@ -41,9 +41,9 @@ const configSocketIO = (server, origin) => {
     });
 
     socket.on("new-order", (data) => {
-      const { user_id } = data;
+      const { user_id, username } = data;
       socket.to(getUserAdmin(UsersConnected)).emit("sendMessage", {
-        message: "Có đơn đặt hàng từ khách hàng: " + user_id,
+        message: "Có đơn đặt hàng từ khách hàng: " + username,
       });
     });
     //admin gui xác thực cho client

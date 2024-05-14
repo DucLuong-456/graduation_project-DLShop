@@ -5,6 +5,7 @@ import { AppContext } from "../../Context/AppContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Payment.css";
+import { socket } from "../../helpers/socket.client";
 
 const Payment = () => {
   const { user, cart, token, setCallBack, isLogged } = useContext(AppContext);
@@ -48,6 +49,10 @@ const Payment = () => {
         { headers }
       );
       setCallBack((cb) => !cb);
+      socket.emit("new-order", {
+        user_id: user._id,
+        username: user.name,
+      });
       alert("order success!");
       navigate("/order_detail/" + res.data.data._id);
     } catch (error) {
@@ -192,6 +197,7 @@ const Payment = () => {
               <span>Quay về giỏ hàng</span>
               <div
                 className="btn-dat-hang"
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   createOrder(orderProduct, token);
                 }}

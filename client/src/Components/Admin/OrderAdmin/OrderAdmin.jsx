@@ -10,6 +10,7 @@ import axios from "axios";
 import { FaSearch } from "react-icons/fa";
 import "./OrderAdmin.css";
 import { FaEye } from "react-icons/fa";
+// import { socket } from "../../../helpers/socket.client";
 
 const OrderAdmin = () => {
   const { orders, token } = useContext(AppContext);
@@ -43,9 +44,8 @@ const OrderAdmin = () => {
       alert(error.response.data.msg);
     }
   };
-  useEffect(() => {
-    // console.log("check order: ", order, "type", typeof item);
-  }, [order]);
+
+  useEffect(() => {}, [order]);
   return (
     <>
       <div className="category-title order">

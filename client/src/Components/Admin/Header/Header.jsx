@@ -1,24 +1,35 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import "./Header.css";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { BsBellFill } from "react-icons/bs";
 import logo4 from "../../Assets/Image/logo4.png";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
-import Alert from "@mui/material/Alert";
+// import Alert from "@mui/material/Alert";
 import { socket } from "../../../helpers/socket.client";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Header = () => {
   const { isLogged } = useContext(AppContext);
   const [notification, setNotification] = useState([]);
+
   useEffect(() => {
+    var i = 0;
     socket.on("sendMessage", (data) => {
-      console.log("check data", data);
+      console.log("check data", i + 1, data);
+      // toast(data.message, {
+      //   position: "top-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      // });
       setNotification((notifi) => [...notifi, data.message]);
-      <Alert severity="success" onClose={() => {}}>
-        data.message
-      </Alert>;
     });
-  }, [notification]);
+  }, []);
   return (
     <>
       <div className="header-admin">
@@ -40,6 +51,19 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 };

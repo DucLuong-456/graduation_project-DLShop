@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-05-12T16:01:36.088Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="rGT74YUzfNilL6zaxI5g" version="24.3.1" type="device">
+<mxfile host="app.diagrams.net" modified="2024-05-13T17:48:17.016Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="2T4m6xPi5Q5B2QW5Bzm_" version="24.4.0" type="device" pages="2">
   <diagram name="Page-1" id="5sCVWjBGGodYrjgsj__Q">
-    <mxGraphModel dx="1004" dy="695" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1193" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -291,6 +291,47 @@
             <mxPoint x="760" y="510" as="sourcePoint" />
             <mxPoint x="860" y="410" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="HRiwCsS3CvIs-Go3w_zD" name="Page-2">
+    <mxGraphModel dx="954" dy="660" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ntd81wJMURKZPnBMqf_4-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="590" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-2" value="Danh mục sản phẩm" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-3" value="sản phẩm hot: iphone 14" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="120" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-4" value="cart" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="120" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-5" value="Login" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="120" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-6" value="Danh mục 1" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-7" value="Danh mục 2" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-8" value="Danh mục 3" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-10" value="ảnh" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="120" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-11" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry x="80" y="390" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ntd81wJMURKZPnBMqf_4-12" value="iphone 14" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="390" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
