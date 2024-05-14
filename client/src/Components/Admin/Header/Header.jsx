@@ -12,23 +12,27 @@ import "react-toastify/dist/ReactToastify.css";
 const Header = () => {
   const { isLogged } = useContext(AppContext);
   const [notification, setNotification] = useState([]);
-
+  // const [message,setMessage] = useState("")
   useEffect(() => {
-    var i = 0;
     socket.on("sendMessage", (data) => {
-      console.log("check data", i + 1, data);
-      // toast(data.message, {
-      //   position: "top-right",
-      //   autoClose: 5000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: "light",
-      // });
+      console.log("check data", data);
+      // setMessage(data.message);
+      toast(data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       setNotification((notifi) => [...notifi, data.message]);
     });
+
+    return () => {
+      socket.off("sendMessage");
+    };
   }, []);
   return (
     <>
@@ -62,6 +66,7 @@ const Header = () => {
         draggable
         pauseOnHover
         theme="light"
+        containerId={"friendRequest"}
       />
       <ToastContainer />
     </>
