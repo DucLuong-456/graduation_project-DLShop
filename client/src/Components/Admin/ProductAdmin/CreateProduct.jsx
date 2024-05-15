@@ -183,7 +183,7 @@ const CreateProduct = () => {
         </div>
         <div className="form-group">
           <label>
-            Hình ảnh:
+            Hình ảnh chính:
             <input
               required
               type="file"
@@ -193,7 +193,18 @@ const CreateProduct = () => {
             />
           </label>
         </div>
-
+        <div className="form-group">
+          <label>
+            Hình ảnh khác:
+            <input
+              required
+              type="file"
+              name="image"
+              onChange={handleFileChange}
+              className="form-input-file"
+            />
+          </label>
+        </div>
         <button type="submit" className="submit-button">
           Tạo sản phẩm
         </button>

@@ -53,13 +53,8 @@ const Register = () => {
                 </Link>
               </div>
               <span>or use your email for registration</span>
-              <input
-                type="text"
-                placeholder="Name"
-                name="name"
-                value={user.name}
-                onChange={onChangeInput}
-              />
+
+              <input type="text" placeholder="Address" name="address" />
               <input
                 type="email"
                 placeholder="Email"
@@ -73,6 +68,11 @@ const Register = () => {
                 name="password"
                 value={user.password}
                 onChange={onChangeInput}
+              />
+              <input
+                type="text"
+                placeholder="verify password"
+                name="password"
               />
               <button type="submit">Sign Up</button>
             </form>

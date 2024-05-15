@@ -190,7 +190,8 @@ const userController = {
       const user = await User.findOne({ _id: userId });
       if (!user) return res.status(400).json({ msg: "User does not exists!" });
       const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) return res.json({ msg: "password does not correct!" });
+      if (!isMatch)
+        return res.status(400).json({ msg: "password does not correct!" });
       const newHashPassword = await bcrypt.hash(newPassword, 10);
       const userUpdateInfor = await User.findOneAndUpdate(
         { _id: userId },

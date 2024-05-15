@@ -106,10 +106,10 @@ const Cart = () => {
           <div className="detail-cart">
             <div className="btn-option-cart">
               <button className="select-all" onClick={handleCheckAll}>
-                Select all
+                Chọn tất cả
               </button>
               <button className="unSelect-all" onClick={handleUncheckAll}>
-                Deselect All
+                Bỏ chọn
               </button>
             </div>
             <table className="table-cart">

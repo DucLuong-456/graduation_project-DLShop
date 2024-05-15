@@ -87,16 +87,16 @@ const BottomHeader = () => {
               <li style={{ fontWeight: 500 }}>Sản phẩm HOT:</li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/login">iphone14</Link>
+                <Link to="#">iphone14</Link>
               </li>
 
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/cart">iphone15</Link>
+                <Link to="#">iphone15</Link>
               </li>
               <span className="category-pagi">|</span>
               <li>
-                <Link to="/order">iphone16</Link>
+                <Link to="#">lenovo A03</Link>
               </li>
             </ul>
           </div>

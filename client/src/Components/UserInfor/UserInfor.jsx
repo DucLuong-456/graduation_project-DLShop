@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import "./UserInfor.css";
 import { AppContext } from "../../Context/AppContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserInfor = () => {
   const { setCallBack, isLogged, token, user } = useContext(AppContext);
@@ -13,7 +14,9 @@ const UserInfor = () => {
             <li>TRANG TÀI KHOẢN</li>
             <li>--- ----</li>
             <li>Thông tin tài khoản</li>
-            <li>Đổi mật khẩu</li>
+            <li>
+              <Link to="/user-change-password">Đổi mật khẩu</Link>
+            </li>
             <li>Đăng xuất</li>
           </ul>
         </div>

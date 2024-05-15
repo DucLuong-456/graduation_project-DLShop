@@ -21,6 +21,7 @@ import UserAdmin from "../Components/UserAdmin/UserAdmin";
 import UpdateUser from "../Components/UserAdmin/UpdateUser";
 import OrderAdmin from "../Components/Admin/OrderAdmin/OrderAdmin";
 import OrderDetailAdmin from "../Components/Admin/OrderAdmin/OrderDetailAdmin";
+import ChangePassword from "../Components/Auth/Login/ChangePassword";
 const publicRoutes = [
   { path: "/", component: HomePage },
   { path: "/detail_product/:id", component: DetailProduct },
@@ -31,6 +32,7 @@ const publicRoutes = [
   { path: "/order_detail/:id", component: OrderDetail },
   { path: "/payment", component: Payment },
   { path: "/user-infor", component: UserInfor },
+  { path: "/user-change-password", component: ChangePassword },
 ];
 
 const privateRoutes = [
