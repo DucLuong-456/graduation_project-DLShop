@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const Comment = new mongoose.Schema(
   {
     user_id: {
-      type: String,
-      trim: true,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
     },
     product_id: {
       type: String,

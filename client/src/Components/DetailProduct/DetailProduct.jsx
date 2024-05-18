@@ -5,6 +5,8 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FaLocationArrow } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 import {
   MdKeyboardDoubleArrowDown,
   MdKeyboardDoubleArrowUp,
@@ -38,6 +40,61 @@ const DetailProduct = () => {
       alert(error.response.data.msg);
     }
   };
+  //handle comment
+
+  const [comments, setComments] = useState([]);
+  const [content, setContent] = useState("");
+  const onChangeInput = (e) => {
+    const { value } = e.target;
+    setContent(value);
+  };
+  const handlePostComment = async (id, content) => {
+    if (isLogged === false) return alert("Please login or registerto use!");
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_KEY}/api/comment/${id}`,
+        {
+          content: content,
+        },
+        { headers }
+      );
+      const { user_name, comment } = res.data;
+      setComments((prevComments) => [
+        ...prevComments,
+        {
+          user_name: user_name,
+          content: comment.content,
+        },
+      ]);
+      Swal.fire({
+        title: "SUCCESS!",
+        text: "Thêm đánh giá thành công",
+        icon: "success",
+        confirmButtonText: "ok",
+      });
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
+  const getAllCommentByProduct = async (id) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_KEY}/api/comment/${id}`
+      );
+      const CommentArray = res.data.map((item) => {
+        const { user_id, content } = item;
+        return { user_name: user_id.name, content };
+      });
+      setComments(CommentArray);
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
+
   const productsImg = [
     "detail_product1",
     "detail_product1",
@@ -77,6 +134,7 @@ const DetailProduct = () => {
       }
     };
     getProduct(id);
+    getAllCommentByProduct(id);
   }, [id]);
   return (
     <>
@@ -282,25 +340,32 @@ const DetailProduct = () => {
         style={{ marginBottom: "20px", marginTop: "20px" }}
       />
       <div className="danh-gia-san-pham">
-        <h1>Đánh giá</h1>
         <textarea
-          name="danhgia-sanpham"
+          name="content"
           id="comment"
           placeholder="Nhập đánh giá của bạn"
+          onChange={onChangeInput}
         ></textarea>
-        <div className="btn-danh-gia">Gửi đánh giá</div>
-
+        <div
+          className="btn-danh-gia"
+          onClick={() => {
+            handlePostComment(id, content);
+          }}
+        >
+          Gửi đánh giá
+        </div>
+        <h1>Đánh giá</h1>
         <div className="danh-sach-danh-gia">
           <ul>
-            <li>
-              <div className="user-name-comment">@Đức Lượng</div>
-              <div className="noi-dung-danh-gia">
-                Sản phẩm đẹp, Mọi thứ đều rất ổn , ko nóng như mình nghĩ ,<br />{" "}
-                mình bỏ túi quần đứng phơi nắng gần 3 tiếng đặc thù công việc ,
-                ấm nhẹ , còn con S22 Ultra nó nóng rõ rệt . Pin cũng ko tụt lắm
-                , để qua đêm tụt 1 hoặc 2 %{" "}
-              </div>
-            </li>
+            {comments.length > 0 &&
+              comments.map((item) => {
+                return (
+                  <li>
+                    <div className="user-name-comment">@{item.user_name}</div>
+                    <div className="noi-dung-danh-gia">{item.content}</div>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>

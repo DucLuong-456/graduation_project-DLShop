@@ -50,9 +50,6 @@ const OrderAdmin = () => {
     <>
       <div className="category-title order">
         <h1>ĐƠN HÀNG</h1>
-        <Link to="/admin/create_category">
-          <button>Tạo mới</button>
-        </Link>
       </div>
 
       <div className="order-report-input-filter">

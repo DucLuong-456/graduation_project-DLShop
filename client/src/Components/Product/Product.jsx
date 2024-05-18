@@ -44,7 +44,9 @@ const Product = ({ product }) => {
           <AiOutlineHeart className="heart-icon-product" />
           <div className="type-product">sản phẩm MỚI</div>
         </div>
-        <p className="title-product-name">{product.name}</p>
+        <Link to={"detail_product/" + product._id}>
+          <p className="title-product-name">{product.name}</p>
+        </Link>
         <div className="cost-product-item-cart">
           <div className="cost-product">
             <span className="cost-product-item">

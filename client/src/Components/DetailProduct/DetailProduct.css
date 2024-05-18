@@ -293,6 +293,7 @@
     padding: 8px 0px;
     width: 185px;
     margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 .danh-gia-san-pham textarea{
@@ -316,7 +317,7 @@
 
 
 .danh-sach-danh-gia{
-margin-top: 15px;
+margin-top: 25px;
 }
 
 .user-name-comment{
@@ -325,10 +326,16 @@ margin-top: 15px;
 
 .danh-sach-danh-gia ul{
     list-style: none;
+    background-color: #ffff;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    border: 1px solid #ccc;
 }
 
 .danh-sach-danh-gia li{
     margin: 5px;
     padding: 5px;
     border-bottom: 1px solid #ccc;
+    border-radius: 5px;
+    border: 1px solid #0071e3;
 }
