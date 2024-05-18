@@ -328,7 +328,10 @@ const orderController = {
       const order = await Order.findOne({ _id: order_id });
       if (!order) return res.json({ msg: "order does not exists!" });
       if (order.order_status_id === 1 || order.order_status_id === 3)
-        await Order.findOneAndUpdate({ _id: order_id }, { order_status_id: 4 });
+        await Order.findOneAndUpdate(
+          { _id: order_id },
+          { order_status_id: 4, payment_status: false }
+        );
       return res.json({ order, msg: "Cancel order success!" });
     } catch (error) {
       return res.json({ msg: error.message });

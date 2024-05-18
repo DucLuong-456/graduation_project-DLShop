@@ -158,14 +158,24 @@ const UpdateUser = () => {
         </div>
         <div className="form-group">
           <label>Role:</label>
-          <input
+          <select
+            name="role"
+            value={role}
+            onChange={handleInputChange}
+            style={{ width: "300px" }}
+          >
+            {arrRole.map((item) => {
+              return <option value={item.id}>{item.role}</option>;
+            })}
+          </select>
+          {/* <input
             required
             type="text"
             name="role"
             value={role}
             onChange={handleInputChange}
             className="form-input"
-          />
+          /> */}
         </div>
         <button type="submit" className="submit-button">
           Update User
@@ -174,4 +184,9 @@ const UpdateUser = () => {
     </>
   );
 };
+
+const arrRole = [
+  { id: 2, role: "Admin" },
+  { id: 1, role: "User" },
+];
 export default UpdateUser;

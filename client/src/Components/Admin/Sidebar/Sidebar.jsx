@@ -12,6 +12,7 @@ import { FaUser } from "react-icons/fa";
 import logo_admin from "../../Assets/Image/logo.png";
 import { TbReport } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { FaImage } from "react-icons/fa";
 const Sidebar = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isCloseReport, setIsCloseReport] = useState(false);
@@ -46,6 +47,17 @@ const Sidebar = () => {
             <ImHome3 className="icon-home-admin" />
             <Link to="/admin">
               <div className="title-item-admin">Home</div>
+            </Link>
+          </div>
+          <div
+            className={`item-menu-admin ${
+              activeItem === "banner" ? "active" : ""
+            }`}
+            onClick={() => handleItemClick("banner")}
+          >
+            <FaImage className="icon-home-admin" />
+            <Link to="/admin/banner">
+              <div className="title-item-admin">Banner</div>
             </Link>
           </div>
           <div

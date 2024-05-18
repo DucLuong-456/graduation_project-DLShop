@@ -4,6 +4,36 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../../Context/AppContext";
 const CreateProduct = () => {
+  //upload multifile
+  // const [selectedFiles, setSelectedFiles] = useState([]);
+
+  // const handleMultiFileChange = (e) => {
+  //   setSelectedFiles(Array.from(e.target.files));
+  // };
+
+  // const handleUpload = async () => {
+  //   const formData = new FormData();
+  //   selectedFiles.forEach((file) => {
+  //     formData.append("files", file);
+  //   });
+
+  //   try {
+  //     const response = await axios.post(
+  //       `${process.env.REACT_APP_API_KEY}/api/upload`,
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error uploading files: ", error);
+  //   }
+  // };
+
+  //create product
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState("");
@@ -193,18 +223,12 @@ const CreateProduct = () => {
             />
           </label>
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>
             Hình ảnh khác:
-            <input
-              required
-              type="file"
-              name="image"
-              onChange={handleFileChange}
-              className="form-input-file"
-            />
+            <input type="file" multiple onChange={handleMultiFileChange} />
           </label>
-        </div>
+        </div> */}
         <button type="submit" className="submit-button">
           Tạo sản phẩm
         </button>

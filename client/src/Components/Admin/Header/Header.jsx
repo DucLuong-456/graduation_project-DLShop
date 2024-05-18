@@ -12,6 +12,10 @@ import "react-toastify/dist/ReactToastify.css";
 const Header = () => {
   const { isLogged } = useContext(AppContext);
   const [notification, setNotification] = useState([]);
+  const [close, setClose] = useState(false);
+  const changeClose = () => {
+    setClose((cb) => !cb);
+  };
   useEffect(() => {
     socket.on("sendMessage", (data) => {
       console.log("check data", data);
@@ -42,12 +46,18 @@ const Header = () => {
         <div className="user-header">
           {/* <BsBellFill className="icon-header" /> */}
 
-          <Link to="/cart">
+          <Link
+            to="#"
+            onClick={() => {
+              changeClose();
+            }}
+          >
             <BsBellFill className="header-category-icon" />
           </Link>
           <div className="nav-cart-count">
             {isLogged ? notification.length : 0}
           </div>
+
           <div className="user-header-image">
             <img src={logo4} alt="avatar" />
           </div>
@@ -67,6 +77,15 @@ const Header = () => {
         containerId={"friendRequest"}
       />
       <ToastContainer />
+      {close && (
+        <div className="notification-list">
+          <ul>
+            {notification.map((item) => {
+              return <li>{item}</li>;
+            })}
+          </ul>
+        </div>
+      )}
     </>
   );
 };

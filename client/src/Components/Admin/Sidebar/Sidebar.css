@@ -53,9 +53,19 @@
 }
 .sub-cate-report{
     list-style: none;
+    width: 250px;
     position: absolute;
     left: 50px;
     top: 40px;
+    background-color: #fff;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    
+}
+.sub-cate-report li{
+    padding: 10px 15px;
+    font-weight: 400;
+    border-bottom: 1px solid #ccc;
 }
 
 .sub-cate-report li{
@@ -63,9 +73,5 @@
     font-weight: 400;
 }
 
-.sub-cate-report li:first-child{
-    border-bottom: 1px solid #ccc;
-    
-}
 
 

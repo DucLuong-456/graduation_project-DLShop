@@ -22,6 +22,7 @@ import UpdateUser from "../Components/UserAdmin/UpdateUser";
 import OrderAdmin from "../Components/Admin/OrderAdmin/OrderAdmin";
 import OrderDetailAdmin from "../Components/Admin/OrderAdmin/OrderDetailAdmin";
 import ChangePassword from "../Components/Auth/Login/ChangePassword";
+import Banner from "../Components/Admin/Banner/Banner";
 const publicRoutes = [
   { path: "/", component: HomePage },
   { path: "/detail_product/:id", component: DetailProduct },
@@ -49,6 +50,7 @@ const privateRoutes = [
   { path: "/admin/order", component: OrderAdmin },
   { path: "/admin/order_detail/:id", component: OrderDetailAdmin },
 
+  { path: "/admin/banner", component: Banner },
   { path: "/admin/user", component: UserAdmin },
   { path: "/admin/updateUser/:id", component: UpdateUser },
 ];

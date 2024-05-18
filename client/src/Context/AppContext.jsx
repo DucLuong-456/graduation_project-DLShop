@@ -11,6 +11,7 @@ export const AppProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
+  const [banners, setBanners] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [callback, setCallBack] = useState(false);
@@ -28,6 +29,17 @@ export const AppProvider = ({ children }) => {
           `${process.env.REACT_APP_API_KEY}/api/category/`
         );
         setCategories(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    // banner
+    const getBanners = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_KEY}/api/upload/banner`
+        );
+        setBanners(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -135,6 +147,7 @@ export const AppProvider = ({ children }) => {
     //call api
     getCategories();
     getProducts();
+    getBanners();
     console.log(token);
     if (token) {
       getUser(token);
@@ -161,6 +174,8 @@ export const AppProvider = ({ children }) => {
         setUser,
         users,
         setUsers,
+        banners,
+        setBanners,
         isAdmin,
         isLogged,
         setIsLogged,
