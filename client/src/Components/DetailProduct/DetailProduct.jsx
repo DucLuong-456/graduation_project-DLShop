@@ -70,6 +70,7 @@ const DetailProduct = () => {
           content: comment.content,
         },
       ]);
+      setContent("");
       Swal.fire({
         title: "SUCCESS!",
         text: "Thêm đánh giá thành công",
@@ -344,6 +345,7 @@ const DetailProduct = () => {
           name="content"
           id="comment"
           placeholder="Nhập đánh giá của bạn"
+          value={content}
           onChange={onChangeInput}
         ></textarea>
         <div

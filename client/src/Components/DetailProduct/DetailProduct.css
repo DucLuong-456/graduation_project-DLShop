@@ -301,6 +301,7 @@
     height: 110px;
     padding: 10px;
     font-size: 16px;
+
 }
 
 .btn-danh-gia{
@@ -313,6 +314,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 

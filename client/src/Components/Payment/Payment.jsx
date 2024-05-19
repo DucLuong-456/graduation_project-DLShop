@@ -6,13 +6,69 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Payment.css";
 import { socket } from "../../helpers/socket.client";
-
+import diachinhVN from "../../json/diachinhVN.json";
 const Payment = () => {
   const { user, cart, token, setCallBack, isLogged } = useContext(AppContext);
   const navigate = useNavigate();
   const payment_method = {
     online: "Chuyển khoản",
     money: "Thanh toán khi nhận hàng",
+  };
+
+  //dia chinh viet nam
+  const [province, setProvince] = useState("");
+  const [provinces, setProvinces] = useState([]);
+
+  const [district, setDistrict] = useState("");
+  const [districts, setDistricts] = useState([]);
+  const [commune, setCommune] = useState("");
+  const [communes, setCommunes] = useState([]);
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+
+    switch (name) {
+      case "province":
+        setProvince(value);
+        break;
+
+      case "commune":
+        setCommune(value);
+        break;
+      case "district":
+        setDistrict(value);
+        break;
+      default:
+        break;
+    }
+  };
+  const getProvinceCity = async () => {
+    setProvinces(
+      diachinhVN.map((item) => {
+        return { id: item.Id, name: item.Name };
+      })
+    );
+  };
+
+  const getDistrict = (province) => {
+    const temp = diachinhVN.find((item) => {
+      return item.Id === province;
+    });
+    setDistricts(
+      temp.Districts.map((item) => {
+        return item;
+      })
+    );
+  };
+
+  const getCommune = (distric) => {
+    const temp = districts.find((item) => {
+      return item.Id === distric;
+    });
+    setCommunes(
+      temp.Wards.map((item) => {
+        return { id: item.Id, name: item.Name };
+      })
+    );
   };
 
   const [orderProduct, setOrderProduct] = useState({
@@ -62,6 +118,7 @@ const Payment = () => {
 
   useEffect(() => {
     findProductOrder(cart);
+    getProvinceCity();
   }, []);
 
   return (
@@ -92,24 +149,60 @@ const Payment = () => {
                 value={user.phone_number}
                 className="address-pay"
               />
-              <input
-                type="text"
+              <select
                 placeholder="Tỉnh thành phố"
-                name="district"
+                name="province"
                 className="address-pay"
-              />
-              <input
-                type="text"
+                onChange={(e) => {
+                  onChangeInput(e);
+                  getDistrict(e.target.value);
+                }}
+              >
+                {provinces.length > 0 &&
+                  provinces.map((item, index) => {
+                    return (
+                      <option key={index} value={item.id}>
+                        {item.name}
+                      </option>
+                    );
+                  })}
+              </select>
+              <br />
+              <select
                 placeholder="Quận huyện"
                 name="district"
                 className="address-pay"
-              />
-              <input
-                type="text"
+                onChange={(e) => {
+                  onChangeInput(e);
+                  getCommune(e.target.value);
+                }}
+              >
+                {districts.length > 0 &&
+                  districts.map((item, index) => {
+                    return (
+                      <option key={index} value={item.Id}>
+                        {item.Name}
+                      </option>
+                    );
+                  })}
+              </select>
+              <br />
+              <select
                 placeholder="Phường xã"
-                name="ward"
+                name="commune"
                 className="address-pay"
-              />
+                onChange={onChangeInput}
+              >
+                {communes &&
+                  communes.map((item, index) => {
+                    return (
+                      <option key={index} value={item.Id}>
+                        {item.Name}
+                      </option>
+                    );
+                  })}
+              </select>
+
               <input
                 type="text"
                 placeholder="Địa chỉ nhận hàng"
