@@ -196,7 +196,7 @@ const orderController = {
     try {
       const orders = await Order.find({
         user_id: req.user.id,
-      });
+      }).sort({'createdAt': -1});
 
       const user = await User.findOne({ _id: req.user.id });
       return res.json({
@@ -210,7 +210,7 @@ const orderController = {
   },
   getAllOrder: async (req, res) => {
     try {
-      let orders = await Order.find({});
+      let orders = await Order.find({}).sort({'createdAt': -1});
       return res.json({
         status: 1,
         code: 200,

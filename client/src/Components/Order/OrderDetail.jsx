@@ -60,7 +60,7 @@ const OrderDetail = () => {
             <div className="infor-nguoi-nhan">
               <p className="ten-nguoi-nhan">{user.name}</p>
               <p>{user.phone_number}</p>
-              <p>{user.address}</p>
+              <p>{order.order_address}</p>
             </div>
           </div>
 

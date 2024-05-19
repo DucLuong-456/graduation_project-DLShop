@@ -23,6 +23,12 @@ const Payment = () => {
   const [districts, setDistricts] = useState([]);
   const [commune, setCommune] = useState("");
   const [communes, setCommunes] = useState([]);
+
+  const getValueAddressById = (id, addressArray) => {
+    return addressArray.find((item) => {
+      return item.Id === id;
+    }).Name;
+  };
   const onChangeInput = (e) => {
     const { name, value } = e.target;
 
@@ -44,7 +50,7 @@ const Payment = () => {
   const getProvinceCity = async () => {
     setProvinces(
       diachinhVN.map((item) => {
-        return { id: item.Id, name: item.Name };
+        return { Id: item.Id, Name: item.Name };
       })
     );
   };
@@ -66,7 +72,7 @@ const Payment = () => {
     });
     setCommunes(
       temp.Wards.map((item) => {
-        return { id: item.Id, name: item.Name };
+        return { Id: item.Id, Name: item.Name };
       })
     );
   };
@@ -99,8 +105,13 @@ const Payment = () => {
           }),
           total_money: orderProduct.total_money,
           payment_method: payment_method.money,
-          order_address:
-            "Xóm 5, phường Như trạch, quận lạc hồng, thành phố Đông sơn",
+          order_address: `Xóm 5 ,${getValueAddressById(
+            commune,
+            communes
+          )}, ${getValueAddressById(
+            district,
+            districts
+          )}, ${getValueAddressById(province, provinces)}`,
         },
         { headers }
       );
@@ -158,11 +169,12 @@ const Payment = () => {
                   getDistrict(e.target.value);
                 }}
               >
+                <option>-- chọn tỉnh thành phố --</option>
                 {provinces.length > 0 &&
                   provinces.map((item, index) => {
                     return (
-                      <option key={index} value={item.id}>
-                        {item.name}
+                      <option key={index} value={item.Id}>
+                        {item.Name}
                       </option>
                     );
                   })}
@@ -177,6 +189,7 @@ const Payment = () => {
                   getCommune(e.target.value);
                 }}
               >
+                <option>-- chọn quận huyện --</option>
                 {districts.length > 0 &&
                   districts.map((item, index) => {
                     return (
@@ -193,6 +206,7 @@ const Payment = () => {
                 className="address-pay"
                 onChange={onChangeInput}
               >
+                <option>-- chọn phường xã --</option>
                 {communes &&
                   communes.map((item, index) => {
                     return (
@@ -202,7 +216,7 @@ const Payment = () => {
                     );
                   })}
               </select>
-
+              <br />
               <input
                 type="text"
                 placeholder="Địa chỉ nhận hàng"
