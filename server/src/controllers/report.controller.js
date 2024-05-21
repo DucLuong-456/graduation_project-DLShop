@@ -1,6 +1,7 @@
 const Category = require("../models/category.model");
 const Product = require("../models/product.model");
 const ExcelJS = require("exceljs");
+const fs = require('fs');
 const reportController = {
   findProductStock: async (req, res) => {
     try {
@@ -80,9 +81,12 @@ const reportController = {
         };
         sheet.addRow(row);
       });
-      // //export file excel
+
+      const currentDirectory = process.cwd();
+console.log('Thư mục làm việc hiện tại:', currentDirectory);
+      // export file excel
       const filePath =
-        process.env.STATIC_PATH + "/src/public/excels/" + "product" + ".xlsx";
+      currentDirectory + "/src/public/excels/" + "product" + ".xlsx";
       await workbook.xlsx.writeFile(filePath);
       return res.json({ url: process.env.STATIC_FILE + "/product" + ".xlsx" });
     } catch (error) {

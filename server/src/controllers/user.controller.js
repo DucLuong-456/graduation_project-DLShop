@@ -9,7 +9,7 @@ const userController = {
     try {
       const userUpdateId = req.params.id;
       const { name, address, phone_number, email, status, role_id } = req.body;
-      console.log(req.body);
+      // console.log(req.body);
       const user = await User.findOne({ _id: userUpdateId });
       if (!user) return res.status(400).json({ msg: "User does not exists!" });
       if (!name || !address || !phone_number || !email || !role_id)
