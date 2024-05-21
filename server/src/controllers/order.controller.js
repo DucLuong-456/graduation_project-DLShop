@@ -175,13 +175,14 @@ const orderController = {
   },
   getOrderByDate: async (req, res) => {
     try {
-      const { startDate, endDate } = req.query;
+      const { startDate, endDate, order_status_id } = req.query;
       const whereOption = {};
       if (startDate && endDate)
         whereOption.createdAt = {
           $gte: new Date(startDate),
           $lte: new Date(endDate),
         };
+        if(order_status_id) whereOption.order_status_id = order_status_id
       const orders = await Order.find(whereOption);
       return res.json({
         status: 1,

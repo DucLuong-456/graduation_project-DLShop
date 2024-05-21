@@ -17,21 +17,23 @@ const OrderAdmin = () => {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
+  const [orderStatusId, setOrderStatusId] = useState(3);
   const [order, setOrder] = useState(orders.orders);
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
-    console.log(event.target.value);
   };
 
+  const handleOrderStatusId = (event) => {
+    setOrderStatusId(event.target.value);
+  };
   const handleEndDateChange = (event) => {
-    console.log(event.target.value);
     setEndDate(event.target.value);
   };
   const handleFilter = async (token) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_KEY}/api/order/filter/date?startDate=${startDate}T00:00:00Z&endDate=${endDate}T00:00:00Z`,
+        `${process.env.REACT_APP_API_KEY}/api/order/filter/date?startDate=${startDate}T00:00:00Z&
+        endDate=${endDate}T00:00:00Z&order_status_id=${orderStatusId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,6 +74,19 @@ const OrderAdmin = () => {
             value={endDate}
             onChange={handleEndDateChange}
           />
+        </div>
+        <div>
+          <select
+            name="order_status_id"
+            id="order_status_id"
+            onChange={handleOrderStatusId}
+          >
+            <option value="">-- status --</option>
+            <option value="1">Đang xử lý</option>;
+            <option value="2">Đang giao</option>;
+            <option value="3">Đã hoàn thành</option>;
+            <option value="4">Đã hủy</option>;
+          </select>
         </div>
         <div
           style={{

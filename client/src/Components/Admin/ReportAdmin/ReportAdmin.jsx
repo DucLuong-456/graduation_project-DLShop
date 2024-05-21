@@ -24,6 +24,7 @@ const ReportAdmin = () => {
         },
         { headers }
       );
+      console.log("url====", res.data.url);
 
       return res.data.url;
     } catch (error) {
@@ -42,6 +43,7 @@ const ReportAdmin = () => {
 
   const handleDowloadExcle = async (productsAdmin, token) => {
     const result = window.confirm("Xác nhận tải xuống file excel?");
+    console.log(result);
     if (result) {
       const url = await handleExportExcel(productsAdmin, token);
       console.log("url====", url);
