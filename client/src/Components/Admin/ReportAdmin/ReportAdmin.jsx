@@ -24,9 +24,9 @@ const ReportAdmin = () => {
         },
         { headers }
       );
-      console.log("url====", res.data.url);
+      // console.log("url====", res.data.url);
 
-      return res.data.url;
+      return products.env.REACT_APP_API_KEY + res.data.url;
     } catch (error) {
       alert(error.response.data.msg);
     }

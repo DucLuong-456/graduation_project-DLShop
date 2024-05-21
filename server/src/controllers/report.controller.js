@@ -83,7 +83,6 @@ const reportController = {
       });
 
       const currentDirectory = process.cwd();
-console.log('Thư mục làm việc hiện tại:', currentDirectory);
       // export file excel
       const filePath =
       currentDirectory + "/src/public/excels/" + "product" + ".xlsx";
@@ -160,9 +159,13 @@ console.log('Thư mục làm việc hiện tại:', currentDirectory);
         };
         sheet.addRow(row);
       });
-      // //export file excel
+
+      const currentDirectory = process.cwd();
+
+      //export file excel
+      //Fix:
       const filePath =
-        process.env.STATIC_PATH + "/src/public/excels/" + "product" + ".xlsx";
+       currentDirectory + "/src/public/excels/" + "product" + ".xlsx";
       await workbook.xlsx.writeFile(filePath);
       return res.json({ url: process.env.STATIC_FILE + "/product" + ".xlsx" });
     } catch (error) {
