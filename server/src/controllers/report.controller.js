@@ -163,7 +163,6 @@ const reportController = {
       const currentDirectory = process.cwd();
 
       //export file excel
-      //Fix:
       const filePath =
        currentDirectory + "/src/public/excels/" + "product" + ".xlsx";
       await workbook.xlsx.writeFile(filePath);
