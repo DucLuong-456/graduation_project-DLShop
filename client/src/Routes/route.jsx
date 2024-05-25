@@ -23,6 +23,7 @@ import OrderAdmin from "../Components/Admin/OrderAdmin/OrderAdmin";
 import OrderDetailAdmin from "../Components/Admin/OrderAdmin/OrderDetailAdmin";
 import ChangePassword from "../Components/Auth/Login/ChangePassword";
 import Banner from "../Components/Admin/Banner/Banner";
+import CategoryByFilter from "../Pages/CategoryByFilter";
 const publicRoutes = [
   { path: "/", component: HomePage },
   { path: "/detail_product/:id", component: DetailProduct },
@@ -34,6 +35,7 @@ const publicRoutes = [
   { path: "/payment", component: Payment },
   { path: "/user-infor", component: UserInfor },
   { path: "/user-change-password", component: ChangePassword },
+  { path: "/category", component: CategoryByFilter },
 ];
 
 const privateRoutes = [

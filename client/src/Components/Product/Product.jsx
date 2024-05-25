@@ -80,7 +80,7 @@ const Product = ({ product }) => {
             <AiFillStar className="start-icon-product" />
           </div>
 
-          <Link to={"detail_product/" + product._id}>
+          <Link to={"/detail_product/" + product._id}>
             <div className="right-dg">
               <AiOutlinePlusCircle />
               <div>chi tiết</div>

@@ -8,7 +8,7 @@ const categoryController = {
       limit = limit || 15;
       page = page || 1;
       const skip = limit * (page - 1);
-      const categories = await Category.find().limit(limit).skip(skip);
+      const categories = await Category.find().limit(limit).skip(skip).sort({'index_display': 1});
       if (categories.length == 0)
         return res.json({ msg: "Categories is empty!" });
       return res.json({ status: 1, code: 200, data: categories });

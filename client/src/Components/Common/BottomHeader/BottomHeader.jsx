@@ -80,7 +80,9 @@ const BottomHeader = () => {
                 }}
               />
             </div>
-            <span className="category-name">Danh mục sản phẩm</span>
+            <Link to="/category">
+              <span className="category-name">Danh mục sản phẩm</span>
+            </Link>
           </div>
           <div className="header-center">
             <ul className="category-list-name">

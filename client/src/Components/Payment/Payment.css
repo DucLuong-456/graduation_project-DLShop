@@ -14,7 +14,12 @@
     font-size: 18px;
 }
 
-.form-infor-pay input,select{
+.form-infor-pay input{
+    width: 387px;
+    padding: 5.6px;
+    margin: 10px 0;
+}
+.form-infor-pay select{
     width: 387px;
     padding: 5.6px;
     margin: 10px 0;

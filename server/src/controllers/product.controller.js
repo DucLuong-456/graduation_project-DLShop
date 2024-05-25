@@ -77,7 +77,7 @@ const productController = {
   },
   getAllProduct: async (req, res) => {
     try {
-      let { limit, page, sort, name } = req.query;
+      let { limit, page, sort, name, categoryId, price } = req.query;
       (limit = limit || 15), (page = page || 1);
       const skip = (page - 1) * limit;
       const whereOptions = {};
@@ -86,6 +86,14 @@ const productController = {
           $regex: name,
           $options: "i",
         };
+      }
+      if(price){
+        whereOptions.price = {
+          $lte: price
+        }
+      }
+      if(categoryId){
+        whereOptions.category_id = categoryId
       }
       const sortOptions = [];
       if (sort) {
