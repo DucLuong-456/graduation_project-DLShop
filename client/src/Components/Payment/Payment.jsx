@@ -5,6 +5,7 @@ import { AppContext } from "../../Context/AppContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Payment.css";
+import Swal from "sweetalert2";
 import { socket } from "../../helpers/socket.client";
 import diachinhVN from "../../json/diachinhVN.json";
 const Payment = () => {
@@ -120,7 +121,12 @@ const Payment = () => {
         user_id: user._id,
         username: user.name,
       });
-      alert("order success!");
+      Swal.fire({
+        title: "SUCCESS!",
+        text: " create order success",
+        icon: "success",
+        confirmButtonText: "ok",
+      });
       navigate("/order_detail/" + res.data.data._id);
     } catch (error) {
       alert(error.response.data.msg);

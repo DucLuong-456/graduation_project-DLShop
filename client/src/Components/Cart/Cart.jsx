@@ -1,9 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, Fragment } from "react";
 import "./Cart.css";
 import btn_paypal from "../Assets/Image/Paypal-Donate-Elise-Ever-After.png";
 import { AppContext } from "../../Context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 const Cart = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { cart, setCart, token, setCallBack, isLogged } =
@@ -200,27 +202,24 @@ const Cart = () => {
                     })}
                   </div>
                 </div>
-                <Link to="/payment">
-                  <div className="cart-btn-pay">THANH TOÁN</div>
-                </Link>
-                <div
-                  className="paypal-btn-pay"
-                  onClick={() => {
-                    console.log("check data cart: ", cart.data);
-                    handlePaypalPayment(token, cart.data);
-                  }}
-                >
-                  <img
-                    src={btn_paypal}
-                    alt="btn-paypal"
-                    style={{
-                      with: "600px",
-                      height: "90px",
-                      cursor: "pointer",
-                      paddingBottom: "15px",
-                    }}
-                  />
-                </div>
+                {cart.data.length === 0 ? (
+                  Fragment
+                ) : (
+                  <>
+                    <Link to="/payment">
+                      <div className="cart-btn-pay">THANH TOÁN</div>
+                    </Link>
+                    <div
+                      className="paypal-btn-pay"
+                      onClick={() => {
+                        console.log("check data cart: ", cart.data);
+                        handlePaypalPayment(token, cart.data);
+                      }}
+                    >
+                      <img src={btn_paypal} alt="btn-paypal" />
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

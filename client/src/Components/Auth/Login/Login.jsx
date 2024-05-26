@@ -8,7 +8,7 @@ import { socket } from "../../../helpers/socket.client";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setIsLogged, setToken } = useContext(AppContext);
+  const { setIsLogged, setIsAdmin, setToken } = useContext(AppContext);
   const [user, setUser] = useState({ email: "", password: "" });
   const onChangeInput = (e) => {
     const { name, value } = e.target;

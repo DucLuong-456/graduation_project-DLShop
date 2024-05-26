@@ -6,6 +6,8 @@ import "./Product.css";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 const Product = ({ product }) => {
   const { setCallBack, isLogged, token } = useContext(AppContext);
   const navigate = useNavigate();
@@ -27,10 +29,21 @@ const Product = ({ product }) => {
         { headers }
       );
       setCallBack((cb) => !cb);
-      alert("Add product success on cart");
+      Swal.fire({
+        title: "SUCCESS!",
+        text: "Add product success on cart",
+        icon: "success",
+        confirmButtonText: "ok",
+      });
+
       navigate("/cart");
     } catch (error) {
-      alert(error.response.data.msg);
+      Swal.fire({
+        title: "ERROR!",
+        text: `${error.response.data.msg}`,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
     }
   };
   return (
@@ -44,7 +57,7 @@ const Product = ({ product }) => {
           <AiOutlineHeart className="heart-icon-product" />
           <div className="type-product">sản phẩm MỚI</div>
         </div>
-        <Link to={"detail_product/" + product._id}>
+        <Link to={"/detail_product/" + product._id}>
           <p className="title-product-name">{product.name}</p>
         </Link>
         <div className="cost-product-item-cart">

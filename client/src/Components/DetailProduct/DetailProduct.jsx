@@ -34,10 +34,20 @@ const DetailProduct = () => {
         { headers }
       );
       setCallBack((cb) => !cb);
-      alert("Add product success on cart");
+      Swal.fire({
+        title: "SUCCESS!",
+        text: "Add product success on cart",
+        icon: "success",
+        confirmButtonText: "ok",
+      });
       navigate("/cart");
     } catch (error) {
-      alert(error.response.data.msg);
+      Swal.fire({
+        title: "ERROR!",
+        text: `${error.response.data.msg}`,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
     }
   };
   //handle comment

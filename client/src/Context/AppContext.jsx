@@ -7,6 +7,7 @@ export const AppProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState({ data: [], paging: {} });
   const [orders, setOrders] = useState({ orders: [], user_name: "" });
+  const [ordersAdmin, setOrdersAdmin] = useState({ orders: [], user_name: "" });
   const [cart, setCart] = useState({ data: [], total_money: 0 });
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
@@ -91,6 +92,25 @@ export const AppProvider = ({ children }) => {
         alert(error.response.data.msg);
       }
     };
+    //order - for- admin
+    const getOrderByAdmin = async (token) => {
+      try {
+        if (isAdmin === true) {
+          const res = await axios.get(
+            `${process.env.REACT_APP_API_KEY}/api/order/getAllOrder`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setOrdersAdmin(res.data.data);
+        }
+      } catch (error) {
+        alert(error.response.data.msg);
+      }
+    };
     //get Cart
     const getCart = async (token) => {
       try {
@@ -153,6 +173,7 @@ export const AppProvider = ({ children }) => {
       getUser(token);
       getCart(token);
       getOrder(token);
+      getOrderByAdmin(token);
       getUserInfor(token);
       getListUser(token);
     }
@@ -164,6 +185,8 @@ export const AppProvider = ({ children }) => {
         setCategories,
         products,
         setProducts,
+        ordersAdmin,
+        setOrdersAdmin,
         orders,
         setOrders,
         cart,

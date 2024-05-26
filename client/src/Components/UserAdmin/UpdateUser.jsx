@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import "./UpdateUser.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
+import Swal from "sweetalert2";
+
 import axios from "axios";
 const UpdateUser = () => {
   const [name, setName] = useState("");
@@ -11,7 +13,8 @@ const UpdateUser = () => {
   const [status, setStatus] = useState("");
   const [role, setRole] = useState("");
   const [user, setUser] = useState({});
-  const { setCallBack, isLogged, token, users } = useContext(AppContext);
+  const { setCallBack, isLogged, isAdmin, token, users } =
+    useContext(AppContext);
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -57,7 +60,7 @@ const UpdateUser = () => {
 
   const updateUser = async (token, userData) => {
     try {
-      if (isLogged === false) return alert("Please login or registerto use!");
+      if (isAdmin === false) return alert("Please login use account admin");
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -74,7 +77,13 @@ const UpdateUser = () => {
           { headers }
         );
         setCallBack((cb) => !cb);
-        alert("Update user success!");
+        Swal.fire({
+          title: "SUCCESS!",
+          text: "Update user success",
+          icon: "success",
+          confirmButtonText: "ok",
+        });
+        // alert("Update user success!");
         navigate("/admin/user");
       } catch (error) {
         alert(error.response.data.msg);
@@ -178,7 +187,7 @@ const UpdateUser = () => {
           /> */}
         </div>
         <button type="submit" className="submit-button">
-          Update User
+          Cập nhật
         </button>
       </form>
     </>
@@ -188,5 +197,6 @@ const UpdateUser = () => {
 const arrRole = [
   { id: 2, role: "Admin" },
   { id: 1, role: "User" },
+  { id: 3, role: "Staff" },
 ];
 export default UpdateUser;

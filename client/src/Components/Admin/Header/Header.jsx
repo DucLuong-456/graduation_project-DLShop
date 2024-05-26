@@ -79,6 +79,7 @@ const Header = () => {
       <ToastContainer />
       {close && (
         <div className="notification-list">
+          <div className="title-notifi">Thông báo</div>
           <ul>
             {notification.map((item) => {
               return <li>{item}</li>;

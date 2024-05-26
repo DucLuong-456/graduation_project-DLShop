@@ -8,8 +8,9 @@ orderRoute.post("/payonline", auth, orderController.payment_paypal);
 orderRoute.get("/paysuccess", orderController.paySuccess);
 orderRoute.get("/cancel", auth, orderController.payCancel);
 
-orderRoute.get("/:id", auth, orderController.getDetailOrder);
 orderRoute.get("/", auth, orderController.getListOrder);
+orderRoute.get("/getAllOrder", auth,authAdmin, orderController.getAllOrder);
+orderRoute.get("/:id", auth, orderController.getDetailOrder);
 orderRoute.post("/", auth, orderController.createOrder);
 orderRoute.post("/correctOrder/:id", auth, orderController.correctOrder);
 orderRoute.post(

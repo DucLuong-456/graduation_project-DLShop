@@ -6,24 +6,26 @@ import { TbBaguette } from "react-icons/tb";
 import { FaEye } from "react-icons/fa";
 import format_money from "../../../helpers/fomat.money";
 import { AppContext } from "../../../Context/AppContext";
+import { OrderStatus } from "../../../helpers/order_status.enum";
+
 import { Link } from "react-router-dom";
 import moment from "moment";
 const Content = () => {
   const [totalSale, setTotalSale] = useState(0);
   const [totalOrder, setTotalOrder] = useState(0);
   const [totalProduct, setTotalProduct] = useState(0);
-  const { setCallBack, isLogged, token, products, orders } =
+  const { setCallBack, isLogged, token, products, ordersAdmin } =
     useContext(AppContext);
 
   useEffect(() => {
     setTotalSale(
-      orders.orders.reduce((accumulator, current) => {
+      ordersAdmin.orders.reduce((accumulator, current) => {
         return accumulator + current.total_money;
       }, 0)
     );
-    setTotalOrder(orders.orders.length);
+    setTotalOrder(ordersAdmin.orders.length);
     setTotalProduct(products.data.length);
-  }, [orders, products]);
+  }, [ordersAdmin, products]);
   return (
     <>
       <div className="content-admin">
@@ -74,22 +76,18 @@ const Content = () => {
                 <th>Trạng thái</th>
                 <th>Chi tiết</th>
               </thead>
-              {orders.orders.map((item, index) => {
+              {ordersAdmin.orders.map((item, index) => {
                 if (index <= 10)
                   return (
                     <tr>
                       <td>{index}</td>
                       <td>{item._id.slice(0, 5)}</td>
-                      <td>{orders.user_name}</td>
+                      <td>{item.user_id.name}</td>
                       <td>{format_money(item.total_money)}</td>
                       <td>
                         {moment(item.createdAt).format("DD/MM/YYYY - HH:mm")}
                       </td>
-                      <td>
-                        {item.order_status_id === 1
-                          ? "Đang xác nhận"
-                          : "Đang giao"}
-                      </td>
+                      <td>{handleOrderStatus(item.order_status_id)}</td>
                       <td>
                         <Link to={"/admin/order_detail/" + item._id}>
                           <FaEye style={{ color: "#198754" }} />
@@ -105,5 +103,16 @@ const Content = () => {
       </div>
     </>
   );
+};
+const handleOrderStatus = (order_status_id) => {
+  return order_status_id === 1
+    ? OrderStatus.pending
+    : order_status_id === 2
+    ? OrderStatus.delivering
+    : order_status_id === 3
+    ? OrderStatus.delivered
+    : order_status_id === 4
+    ? OrderStatus.cancel
+    : "Đang xử lý";
 };
 export default Content;

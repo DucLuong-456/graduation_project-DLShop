@@ -44,8 +44,8 @@
 
 .notification-list{
     position: absolute;
-    top: 55px;
-    left: 1050px;
+    top: 43px;
+    left: 1080px;
     background: #fff;
     border-radius: 8px;
     padding: 5px;
@@ -67,4 +67,8 @@
     background-color: #ccc;
  }
 
- 
+ .title-notifi{
+    margin-left: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+ }

@@ -1,7 +1,7 @@
 .cart-product{
     width: 1215px;
     margin: 0 auto;
-    min-height: 500px;
+    min-height: 600px;
 
 }
 
@@ -144,3 +144,14 @@
 
 
 }
+
+.paypal-btn-pay{
+    width: 200px;
+    height: 50px;
+}
+
+.paypal-btn-pay img{
+    width: 100%;
+    cursor: pointer;
+}
+

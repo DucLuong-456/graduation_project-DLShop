@@ -13,12 +13,12 @@ import { FaEye } from "react-icons/fa";
 // import { socket } from "../../../helpers/socket.client";
 
 const OrderAdmin = () => {
-  const { orders, token } = useContext(AppContext);
+  const { ordersAdmin, token } = useContext(AppContext);
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [orderStatusId, setOrderStatusId] = useState(3);
-  const [order, setOrder] = useState(orders.orders);
+  const [order, setOrder] = useState(ordersAdmin.orders);
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
   };

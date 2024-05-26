@@ -84,7 +84,6 @@ const CategoryByFilter = () => {
             <h1>Sắp xếp theo giá: </h1>
             <select id="cars" name="cars" onChange={handleSortChange}>
               <option value="">-- lựa chọn --</option>
-
               <option value="price_asc">Tăng dần</option>
               <option value="price_desc">Giảm dần</option>
             </select>

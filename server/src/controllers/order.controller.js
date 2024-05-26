@@ -165,7 +165,7 @@ const orderController = {
   getDetailOrder: async (req, res) => {
     try {
       const order = await Order.findOne({
-        user_id: req.user.id,
+        
         _id: req.params.id,
       }).populate("user_id order_detail.product_id");
       return res.json(order);
@@ -211,11 +211,13 @@ const orderController = {
   },
   getAllOrder: async (req, res) => {
     try {
-      let orders = await Order.find({}).sort({'createdAt': -1});
+      let orders = await Order.find({}).sort({'createdAt': -1}).populate('user_id');
+      const user = await User.findOne({ _id: req.user.id });
+
       return res.json({
         status: 1,
         code: 200,
-        data: { orders: orders },
+        data: { orders: orders, user_name: user.name },
       });
     } catch (error) {
       return res.json({ msg: error.message });

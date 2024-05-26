@@ -137,10 +137,10 @@ const Sidebar = () => {
                 <li>Báo cáo tồn kho</li>
               </Link>
               <Link to="/admin/report/product_revenue">
-                <li>Doanh thu theo product</li>
+                <li>Doanh thu theo sản phẩm</li>
               </Link>
               <Link to="/admin/report/order_revenue">
-                <li>Doanh thu theo order</li>
+                <li>Doanh thu theo đơn hàng</li>
               </Link>
             </ul>
           )}
