@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 
 const Product = ({ product }) => {
   const { setCallBack, isLogged, token } = useContext(AppContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   //addToCart
   const addToCart = async (token, product_id) => {
@@ -35,8 +35,6 @@ const Product = ({ product }) => {
         icon: "success",
         confirmButtonText: "ok",
       });
-
-      navigate("/cart");
     } catch (error) {
       Swal.fire({
         title: "ERROR!",

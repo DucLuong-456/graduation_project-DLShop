@@ -1,7 +1,35 @@
+.banner-table{
+    width: 1200px;
+}
+.banner-table th:nth-child(1){
+    width: 100px;
+    text-align: center;
+}
+.banner-table td:nth-child(1){
+    
+    text-align: center;
+}
+.banner-table th:nth-child(2){
+    width: 200px;
+}
+.banner-table th:nth-child(4){
+    width: 100px;
+}
+.banner-table th:nth-child(5){
+    width: 100px;
+}
+
 .banner-table td{
     height: 100px;
 }
 
 .image-banner{
     width: 80%;
+}
+
+.banner-title h1{
+    display: flex;
+    margin: 15px;
+    gap: 500px;
+    font-size: 25px;
 }

@@ -35,7 +35,7 @@ const Banner = () => {
   return (
     <>
       <div className="banner-title">
-        <h1 style={{ fontSize: "25px" }}>Banner</h1>
+        <h1>Chỉnh Sửa Banner</h1>
       </div>
       <table className="Category-admin-table banner-table">
         <thead>
@@ -43,15 +43,15 @@ const Banner = () => {
             <th>ID</th>
             <th>Tên banner</th>
             <th>Hình ảnh</th>
-            <th>Upload</th>
-            <th>Sửa</th>
+            <th>Tải lên</th>
+            <th>Lựa chọn</th>
           </tr>
         </thead>
         <tbody>
-          {banners.map((item) => {
+          {banners.map((item, index) => {
             return (
               <tr>
-                <td>{item._id}</td>
+                <td>{++index}</td>
                 <td>{item.name}</td>
                 <td>
                   <img
@@ -72,7 +72,7 @@ const Banner = () => {
                       updateBanner(item._id);
                     }}
                   >
-                    Edit
+                    Sửa
                   </button>
                 </td>
               </tr>

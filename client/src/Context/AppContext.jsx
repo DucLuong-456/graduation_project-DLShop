@@ -18,9 +18,9 @@ export const AppProvider = ({ children }) => {
   const [callback, setCallBack] = useState(false);
 
   useEffect(() => {
-    const isCheckLogin = localStorage.getItem("Login");
+    const isCheckLogin = sessionStorage.getItem("Login");
     if (isCheckLogin) {
-      const accessToken = localStorage.getItem("accessToken");
+      const accessToken = sessionStorage.getItem("accessToken");
       setToken(accessToken);
     }
     // category

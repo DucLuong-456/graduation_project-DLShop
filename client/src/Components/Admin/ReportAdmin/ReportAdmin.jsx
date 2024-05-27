@@ -74,7 +74,7 @@ const ReportAdmin = () => {
               handleDowloadExcle(productsAdmin, token);
             }}
           >
-            Export excel
+            Xuất excel
           </button>
         </Link>
       </div>

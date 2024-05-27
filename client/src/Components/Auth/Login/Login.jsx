@@ -27,8 +27,8 @@ const Login = () => {
         token: res.data.accessToken,
         role: res.data.user.role_id,
       });
-      localStorage.setItem("Login", true);
-      localStorage.setItem("accessToken", res.data.accessToken);
+      sessionStorage.setItem("Login", true);
+      sessionStorage.setItem("accessToken", res.data.accessToken);
       setIsLogged(true);
       setToken(res.data.accessToken);
       if (res.data.user.role_id === 1) navigate("/");

@@ -60,7 +60,7 @@ const BottomHeader = () => {
       );
       setIsLogged(false);
       setToken("");
-      localStorage.clear();
+      sessionStorage.clear();
       navigate("/");
     } catch (error) {
       alert(error.response.data.msg);

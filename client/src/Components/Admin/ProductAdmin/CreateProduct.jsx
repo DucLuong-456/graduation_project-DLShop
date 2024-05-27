@@ -4,35 +4,45 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../../Context/AppContext";
 const CreateProduct = () => {
-  //upload multifile
-  // const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState(null);
 
-  // const handleMultiFileChange = (e) => {
-  //   setSelectedFiles(Array.from(e.target.files));
-  // };
+  const handleMultiFileChange = (event) => {
+    setSelectedFiles(event.target.files);
+  };
+  const handleUpload = async (product_name) => {
+    try {
+      const formData = new FormData();
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append("images", selectedFiles[i]);
+      }
 
-  // const handleUpload = async () => {
-  //   const formData = new FormData();
-  //   selectedFiles.forEach((file) => {
-  //     formData.append("files", file);
-  //   });
-
-  //   try {
-  //     const response = await axios.post(
-  //       `${process.env.REACT_APP_API_KEY}/api/upload`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     );
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.error("Error uploading files: ", error);
-  //   }
-  // };
-
+      const DataUploadResponse = await axios.post(
+        `${process.env.REACT_APP_API_KEY}/api/upload/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      await axios.post(
+        `${process.env.REACT_APP_API_KEY}/api/upload/uploadMultiImage`,
+        {
+          product_id: product_name,
+          additionalImages: DataUploadResponse.data.map((item) => {
+            return item.originalname;
+          }),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error uploading files: ", error);
+    }
+  };
   //create product
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
@@ -69,6 +79,7 @@ const CreateProduct = () => {
           formData,
           { headers }
         );
+        handleUpload(res.data.data.name);
         setCallBack((cb) => !cb);
         alert("Add product success!");
         navigate("/admin/product");
@@ -222,13 +233,14 @@ const CreateProduct = () => {
               className="form-input-file"
             />
           </label>
-        </div>
-        {/* <div className="form-group">
           <label>
             Hình ảnh khác:
+            <br />
             <input type="file" multiple onChange={handleMultiFileChange} />
+            {/* <button onClick={handleUpload}>Upload</button> */}
           </label>
-        </div> */}
+        </div>
+
         <button type="submit" className="submit-button">
           Tạo sản phẩm
         </button>

@@ -6,6 +6,7 @@
     margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
+    width: 1030px;
 }
 
 .name-product-title{
@@ -29,6 +30,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 1030px;
+
 }
 
 .product-input-filter input{

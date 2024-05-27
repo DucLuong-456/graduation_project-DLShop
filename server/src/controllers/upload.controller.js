@@ -1,19 +1,40 @@
 const Banner = require("../models/banner.model");
+const ProductType = require("../models/productType.model");
+
 const uploadController = {
-  mutiUpload: async (req, res) => {
+  multiUpload: async (req, res) => {
     try {
       if (!req.files) return res.status(400).json({ msg: "no file upload" });
-      // console.log(req.files);
       const files = req.files.map((item) => {
         return {
           originalname: item.originalname,
           path: item.path,
         };
       });
-      // await Product.findOneAndUpdate({_id})
       return res.json(files);
     } catch (error) {
-      console.log(error);
+      return res.json({msg: error.message});
+
+    }
+  },
+  multiUploadImageProduct: async (req, res)=>{
+    try {
+     const {product_id, additionalImages} = req.body;
+     const productTypeImage = await ProductType.create({product_id, additionalImages})
+     return res.json(productTypeImage)
+    } catch (error) {
+      return res.json({msg: error.message});
+
+    }
+  },
+  getMultiUploadImageProduct: async (req, res)=>{
+    try {
+     const name = req.params.name;
+     const productTypeImage = await ProductType.findOne({product_id: name})
+     return res.json(productTypeImage)
+    } catch (error) {
+      return res.json({msg: error.message});
+
     }
   },
   uploadBanner: async (req, res) => {

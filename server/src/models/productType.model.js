@@ -4,16 +4,7 @@ const ProductType = new mongoose.Schema(
     product_id: {
       type: String,
     },
-    color: {
-      type: String,
-    },
-    image: {
-      type: String,
-    },
-    status: {
-      type: Boolean,
-      default: true,
-    },
+    additionalImages: [String],
   },
   {
     timestamps: true,

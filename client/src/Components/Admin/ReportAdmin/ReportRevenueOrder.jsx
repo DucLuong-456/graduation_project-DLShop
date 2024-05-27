@@ -46,7 +46,7 @@ const ReportRevenueOrder = () => {
       <div className="category-title">
         <h1>BÁO CÁO DOANH THU</h1>
         <Link to="/admin/create_category">
-          <button>Export excel</button>
+          <button>Xuất excel</button>
         </Link>
       </div>
       <div className="order-report-input-filter">
@@ -77,7 +77,6 @@ const ReportRevenueOrder = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            // Ensures the div takes only the necessary space
             borderRadius: "50%", // Makes the div circular
             backgroundColor: "#ccc", // Background color for the div
             padding: "10px", // Padding around the icon

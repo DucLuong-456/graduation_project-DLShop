@@ -3,7 +3,7 @@ import "./DetailProduct.css";
 import detail_product1 from "../Assets/Image/detail_product1.jpg";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaLocationArrow } from "react-icons/fa";
-import { IoCartOutline } from "react-icons/io5";
+import { IoCartOutline, IoTerminal } from "react-icons/io5";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -40,7 +40,6 @@ const DetailProduct = () => {
         icon: "success",
         confirmButtonText: "ok",
       });
-      navigate("/cart");
     } catch (error) {
       Swal.fire({
         title: "ERROR!",
@@ -106,12 +105,26 @@ const DetailProduct = () => {
     }
   };
 
-  const productsImg = [
-    "detail_product1",
-    "detail_product1",
-    "detail_product1",
-    "detail_product1",
-  ];
+  //handle-multi-image
+  const [currentImage, setCurrentImage] = useState("");
+  const handleClickImage = (image) => {
+    setCurrentImage(image);
+  };
+
+  const [productImage, setProductImage] = useState([]);
+  const productsImg = async (product_name) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_KEY}/api/upload/uploadMultiImage/${product_name}`
+      );
+
+      if (res.data)
+        setProductImage([...productImage, ...res.data.additionalImages]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const { id } = useParams();
   const [showInfo, setInfor] = useState(false);
   const [product, setProduct] = useState([]);
@@ -139,7 +152,9 @@ const DetailProduct = () => {
           `${process.env.REACT_APP_API_KEY}/api/product/${id}`
         );
         setProduct(response.data.data);
-        // console.log(response);
+        setProductImage([...productImage, response.data.data.image]);
+        productsImg(response.data.data.name);
+        setCurrentImage(response.data.data.image);
       } catch (error) {
         console.log(error);
       }
@@ -153,16 +168,22 @@ const DetailProduct = () => {
         <div className="left-detail-product">
           <div className="img-detail-product">
             <img
-              src={process.env.REACT_APP_API_LINK_STATIC + product.image}
+              src={process.env.REACT_APP_API_LINK_STATIC + currentImage}
               alt="anh"
             />
           </div>
           <AiOutlineHeart className="heart-icon-detailproduct" />
           <div className="type-detailproduct">sản phẩm MỚI</div>
           <div className="list-product-img">
-            {productsImg.map((item, index) => (
-              <img src={detail_product1} key={index} alt="anh" />
-            ))}
+            {productImage.length > 0 &&
+              productImage.map((item, index) => (
+                <img
+                  src={process.env.REACT_APP_API_LINK_STATIC + item}
+                  key={index}
+                  alt="anh"
+                  onClick={() => handleClickImage(item)}
+                />
+              ))}
           </div>
         </div>
         <div className="content-center-product">

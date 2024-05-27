@@ -33,10 +33,7 @@ const UserAdmin = () => {
   return (
     <>
       <div className="category-title">
-        <h1>Người dùng</h1>
-        <Link to="/admin/user">
-          <button>Tạo mới</button>
-        </Link>
+        <h1>Người Dùng</h1>
       </div>
       <table className="Category-admin-table">
         <thead>

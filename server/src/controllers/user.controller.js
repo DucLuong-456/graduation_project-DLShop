@@ -82,7 +82,7 @@ const userController = {
         email,
         password: passwordHash,
         address,
-        phone_number,
+        // phone_number,
         avatar_image: "defautAvatar.jpg",
       });
       //save mongoDB
