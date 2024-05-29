@@ -330,11 +330,13 @@ const orderController = {
       const order_id = req.params.id;
       const order = await Order.findOne({ _id: order_id });
       if (!order) return res.json({ msg: "order does not exists!" });
-      if (order.order_status_id === 1 || order.order_status_id === 3)
+      if (order.order_status_id === 1)
         await Order.findOneAndUpdate(
           { _id: order_id },
           { order_status_id: 4, payment_status: false }
         );
+      else
+        return res.status(400).json({msg: "Đơn hàng đang giao không thể hủy"})
       return res.json({ order, msg: "Cancel order success!" });
     } catch (error) {
       return res.json({ msg: error.message });

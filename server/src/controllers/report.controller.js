@@ -2,6 +2,7 @@ const Category = require("../models/category.model");
 const Product = require("../models/product.model");
 const ExcelJS = require("exceljs");
 const fs = require('fs');
+const moment = require('moment')
 const reportController = {
   findProductStock: async (req, res) => {
     try {
@@ -171,6 +172,96 @@ const reportController = {
       console.log(error);
     }
   },
-};
+  reportOrderRevenue : async (req, res)=>{
+    try {
+      const { dataExport } = req.body;
+      //tạo bảng
+      const workbook = new ExcelJS.Workbook();
+      const sheet = workbook.addWorksheet("Danh sach doanh thu Order");
+      sheet.columns = [
+        {
+          header: "ID",
+          key: "id",
+          width: 15,
+        },
+        {
+          header: "Mã đơn hàng",
+          key: "order_id",
+          width: 30,
+        },
+        {
+          header: "Tổng sản phẩm",
+          key: "total_product",
+          width: 35,
+        },
+        {
+          header: "Trạng thái",
+          key: "status",
+          width: 30,
+        },
+        {
+          header: "Thanh toán",
+          key: "status_payment",
+          width: 20,
+        },
+        {
+          header: "Tổng tiền",
+          key: "total",
+          width: 20,
+        },
+        {
+          header: "Ngày đặt",
+          key: "created_at",
+          width: 40,
+        },
+      ];
 
+      sheet.getRow(1).eachCell((cell, colNumber) => {
+        cell.font = { bold: true, size: 16 };
+      });
+      dataExport.forEach((element, index) => {
+        const row = {
+          id: index,
+          order_id: element._id,
+          total_product: element.total_product,
+          status: handleOrderStatus(element.order_status_id),
+          status_payment: element.payment_status?"Đã thanh toán":"Chưa thanh toán",
+          total: parseInt(element.total_money).toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }),
+          created_at: moment(element.createdAt).format("DD/MM/YYYY - HH:mm")
+        };
+        sheet.addRow(row);
+      });
+
+      const currentDirectory = process.cwd();
+
+      //export file excel
+      const filePath =
+       currentDirectory + "/src/public/excels/" + "orderRevenue " + ".xlsx";
+      await workbook.xlsx.writeFile(filePath);
+      return res.json({ url: process.env.STATIC_FILE + "/orderRevenue " + ".xlsx" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+const OrderStatus = {
+  pending: "Đang xử lý",
+  delivering: "Đang giao",
+  delivered: "Đã giao",
+  cancel: "Đã hủy",
+};
+const handleOrderStatus = (order_status_id) => {
+  return order_status_id === 1
+    ? OrderStatus.pending
+    : order_status_id === 2
+    ? OrderStatus.delivering
+    : order_status_id === 3
+    ? OrderStatus.delivered
+    : order_status_id === 4
+    ? OrderStatus.cancel
+    : "Đang xử lý";
+};
 module.exports = reportController;
